@@ -344,11 +344,11 @@
                             </div>
 
                             <div class="form-group">
-                                <input name="pTitle" type="text" placeholder="Enter post Title" class="form-control"/>
+                                <input name="pTitle" type="text" placeholder="Enter post Title" class="form-control" required />
                             </div>
 
                             <div class="form-group">
-                                <textarea name="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content"></textarea>
+                                <textarea name="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content" required= ></textarea>
                             </div>
                             <div class="form-group">
                                 <textarea name="pCode" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
@@ -356,12 +356,20 @@
                             <div class="form-group">
                                 <label>Select your pic..</label>
                                 <br>
-                                <input type="file" name="pic"  >
+                                <input type="file" name="pic" required  >
+                            </div>
+
+                            <!-- Divider and Warning Text Box -->
+                            <hr class="my-4">
+                            <div class="alert alert-warning" role="alert">
+                                Warning: Make sure that your post  dosen't contains any misleading topic. Once you submit the post, you cannot delete or modify the content later. 
                             </div>
 
                             <div class="container text-center">
                                 <button type="submit" class="btn btn-outline-primary">Post </button>
                             </div>
+
+
 
                         </form>
 
@@ -421,41 +429,58 @@
 
         </script>
         <!--now add post js-->
+        <!--now add post js-->
+        <!--now add post js-->
         <script>
             $(document).ready(function (e) {
-                //
                 $("#add-post-form").on("submit", function (event) {
-                    //this code gets called when form is submitted....
+                    // Prevent the default form submission
                     event.preventDefault();
-                    console.log("you have clicked on submit..")
+
+                    // Validate form data
+                    var category = $("select[name='cid']").val();
+                    var title = $("input[name='pTitle']").val();
+                    var content = $("textarea[name='pContent']").val();
+                    var pic = $("input[name='pic']").val();
+
+                    if (category === null || category === '' || title === '' || content === '' || pic === '') {
+                        swal("Error", "Please fill in all required fields", "error");
+                        return;
+                    }
+
+                    // If all fields are filled, proceed with AJAX form submission
                     let form = new FormData(this);
 
-                    //now requesting to server
+                    // Now requesting to the server
                     $.ajax({
                         url: "AddPostServlet",
                         type: 'POST',
                         data: form,
                         success: function (data, textStatus, jqXHR) {
-                            //success ..
+                            // Success
                             console.log(data);
-                            if (data.trim() == 'done')
-                            {
-                                swal("Good job!", "saved successfully", "success");
-                            } else
-                            {
-                                swal("Error!!", "Something went wrong try again...", "error");
+                            if (data.trim() === 'done') {
+                                swal("Good job!", "Saved successfully", "success")
+                                        .then(() => {
+                                            // Refresh the page
+                                            location.reload(true);
+                                        });
+                            } else {
+                                swal("Error!!", "Something went wrong, try again...", "error");
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            //error..
-                            swal("Error!!", "Something went wrong try again...", "error");
+                            // Error
+                            swal("Error!!", "Something went wrong, try again...", "error");
                         },
                         processData: false,
                         contentType: false
-                    })
-                })
-            })
+                    });
+                });
+            });
         </script>
+
+
 
         <!--loading post using ajax-->
         <script>
