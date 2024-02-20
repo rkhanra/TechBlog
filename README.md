@@ -19,7 +19,9 @@ Step 5 : Create a database naming 'techblog' then use the techblog.sql to create
 
 Step 6 : Run the project
 
-Step 7 : Open Tomcat's URL in browser ex : 'http://localhost:8080/TechBlog/'
+Step 7 : Open Tomcat's URL in browser ex : 'http://localhost:8080/TechBlog/'  
+
+Note  :: Change the localhost port number according to you
 
                                     Method 2
 Step 1 : Add the 'Techblog.war' file in your tomcat's webapps folder [Make sure to check the Techblog.war is named 'TechBlog.war' if not then rename it ]
@@ -29,3 +31,5 @@ Step 2 : Start Tomcat
 Step 3 : Create a database naming 'techblog' then use the techblog.sql to create tables
 
 Step 4 : Open Tomcat's URL in browser ex : 'http://localhost:8080/TechBlog/' here make sure to match the url's '/TechBlog' with 'TechBlog.war' and after starting of Tomcat match the folder's name should be 'TechBlog'
+
+Note  :: Change the localhost port number according to you
