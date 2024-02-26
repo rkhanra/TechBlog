@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Programming Languages</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="https://www.kdnuggets.com/2021/05/top-programming-languages.html" target="_blank" class="btn primary-background text-white">Read more</a>
+                    <a href="https://www.coursera.org/articles/types-programming-language" target="_blank" class="btn primary-background text-white">Read more</a>
                 </div>
             </div>
         </div>
