@@ -24,7 +24,28 @@
     }
 
 </style>
+<style>
 
+    .scrollbar {
+        width: auto;
+        overflow: auto;
+    }
+
+    #scrollbar1::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    #scrollbar1::-webkit-scrollbar-track {
+        border-radius: 1px;
+        background-color: #e7e7e7;
+        border: 1px solid #cacaca;
+    }
+
+    #scrollbar1::-webkit-scrollbar-thumb {
+        border-radius: 1px;
+        background-color: #454548;
+    }
+</style>
 <div class="container-fluid" >
     <div class="row">
 
@@ -36,37 +57,13 @@
                 for (Post post : allPosts) {
         %>
 
-        <style>
-
-            .scrollbar {
-                width: auto;
-                overflow: auto;
-            }
-
-            #scrollbar1::-webkit-scrollbar {
-                width: 3px;
-            }
-
-            #scrollbar1::-webkit-scrollbar-track {
-                border-radius: 1px;
-                background-color: #e7e7e7;
-                border: 1px solid #cacaca;
-            }
-
-            #scrollbar1::-webkit-scrollbar-thumb {
-                border-radius: 1px;
-                background-color: #454548;
-            }
-        </style>
-
-
 
         <div class="col-lg-4 col-md-6 col-sm-12"> <!-- Adjust the column size based on your design -->
             <div class="card mb-4 shadow-lg p-3 mb-5 bg-white rounded d-flex flex-column ">
                 <img class="card-img-top " style="overflow: hidden; object-fit: cover; width: auto; height: 180px" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title text-center "><%= post.getpTitle()%></h5>
-                              <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
 
                     <div class="container">
                         <div class="scrollbar" id="scrollbar1">
@@ -75,7 +72,7 @@
                     </div>
 
                 </div>
-                    <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class=" primary-btn text-center ">Explore More</a>
+                <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class=" primary-btn text-center ">Explore More</a>
 
             </div>
         </div>

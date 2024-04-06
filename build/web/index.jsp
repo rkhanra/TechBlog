@@ -35,12 +35,13 @@
                 border: 2px solid #616161;
                 border-radius: 8px;
             }
-
-
+            .back{
+                background-color: #E5E5E5;
+            }
         </style>
 
     </head>
-    <body>     
+    <body class="back">     
 
 
         <!--navbar-->
@@ -50,7 +51,7 @@
 
         <div class="container-fluid p-0 m-0">
 
-            <div class="jumbotron primary-background text-white banner-background">
+            <div class="jumbotron primary-background text-white banner-background" >
                 <div class="container">
                     <h3 class="display-3">Welcome to TechBlog </h3>
 
@@ -88,7 +89,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Java Programming</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.javatpoint.com/java-tutorial" target="_blank" id="buton" class="btn primary-background text-white btn-outline-light "  >Read more</a>
+                            <a href="https://www.javatpoint.com/java-tutorial" target="_blank" class="btn primary-background text-white btn-outline-light "  >Read more</a>
                         </div>
                     </div>
                 </div>
@@ -161,20 +162,33 @@
         <span class="d-block p-2 bg-primary text-white text-center" style="opacity: 0.5" >Blog Preview</span>
 
 
-<div class="d-flex justify-content-center mt-5">
-        <a href="#bottom" class="p-2   rounded text-center" >Check Oldest Blog &darr; </a>
-</div>
-<br><br>
+        <div class="d-flex justify-content-center mt-5">
+            <a href="#bottom" id="scrollButton" class="p-2  rounded text-center" >Check Oldest Blog &darr; </a>
+        </div>
+        <br><br>
         <!--        SHOW  BLOG  PREVIEW-->
 
         <%@include file="all_posts.jsp" %>
 
 
-
         <p class="text-center mt-5 mb-5">
-            <a href="index.jsp">Back to top &#8593;</a>
+            <a href="index.jsp" id="backToTop">Back to top &#8593;</a>
         </p>             
 
+        <script>
+            // Function to hide scroll buttons
+            function hideScrollButtons() {
+                document.getElementById("scrollButton").style.display = "none";
+                document.getElementById("backToTop").style.display = "none";
+            }
+
+            // Check if "No Posts Available" message is displayed
+            var noPostsMessage = "<h3 class=\"text-center\">No Posts Available</h3>";
+
+            if (document.body.innerHTML.indexOf(noPostsMessage) !== -1) {
+                hideScrollButtons();
+            }
+        </script>
 
 
         <!--javascripts-->
@@ -186,5 +200,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="js/myjs.js" type="text/javascript"></script>
         <div id="bottom"></div>
+
     </body>
 </html>
