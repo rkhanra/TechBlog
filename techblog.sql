@@ -39,11 +39,13 @@ CREATE TABLE `liked` (
   `pid` int NOT NULL,
   `uid` int NOT NULL,
   PRIMARY KEY (`lid`),
+  UNIQUE KEY `unique_like` (`pid`, `uid`), -- Unique constraint to prevent multiple likes per post by user
   KEY `pid` (`pid`),
   KEY `uid` (`uid`),
   CONSTRAINT `liked_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `posts` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `liked_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE `reports` (
   `id` int NOT NULL AUTO_INCREMENT,
