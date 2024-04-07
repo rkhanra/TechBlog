@@ -38,6 +38,40 @@
             .back{
                 background-color: #E5E5E5;
             }
+
+            /*            PROGRESS BAR*/
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                position: relative;
+            }
+
+            .progress-container {
+                width: 100%;
+                /* Adjust as needed */
+                position: fixed;
+                top: 0;
+                background-color: #929191;
+                z-index:99;
+                display: none;
+            }
+
+            .progress-bar {
+                height: 5px;
+                /* Adjust as needed */
+                color: red;
+                background-color: red;
+                width: 100%;
+                z-index:99;
+            }
+
+            /*         
+            .content {
+                     margin-top: 5px;  Adjust margin-top to avoid content being overlapped by progress bar 
+             }*/
+
         </style>
 
     </head>
@@ -47,129 +81,134 @@
         <!--navbar-->
         <%@include file="normal_navbar.jsp" %>
 
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+
         <!--//banner-->
+        <div class="content">
+            <div class="container-fluid p-0 m-0">
 
-        <div class="container-fluid p-0 m-0">
+                <div class="jumbotron primary-background text-white banner-background" >
+                    <div class="container">
+                        <h3 class="display-3">Welcome to TechBlog </h3>
 
-            <div class="jumbotron primary-background text-white banner-background" >
-                <div class="container">
-                    <h3 class="display-3">Welcome to TechBlog </h3>
+                        <p>Welcome to technical blog, world of technology
+                            A programming language is a formal language, which comprises a set of instructions that produce various kinds of output. Programming languages are used in computer programming to implement algorithms.
+                        </p>
+                        <p>
+                            Most programming languages consist of instructions for computers. There are programmable machines that use a set of specific instructions, rather than general programming languages. 
+                        </p>
 
-                    <p>Welcome to technical blog, world of technology
-                        A programming language is a formal language, which comprises a set of instructions that produce various kinds of output. Programming languages are used in computer programming to implement algorithms.
-                    </p>
-                    <p>
-                        Most programming languages consist of instructions for computers. There are programmable machines that use a set of specific instructions, rather than general programming languages. 
-                    </p>
+                        <a class="btn btn-outline-light btn-lg" href="register_page.jsp"  > <span class="fa 	fa fa-user-plus"></span>  Start ! its Free</a>
+                        <a href="login_page.jsp" class="btn btn-outline-light btn-lg"> <span class="fa fa-user-circle fa-spin"></span>  Login</a>
 
-                    <a class="btn btn-outline-light btn-lg" href="register_page.jsp"  > <span class="fa 	fa fa-user-plus"></span>  Start ! its Free</a>
-                    <a href="login_page.jsp" class="btn btn-outline-light btn-lg"> <span class="fa fa-user-circle fa-spin"></span>  Login</a>
-
-                </div>
-            </div>
-
-
-
-
-
-
-        </div>
-
-
-
-        <!--//cards-->
-
-        <div class="container">
-
-            <div class="row mb-2">
-
-                <div class="col-md-4">
-                    <div class="card" >
-
-                        <div class="card-body">
-                            <h5 class="card-title">Java Programming</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.javatpoint.com/java-tutorial" target="_blank" class="btn primary-background text-white btn-outline-light "  >Read more</a>
-                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card" >
 
-                        <div class="card-body">
-                            <h5 class="card-title">Javascript</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.geeksforgeeks.org/javascript/" target="_blank" class="btn primary-background text-white">Read more</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" >
 
-                        <div class="card-body">
-                            <h5 class="card-title">Fullstack Development</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.geeksforgeeks.org/what-is-full-stack-development/" target="_blank" class="btn primary-background text-white">Read more</a>
-                        </div>
-                    </div>
-                </div>
+
+
 
 
             </div>
 
 
 
+            <!--//cards-->
 
-            <div class="row">
+            <div class="container">
 
-                <div class="col-md-4">
-                    <div class="card" >
+                <div class="row mb-2">
 
-                        <div class="card-body">
-                            <h5 class="card-title">Advance Java</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.geeksforgeeks.org/what-is-advanced-java/" target="_blank" class="btn primary-background text-white">Read more</a>
+                    <div class="col-md-4">
+                        <div class="card" >
+
+                            <div class="card-body">
+                                <h5 class="card-title">Java Programming</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.javatpoint.com/java-tutorial" target="_blank" class="btn primary-background text-white btn-outline-light "  >Read more</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" >
+                    <div class="col-md-4">
+                        <div class="card" >
 
-                        <div class="card-body">
-                            <h5 class="card-title">Database Design</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.geeksforgeeks.org/database-design-in-dbms/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            <div class="card-body">
+                                <h5 class="card-title">Javascript</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.geeksforgeeks.org/javascript/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" >
+                    <div class="col-md-4">
+                        <div class="card" >
 
-                        <div class="card-body">
-                            <h5 class="card-title">Web Development</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="https://www.geeksforgeeks.org/web-development/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            <div class="card-body">
+                                <h5 class="card-title">Fullstack Development</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.geeksforgeeks.org/what-is-full-stack-development/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
 
+
+
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="card" >
+
+                            <div class="card-body">
+                                <h5 class="card-title">Advance Java</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.geeksforgeeks.org/what-is-advanced-java/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" >
+
+                            <div class="card-body">
+                                <h5 class="card-title">Database Design</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.geeksforgeeks.org/database-design-in-dbms/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" >
+
+                            <div class="card-body">
+                                <h5 class="card-title">Web Development</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="https://www.geeksforgeeks.org/web-development/" target="_blank" class="btn primary-background text-white">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
 
             </div>
+            <br><br>
+
+            <span class="d-block p-2 bg-primary text-white text-center" style="opacity: 0.5" >Blog Preview</span>
+
+
+            <div class="d-flex justify-content-center mt-5">
+                <a href="#bottom" id="scrollButton" class="p-2  rounded text-center" >Check Oldest Blog &darr; </a>
+            </div>
+            <br><br>
+            <!--        SHOW  BLOG  PREVIEW-->
+
+            <%@include file="all_posts.jsp" %>
 
         </div>
-        <br><br>
-
-        <span class="d-block p-2 bg-primary text-white text-center" style="opacity: 0.5" >Blog Preview</span>
-
-
-        <div class="d-flex justify-content-center mt-5">
-            <a href="#bottom" id="scrollButton" class="p-2  rounded text-center" >Check Oldest Blog &darr; </a>
-        </div>
-        <br><br>
-        <!--        SHOW  BLOG  PREVIEW-->
-
-        <%@include file="all_posts.jsp" %>
-
 
         <p class="text-center mt-5 mb-5">
             <a href="index.jsp" id="backToTop">Back to top &#8593;</a>
@@ -200,6 +239,27 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="js/myjs.js" type="text/javascript"></script>
         <div id="bottom"></div>
+
+        <script>
+            window.onscroll = function () {
+                myFunction()
+            };
+
+            function myFunction() {
+                var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var scrolled = (winScroll / height) * 100;
+                var progressBar = document.querySelector('.progress-bar');
+                if (scrolled > 0) {
+                    // If scrolled down, show progress bar
+                    document.querySelector('.progress-container').style.display = "block";
+                    progressBar.style.width = scrolled + "%";
+                } else {
+                    // If at the top, hide progress bar
+                    document.querySelector('.progress-container').style.display = "none";
+                }
+            }
+        </script>
 
     </body>
 </html>

@@ -42,6 +42,35 @@
         background-color: #454548;
     }
 
+
+    /*            PROGRESS BAR*/
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        position: relative;
+    }
+
+    .progress-container {
+        width: 100%;
+        /* Adjust as needed */
+        position: fixed;
+        top: 0;
+        background-color: #929191;
+        z-index:99;
+        display: none;
+    }
+
+    .progress-bar {
+        height: 5px;
+        /* Adjust as needed */
+        color: red;
+        background-color: #FCECC5;
+        width: 100%;
+        z-index:99;
+    }
+
 </style>
 
 <%
@@ -62,89 +91,122 @@
         if (userPosts.size() > 0) {
 %>
 
-<!-- Display the username at the top of the webpage -->
-<h2 class="text-center">Check your posts <p class="text-uppercase font-weight-bold"> <%= username%> </p></h2>
+<!--PROGRESS BAR-->
+<div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+</div>
 
-<div class="container-fluid" >
-    <div class="row">
-        <%
-            for (Post post : userPosts) {
-        %>
-        <div class="col-lg-3 col-md-6 col-mb-4" style="width: 200px; height: auto;" >
-            <div class="card shadow-lg p-3 mb-5 bg-white rounded d-flex flex-column" style="width: 75%; height: auto" >
-                <!-- Card image -->
-                <img class="card-img-top" style="overflow: hidden; object-fit: cover; width: auto; height: 100px;" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
+<!--//banner-->
+<div class="content">
 
-                <!-- Card body -->
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size: 15px"><%= post.getpTitle()%></h5>
-                    <div class="dropdown-divider"></div>
+    <!-- Display the username at the top of the webpage -->
+    <h2 class="text-center">Check your posts <p class="text-uppercase font-weight-bold"> <%= username%> </p></h2>
 
-                    <div class="container">
-                        <!-- Scrollable content -->
-                        <div class="scrollbar" id="scrollbar1">
-                            <p  style="height: 75px"><%= post.getpContent()%></p>
+    <div class="container-fluid" >
+        <div class="row">
+            <%
+                for (Post post : userPosts) {
+            %>
+            <div class="col-lg-3 col-md-6 col-mb-4" style="width: 200px; height: auto;" >
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded d-flex flex-column" style="width: 75%; height: auto" >
+                    <!-- Card image -->
+                    <img class="card-img-top" style="overflow: hidden; object-fit: cover; width: auto; height: 100px;" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
+
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <h5 class="card-title text-center" style="font-size: 15px"><%= post.getpTitle()%></h5>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="container">
+                            <!-- Scrollable content -->
+                            <div class="scrollbar" id="scrollbar1">
+                                <p  style="height: 75px"><%= post.getpContent()%></p>
+                            </div>
                         </div>
+
+
+                        <!-- Edit form -->
+                        <!-- Add this form within the card body to edit and update post details --> 
+                        <!--                    LATER WORK-->
+                        <!--                    <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                     Add hidden input field for post ID 
+                                                    <input type="hidden" name="postId" value="<%= post.getPid()%>">
+                        
+                                                     Title input field 
+                                                    <div class="form-group">
+                                                        <label for="postTitle">Title:</label>
+                                                        <input type="text" class="form-control" id="postTitle" name="postTitle" value="<%= post.getpTitle()%>" required>
+                                                    </div>
+                        
+                                                     Content input field 
+                                                    <div class="form-group">
+                                                        <label for="postContent">Content:</label>
+                                                        <textarea class="form-control" id="postContent" name="postContent" rows="3" required><%= post.getpContent()%></textarea>
+                                                    </div>
+                        
+                                                     Image input field 
+                                                    <div class="form-group">
+                                                        <label for="postImage">Image:</label>
+                                                        <input type="file" class="form-control-file" id="postImage" name="postImage">
+                                                    </div>
+                        
+                                                     Submit button to update post 
+                                                    <button type="submit" class="btn btn-success">Update Post</button>
+                                                </div>
+                                            </form>-->
+
                     </div>
-
-
-                    <!-- Edit form -->
-                    <!-- Add this form within the card body to edit and update post details --> 
-                    <!--                    LATER WORK-->
-                    <!--                    <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
-                                            <div class="card-body">
-                                                 Add hidden input field for post ID 
-                                                <input type="hidden" name="postId" value="<%= post.getPid()%>">
-                    
-                                                 Title input field 
-                                                <div class="form-group">
-                                                    <label for="postTitle">Title:</label>
-                                                    <input type="text" class="form-control" id="postTitle" name="postTitle" value="<%= post.getpTitle()%>" required>
-                                                </div>
-                    
-                                                 Content input field 
-                                                <div class="form-group">
-                                                    <label for="postContent">Content:</label>
-                                                    <textarea class="form-control" id="postContent" name="postContent" rows="3" required><%= post.getpContent()%></textarea>
-                                                </div>
-                    
-                                                 Image input field 
-                                                <div class="form-group">
-                                                    <label for="postImage">Image:</label>
-                                                    <input type="file" class="form-control-file" id="postImage" name="postImage">
-                                                </div>
-                    
-                                                 Submit button to update post 
-                                                <button type="submit" class="btn btn-success">Update Post</button>
-                                            </div>
-                                        </form>-->
-
+                    <!-- Button to explore more -->
+                    <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class="float-right mt-auto ml-auto ">Explore More</a>
                 </div>
-                <!-- Button to explore more -->
-                <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class="float-right mt-auto ml-auto ">Explore More</a>
             </div>
+            <%
+                }
+            %>
         </div>
-        <%
-            }
-        %>
     </div>
+
+    <%
+    } else {
+    %>
+    <!-- Displayed if no posts are available for the specified userid -->
+    <div class="col-md-12">
+        <h3 class="text-center">No Posts Available</h3>
+    </div>
+    <%
+        }
+    } else {
+    %>
+    <!-- Displayed if userid is not provided in the URL -->
+    <div class="col-md-12">
+        <h3 class="text-center">Invalid Request. Userid not provided.</h3>
+    </div>
+    <%
+        }
+    %>
+
 </div>
 
-<%
-} else {
-%>
-<!-- Displayed if no posts are available for the specified userid -->
-<div class="col-md-12">
-    <h3 class="text-center">No Posts Available</h3>
-</div>
-<%
+<!-- comment -->
+
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+
+    function myFunction() {
+        var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        var progressBar = document.querySelector('.progress-bar');
+        if (scrolled > 0) {
+            // If scrolled down, show progress bar
+            document.querySelector('.progress-container').style.display = "block";
+            progressBar.style.width = scrolled + "%";
+        } else {
+            // If at the top, hide progress bar
+            document.querySelector('.progress-container').style.display = "none";
+        }
     }
-} else {
-%>
-<!-- Displayed if userid is not provided in the URL -->
-<div class="col-md-12">
-    <h3 class="text-center">Invalid Request. Userid not provided.</h3>
-</div>
-<%
-    }
-%>
+</script>
