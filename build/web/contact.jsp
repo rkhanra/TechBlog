@@ -93,7 +93,7 @@
                         <div class="form-check">
                             <input name="check" type="checkbox" class="form-check-input" id="exampleCheck1" required>
                             <label class="form-check-label" for="exampleCheck1" >agree terms and conditions</label>
-                        </div>
+                        </div> <br>
                         <div class="mx-auto">
                             <button id="submit-btn" type="submit" onclick="submitForm();" class="btn btn-primary text-right">Report an issue</button>
 
@@ -177,9 +177,9 @@
         <div class="row">
 
             <div class="col-12 copyright mt-3">
-                <p class="float-left mt-5 mb-5 ">
+<!--                <p class="float-left mt-5 mb-5 ">
                     <a href="#">Back to top</a>
-                </p>
+                </p>-->
 
                 <p class="text-center mt-5 mb-5">
                     <a href="index.jsp"> * Back to Main * </a>
