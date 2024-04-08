@@ -331,7 +331,11 @@
                                                 </td>
                                             </tr>
 
+
                                         </table>
+
+                                        <div colspan="2" > (file size should be under 1mb) </div>
+                                        <br>
 
                                         <div class="container">
                                             <button type="submit" class="btn btn-outline-primary">Save</button>
@@ -448,51 +452,51 @@
 
 
             <script>
-                                                $(document).ready(function () {
-                                                    let editStatus = false;
-                                                    let lastProfilePicUrl = ""; // Variable to store the URL of the last profile picture
+                                    $(document).ready(function () {
+                                        let editStatus = false;
+                                        let lastProfilePicUrl = ""; // Variable to store the URL of the last profile picture
 
-                                                    $('#edit-profile-button').click(function () {
-                                                        if (editStatus == false) {
-                                                            $("#profile-details").hide()
-                                                            $("#profile-edit").show();
-                                                            editStatus = true;
-                                                            $(this).text("Back")
-                                                        } else {
-                                                            $("#profile-details").show()
-                                                            $("#profile-edit").hide();
-                                                            editStatus = false;
-                                                            $(this).text("Edit")
-                                                        }
-                                                    });
+                                        $('#edit-profile-button').click(function () {
+                                            if (editStatus == false) {
+                                                $("#profile-details").hide()
+                                                $("#profile-edit").show();
+                                                editStatus = true;
+                                                $(this).text("Back")
+                                            } else {
+                                                $("#profile-details").show()
+                                                $("#profile-edit").hide();
+                                                editStatus = false;
+                                                $(this).text("Edit")
+                                            }
+                                        });
 
-                                                    // Function to validate file size before form submission
-                                                    $("#edit-profile-form").on("submit", function (event) {
-                                                        var profileImage = $("input[name='image']")[0].files[0];
-                                                        if (profileImage && profileImage.size > 500 * 1024) { // 500KB in bytes
-                                                            swal("Error", "Profile image size exceeds 500KB limit", "error");
-                                                            event.preventDefault(); // Prevent form submission
-                                                        } else {
-                                                            // Store the URL of the current profile picture before form submission
-                                                            lastProfilePicUrl = $("#profile-img").attr("src");
-                                                        }
-                                                    });
+                                        // Function to validate file size before form submission
+                                        $("#edit-profile-form").on("submit", function (event) {
+                                            var profileImage = $("input[name='image']")[0].files[0];
+                                            if (profileImage && profileImage.size > 500 * 1024) { // 500KB in bytes
+                                                swal("Error", "Profile image size exceeds 500KB limit", "error");
+                                                event.preventDefault(); // Prevent form submission
+                                            } else {
+                                                // Store the URL of the current profile picture before form submission
+                                                lastProfilePicUrl = $("#profile-img").attr("src");
+                                            }
+                                        });
 
-                                                    // Function to reset file input field if invalid file is selected
-                                                    $('input[name="image"]').on('change', function () {
-                                                        var profileImage = $(this)[0].files[0];
-                                                        if (profileImage && profileImage.size > 1024 * 1024) {
-                                                            // Clear the file input field
-                                                            $(this).val('');
-                                                            swal("Error", "Profile image size exceeds 500KB limit", "error");
-                                                        }
-                                                    });
+                                        // Function to reset file input field if invalid file is selected
+                                        $('input[name="image"]').on('change', function () {
+                                            var profileImage = $(this)[0].files[0];
+                                            if (profileImage && profileImage.size > 1024 * 1024) {
+                                                // Clear the file input field
+                                                $(this).val('');
+                                                swal("Error", "Profile image size exceeds 500KB limit", "error");
+                                            }
+                                        });
 
-                                                    // Function to restore last profile picture if form submission fails
-                                                    $("#edit-profile-form").on("reset", function () {
-                                                        $("#profile-img").attr("src", lastProfilePicUrl);
-                                                    });
-                                                });
+                                        // Function to restore last profile picture if form submission fails
+                                        $("#edit-profile-form").on("reset", function () {
+                                            $("#profile-img").attr("src", lastProfilePicUrl);
+                                        });
+                                    });
             </script>
 
 
