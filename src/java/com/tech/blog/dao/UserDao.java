@@ -7,6 +7,7 @@ package com.tech.blog.dao;
 
 import com.tech.blog.entities.User;
 import java.sql.*;
+import java.util.*;
 
 public class UserDao {
 
@@ -130,4 +131,42 @@ public class UserDao {
 
         return user;
     }
+
+    
+    
+        public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+
+        try {
+            // SQL query to fetch names and emails from the users table
+            String query = "SELECT name, email, about, rdate , profile FROM user";
+
+            // Prepare the statement
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            // Execute the query
+            ResultSet resultSet = pstmt.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                // Retrieve name and email from the result set
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String about = resultSet.getString("about");
+                Timestamp rdatee = resultSet.getTimestamp("rdate");
+                String profile = resultSet.getString("profile");
+                
+                // Create a new User object and add it to the list
+                User user = new User(name, email,  about, rdatee, profile);
+                
+                userList.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+    
 }

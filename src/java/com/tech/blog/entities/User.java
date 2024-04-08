@@ -26,16 +26,23 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, String gender,  String about) {
+    public User(String name, String email, String password, String gender, String about) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.gender = gender;       
+        this.gender = gender;
         this.about = about;
     }
-    
-//    getters and setters
 
+    public User(String name, String email, String about, Timestamp dateTime, String profile) {
+        this.name = name;
+        this.email = email;
+        this.about = about;
+        this.dateTime = dateTime;
+        this.profile = profile;
+    }
+
+//    getters and setters
     public int getId() {
         return id;
     }
@@ -99,9 +106,5 @@ public class User {
     public void setProfile(String profile) {
         this.profile = profile;
     }
-
-   
-    
-    
 
 }

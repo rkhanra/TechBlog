@@ -67,6 +67,11 @@ function showAlert(){
             <li class="nav-item">
                 <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
             </li>
+            
+                        <li class="nav-item">
+                <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+                
+            </li>
 
         </ul>
 
