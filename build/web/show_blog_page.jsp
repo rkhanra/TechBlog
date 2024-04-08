@@ -188,7 +188,7 @@
 
                     <div class="card-header primary-background text-white">
 
-                        <h4 class="post-title"><%= p.getpTitle()%></h4>
+                        <h4 class="post-title text-center"><%= p.getpTitle()%></h4>
 
 
                     </div>
@@ -210,11 +210,13 @@
                             </div>
                         </div>
 
-
+                            
                         <p class="post-content"><%= p.getpContent()%></p> 
 
                         <br>
-                        <br>
+                        <p class="dropdown-divider"> </p>
+                        <p class="text-center">code</p>
+                        <p class="dropdown-divider"> </p>
 
                         <div class="post-code">
                             <pre><%= p.getpCode()%></pre>
