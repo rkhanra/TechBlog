@@ -6,30 +6,38 @@
 
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.tech.blog.dao.UserDao"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="java.util.*"%>
 <%@page import="com.tech.blog.entities.Category"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.entities.User"%>
 
 <style>
+    .body{
+        background-color: hsla(272, 39%, 87%, 1);
+    }
     h1{
         text-align: center;
         padding: 10px;
+        font-family: sans-serif;
     }
     /* Table style */
     table {
         width: 100%;
         border-collapse: collapse;
         overflow-x: auto;
+        border: 1px solid black;
     }
+
     th, td {
         padding: 8px;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+
     }
     th {
-        background-color: #f2f2f2;
+        background-color: hsla(273, 39%, 74%, 1);
         text-align: center;
+        border: 1px solid black;
     }
     /* Avatar style */
     .avatar {
@@ -40,7 +48,8 @@
     }
     tr, td{
         text-align: center;
-        
+        border: 1px solid black;
+
     }
 
     /* Modal style */
@@ -104,8 +113,10 @@
     }
 
     .modal-content {
-        position: relative;
-        margin: auto;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 50%;
         max-width: 400px;
         background-color: #fefefe;
@@ -143,6 +154,7 @@
     // Get the list of users
     UserDao userDao = new UserDao(ConnectionProvider.getConnection());
     List<User> userList = userDao.getAllUsers();
+
 %>
 
 <!DOCTYPE html>
@@ -151,7 +163,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body class="body">
         <h1>Our Contributors</h1>
 
         <table border="1">
@@ -162,11 +174,11 @@
                     <th>About</th>
                     <th>Joined on</th>
                     <th>Avatar</th>
+
                 </tr>
             </thead>
             <tbody>
-                <%
-                    if (userList != null && !userList.isEmpty()) {
+                <%                    if (userList != null && !userList.isEmpty()) {
                         for (User user : userList) {
                 %>
                 <tr>
@@ -182,6 +194,7 @@
                              class="avatar"
                              onclick="openModal('pics/<%= user.getProfile()%>')">
                     </td>
+
                 </tr>
                 <%
                     }

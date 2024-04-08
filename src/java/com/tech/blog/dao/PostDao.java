@@ -5,11 +5,13 @@
  */
 package com.tech.blog.dao;
 
+import java.util.*;
 import com.tech.blog.entities.Category;
 import com.tech.blog.entities.Post;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class PostDao {
 
@@ -183,32 +185,7 @@ public class PostDao {
         return isUpdated;
     }
 
-//    public boolean updatePost(Post updatedPost) {
-//    boolean isUpdated = false;
-//
-//    try {
-//        String query = "update posts set pTitle=?, pContent=?, pCode=?, pPic=? where pid=?";
-//        PreparedStatement pstmt = con.prepareStatement(query);
-//        pstmt.setString(1, updatedPost.getpTitle());
-//        pstmt.setString(2, updatedPost.getpContent());
-//        pstmt.setString(3, updatedPost.getpCode());
-//        pstmt.setString(4, updatedPost.getpPic());
-//        pstmt.setInt(5, updatedPost.getPid());
-//
-//        int rowsAffected = pstmt.executeUpdate();
-//
-//        if (rowsAffected > 0) {
-//            isUpdated = true;
-//        }
-//
-//    } catch (Exception e) {
-//        e.printStackTrace();
-//    }
-//
-//    return isUpdated;
-//}
-//
-//    
+
     public List<Post> getPostsByUserId(int userId) {
         List<Post> list = new ArrayList<>();
 
@@ -238,5 +215,35 @@ public class PostDao {
         return list;
     }
 
-//    
+    
+   // construction running so do not un-comment this code block
+// Method to get the total number of posts for each user
+//public Map<Integer, Integer> getUserPostCounts() {
+//    Map<Integer, Integer> userPostCounts = new HashMap<>();
+//
+//    try {
+//        // Prepare SQL query to sum the count of posts for each user
+//        String query = "SELECT userId, COUNT(*) AS totalPostCount FROM posts GROUP BY userId";
+//        PreparedStatement pstmt = con.prepareStatement(query);
+//
+//        // Execute the query
+//        ResultSet rs = pstmt.executeQuery();
+//
+//        // Process the results
+//        while (rs.next()) {
+//            int userId = rs.getInt("userId");
+//            int totalPostCount = rs.getInt("totalPostCount");
+//            userPostCounts.put(userId, totalPostCount);
+//        }
+//
+//        // Close the ResultSet and PreparedStatement
+//        rs.close();
+//        pstmt.close();
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }
+//
+//    return userPostCounts;
+//}
+
 }
