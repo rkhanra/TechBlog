@@ -197,7 +197,7 @@
             </div>
             <br><br>
 
-            <span class="d-block p-2 bg-primary text-white text-center" style="opacity: 0.5" >Blog Preview</span>
+            <span class="d-block p-2 bg-primary text-dark bg-white text-center" style="font-family: serif; " >Blog Preview</span>
 
 
             <div class="d-flex justify-content-center mt-5">

@@ -22,7 +22,7 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
     }
 
-    .scrollbar {
+    .scrollbarr {
         width: auto;
         overflow: auto;
     }
@@ -50,6 +50,8 @@
         padding: 0;
         height: 100%;
         position: relative;
+        background-color: hsla(105, 2%, 60%);
+        
     }
 
     .progress-container {
@@ -117,44 +119,10 @@
                         <h5 class="card-title text-center" style="font-size: 15px"><%= post.getpTitle()%></h5>
                         <div class="dropdown-divider"></div>
 
-                        <div class="container">
                             <!-- Scrollable content -->
-                            <div class="scrollbar" id="scrollbar1">
+                            <div class=" scrollbarr" id="scrollbar1">
                                 <p  style="height: 75px"><%= post.getpContent()%></p>
                             </div>
-                        </div>
-
-
-                        <!-- Edit form -->
-                        <!-- Add this form within the card body to edit and update post details --> 
-                        <!--                    LATER WORK-->
-                        <!--                    <form action="UpdatePostServlet" method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                     Add hidden input field for post ID 
-                                                    <input type="hidden" name="postId" value="<%= post.getPid()%>">
-                        
-                                                     Title input field 
-                                                    <div class="form-group">
-                                                        <label for="postTitle">Title:</label>
-                                                        <input type="text" class="form-control" id="postTitle" name="postTitle" value="<%= post.getpTitle()%>" required>
-                                                    </div>
-                        
-                                                     Content input field 
-                                                    <div class="form-group">
-                                                        <label for="postContent">Content:</label>
-                                                        <textarea class="form-control" id="postContent" name="postContent" rows="3" required><%= post.getpContent()%></textarea>
-                                                    </div>
-                        
-                                                     Image input field 
-                                                    <div class="form-group">
-                                                        <label for="postImage">Image:</label>
-                                                        <input type="file" class="form-control-file" id="postImage" name="postImage">
-                                                    </div>
-                        
-                                                     Submit button to update post 
-                                                    <button type="submit" class="btn btn-success">Update Post</button>
-                                                </div>
-                                            </form>-->
 
                     </div>
                     <!-- Button to explore more -->
