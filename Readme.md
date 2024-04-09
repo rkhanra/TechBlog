@@ -7,9 +7,9 @@
 A blog web application made using java , jsp , servlet, js, html, css <%-- Document : Readme Created on : 10-Feb-2024, 12:10:32?am Author : Rohit Khanra --%>
 
                                     Method 1
-Step 1 : To run this project first create a project in netbeans / eclipse / IntelliJ IDEA
+Step 1 : To run this project first create a project in netbeans / eclipse / IntelliJ IDEA (NETBEANS preferable)
 
-Step 2 : Configure tomcat server
+Step 2 : Configure tomcat server (Tomcat 9 preferable)
 
 Step 3 : Replace the auto generated nbproject folder with this forks nbproject
 
