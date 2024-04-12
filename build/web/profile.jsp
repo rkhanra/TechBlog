@@ -85,7 +85,10 @@
                 z-index:99;
             }
 
-
+        .modal-blur {
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+        }
         </style>
     </head>
     <body>
@@ -140,6 +143,24 @@
 
 
         <!--end of navbar-->
+    <!-- Profile Picture Modal -->
+    <div class="modal fade modal-blur" id="profile-pic-modal" tabindex="-1" role="dialog" aria-labelledby="profilePicModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" class="modal-dialog d-flex justify-content-center align-items-center">
+            <div class="modal-content"> 
+                <div class="modal-header ">
+                    <h5 class="modal-title mx-auto" id="profilePicModalLabel"><%= user.getName()%></h5>
+                    <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>-->
+                </div>
+                <div class="modal-body">
+                    <img id="profile-pic" src="" class="img-fluid" alt="Profile Picture">
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Profile Picture Modal -->
+
 
 
         <%
@@ -246,9 +267,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="container text-center">
-                                <img src="pics/<%= user.getProfile()%>" class="img-fluid" style="border-radius:50%;width: 150px; height: 150px; object-fit: cover;  " >
+                                <span class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal">
+                                <img src="pics/<%= user.getProfile()%>" 
+                                     class="img-fluid" style="border-radius:50%;width: 150px; height: 150px; object-fit: cover;  "
+                                     id="profile-pic-thumbnail">
                                 <br>
                                 <h5 class="modal-title mt-3" id="exampleModalLabel"> <%= user.getName()%> </h5>
+                                </span>
                                 <!--//details-->
 
                                 <div id="profile-details">
@@ -661,6 +686,33 @@
                 document.querySelector('.progress-container').style.display = "none";
             }
         }
+        
+        
+        
+            // JavaScript to handle profile picture modal
+    $(document).ready(function() {
+        // When clicking on the profile picture thumbnail, show the full-size picture in the modal
+        $('#profile-pic-thumbnail').on('click', function() {
+            var profilePicUrl = $(this).attr('src');
+            $('#profile-pic').attr('src', profilePicUrl);
+            $('#profile-pic-modal').modal('show');
+        });
+    });
+    
+        // JavaScript to handle background blur effect
+        $(document).ready(function () {
+            // When the profile picture modal is shown
+            $('#profile-pic-modal').on('show.bs.modal', function () {
+                // Add the 'modal-blur' class to the body
+                $('body').addClass('modal-blur');
+            });
+
+            // When the profile picture modal is hidden
+            $('#profile-pic-modal').on('hidden.bs.modal', function () {
+                // Remove the 'modal-blur' class from the body
+                $('body').removeClass('modal-blur');
+            });
+        });
     </script>
 
 </html>
