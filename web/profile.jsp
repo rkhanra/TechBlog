@@ -85,10 +85,10 @@
                 z-index:99;
             }
 
-        .modal-blur {
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-        }
+            .modal-blur {
+                backdrop-filter: blur(5px);
+                background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+            }
         </style>
     </head>
     <body>
@@ -127,6 +127,15 @@
                 </ul>
 
                 <ul class="navbar-nav mr-right">
+                    <!--               
+                                will be implemented in future had to change on servlet and dao
+                                        <li class="nav-item">
+                                            <form class="form-inline my-2 my-lg-0">
+                                                <input class="form-control mr-sm-2" type="search" placeholder="Search by Post Name" aria-label="Search">
+                                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
+                                            </form>
+                                        </li>-->
+ 
                     <li class="nav-item">
 
                         <a class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal">  <img src="pics/<%= user.getProfile()%>" class="img-fluid" style="border-radius:50%;width: 30px; height: 30px; object-fit: cover;  " >
@@ -143,23 +152,23 @@
 
 
         <!--end of navbar-->
-    <!-- Profile Picture Modal -->
-    <div class="modal fade modal-blur" id="profile-pic-modal" tabindex="-1" role="dialog" aria-labelledby="profilePicModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document" class="modal-dialog d-flex justify-content-center align-items-center">
-            <div class="modal-content"> 
-                <div class="modal-header ">
-                    <h5 class="modal-title mx-auto" id="profilePicModalLabel"><%= user.getName()%></h5>
-                    <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>-->
-                </div>
-                <div class="modal-body">
-                    <img id="profile-pic" src="" class="img-fluid" alt="Profile Picture">
+        <!-- Profile Picture Modal -->
+        <div class="modal fade modal-blur" id="profile-pic-modal" tabindex="-1" role="dialog" aria-labelledby="profilePicModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" class="modal-dialog d-flex justify-content-center align-items-center">
+                <div class="modal-content"> 
+                    <div class="modal-header ">
+                        <h5 class="modal-title mx-auto" id="profilePicModalLabel"><%= user.getName()%></h5>
+                        <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>-->
+                    </div>
+                    <div class="modal-body">
+                        <img id="profile-pic" src="" class="img-fluid" alt="Profile Picture">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-<!-- End Profile Picture Modal -->
+        <!-- End Profile Picture Modal -->
 
 
 
@@ -200,7 +209,7 @@
                                 </a>
                                 <!--categories-->
 
-                                <%                                PostDao d = new PostDao(ConnectionProvider.getConnection());
+                                <% PostDao d = new PostDao(ConnectionProvider.getConnection());
                                     ArrayList<Category> list1 = d.getAllCategories();
                                     for (Category cc : list1) {
 
@@ -228,11 +237,11 @@
                                 <h3 class="mt-2">Loading...</h3>
                             </div>
 
-                            <div class="container-fluid" id="post-container">
+                            <div class=" tableBody container-fluid" id="post-container">
 
                             </div>
-                        </div>
 
+                        </div>
 
                     </div>
 
@@ -268,11 +277,11 @@
                         <div class="modal-body">
                             <div class="container text-center">
                                 <span class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal">
-                                <img src="pics/<%= user.getProfile()%>" 
-                                     class="img-fluid" style="border-radius:50%;width: 150px; height: 150px; object-fit: cover;  "
-                                     id="profile-pic-thumbnail">
-                                <br>
-                                <h5 class="modal-title mt-3" id="exampleModalLabel"> <%= user.getName()%> </h5>
+                                    <img src="pics/<%= user.getProfile()%>" 
+                                         class="img-fluid" style="border-radius:50%;width: 150px; height: 150px; object-fit: cover;  "
+                                         id="profile-pic-thumbnail">
+                                    <br>
+                                    <h5 class="modal-title mt-3" id="exampleModalLabel"> <%= user.getName()%> </h5>
                                 </span>
                                 <!--//details-->
 
@@ -310,7 +319,7 @@
 
 
                                 </div>
-                                <!-- Add this link wherever you want in your HTML -->
+
                                 <!-- Add this link wherever you want in your HTML -->
                                 <a href="myposts.jsp?userid=<%= user.getId()%>&userName=<%=user.getName()%>" class="btn btn-outline-primary">My Posts</a>
 
@@ -525,10 +534,6 @@
             </script>
 
 
-
-
-            <!--now add post js-->
-            <!--now add post js-->
             <!--now add post js-->
             <script>
                 $(document).ready(function (e) {
@@ -686,19 +691,19 @@
                 document.querySelector('.progress-container').style.display = "none";
             }
         }
-        
-        
-        
-            // JavaScript to handle profile picture modal
-    $(document).ready(function() {
-        // When clicking on the profile picture thumbnail, show the full-size picture in the modal
-        $('#profile-pic-thumbnail').on('click', function() {
-            var profilePicUrl = $(this).attr('src');
-            $('#profile-pic').attr('src', profilePicUrl);
-            $('#profile-pic-modal').modal('show');
+
+
+
+        // JavaScript to handle profile picture modal
+        $(document).ready(function () {
+            // When clicking on the profile picture thumbnail, show the full-size picture in the modal
+            $('#profile-pic-thumbnail').on('click', function () {
+                var profilePicUrl = $(this).attr('src');
+                $('#profile-pic').attr('src', profilePicUrl);
+                $('#profile-pic-modal').modal('show');
+            });
         });
-    });
-    
+
         // JavaScript to handle background blur effect
         $(document).ready(function () {
             // When the profile picture modal is shown
