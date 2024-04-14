@@ -46,7 +46,22 @@ public class ReportServlet extends HttpServlet {
             if (dao.saveReport(report)) {
 //                save..
                 out.println("done");
-                out.println("Report submitted successfully redirecting in 10seconds ");
+                out.println("<div id=\"timer\"></div>"); // Add the timer div
+                out.println("<script>");
+                out.println("var countdownTime = 10;");
+                out.println("function updateTimer() {");
+                out.println("var timerElement = document.getElementById('timer');");
+                out.println("timerElement.innerText = 'Redirecting in ' + countdownTime + ' seconds';");
+                out.println("countdownTime--;");
+                out.println("if (countdownTime < 0) {");
+                out.println("clearInterval(timerInterval);");
+                out.println("timerElement.innerText = 'Redirecting...';"); // or any other final message
+                out.println("// Redirect code can be added here");
+                out.println("}");
+                out.println("}");
+                out.println("updateTimer();");
+                out.println("var timerInterval = setInterval(updateTimer, 1000);");
+                out.println("</script>");
                 response.setHeader("Refresh", "10;url=login_page.jsp"); // Redirect after 10 seconds
 
             } else {

@@ -145,6 +145,21 @@
         font-weight: bold;
         cursor: pointer;
     }
+    /* Style for the input element */
+    .customSearchInput {
+        width: 300px; /* Adjust width as needed */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    /* Optional: Style for the placeholder text */
+    ::placeholder {
+        color: #99; /* Adjust placeholder color */
+    }
+
 
 </style>
 
@@ -166,6 +181,10 @@
     <body class="body">
         <h1>Our Contributors</h1>
 
+        <!-- Add an input field for searching -->
+        <input type="text" class="customSearchInput" id="searchInput" placeholder="Search User by Name" onkeyup="search()">
+        <!--        <button onclick="search()">Search</button>-->
+
         <table border="1">
             <thead>
                 <tr>
@@ -177,7 +196,7 @@
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
                 <%                    if (userList != null && !userList.isEmpty()) {
                         for (User user : userList) {
                 %>
@@ -255,5 +274,44 @@
             }
         }
 
+    </script>
+    <script>
+        function search() {
+            var input = document.getElementById('searchInput').value.toUpperCase();
+            var table = document.getElementById('tableBody');
+            var rows = table.getElementsByTagName('tr');
+            var found = false;
+
+            // If search input is empty, show all rows and exit the function
+            if (input.trim() === '') {
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].style.display = '';
+                }
+                return;
+            }
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (var i = 0; i < rows.length; i++) {
+                var name = rows[i].getElementsByTagName('td')[0];
+                if (name) {
+                    var textValue = name.textContent || name.innerText;
+                    if (textValue.toUpperCase().indexOf(input) > -1) {
+                        rows[i].style.display = '';
+                        found = true;
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+
+            // If no results found, show an alert
+            if (!found) {
+                alert('No matching results found.');
+                // Show all rows
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].style.display = '';
+                }
+            }
+        }
     </script>
 </html>

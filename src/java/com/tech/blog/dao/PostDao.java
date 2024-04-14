@@ -215,35 +215,4 @@ public class PostDao {
         return list;
     }
 
-    
-   // construction running so do not un-comment this code block
-// Method to get the total number of posts for each user
-//public Map<Integer, Integer> getUserPostCounts() {
-//    Map<Integer, Integer> userPostCounts = new HashMap<>();
-//
-//    try {
-//        // Prepare SQL query to sum the count of posts for each user
-//        String query = "SELECT userId, COUNT(*) AS totalPostCount FROM posts GROUP BY userId";
-//        PreparedStatement pstmt = con.prepareStatement(query);
-//
-//        // Execute the query
-//        ResultSet rs = pstmt.executeQuery();
-//
-//        // Process the results
-//        while (rs.next()) {
-//            int userId = rs.getInt("userId");
-//            int totalPostCount = rs.getInt("totalPostCount");
-//            userPostCounts.put(userId, totalPostCount);
-//        }
-//
-//        // Close the ResultSet and PreparedStatement
-//        rs.close();
-//        pstmt.close();
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//    }
-//
-//    return userPostCounts;
-//}
-
-}
+ }
