@@ -5,6 +5,26 @@
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
 
+<style>
+    /* Style for the input element */
+    .customSearchInput {
+        width: 300px; /* Adjust width as needed */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+
+    }
+
+    /* Optional: Style for the placeholder text */
+    ::placeholder {
+        color: #99; /* Adjust placeholder color */
+    }
+
+</style>
+
+<input type="text" class="customSearchInput" id="searchInput" placeholder="Search Post by Name" onkeyup="search()">
 <div class="row">
 
     <%
@@ -34,44 +54,47 @@
     <div class="col-md-6 mt-2">
         <div class="card">
             <img class="card-img-top fixed-size-img"  style="overflow: hidden; object-fit: cover; width: auto; height: 150px" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap">
-            <div class="card-body">
-                <b><%= p.getpTitle()%></b>
-                <div style="border: 1px solid black"></div>
 
-                <!--STYLE FOR CONTAINER-->
-                <style>
+            <div class="card-body" id="tableBody">
+                <span>
+                    <b><%= p.getpTitle()%></b>
+                    <div style="border: 1px solid black"></div>
 
-                    .scrollbar {
-                        width: auto;
-                        overflow: auto;
-                    }
+                    <!--STYLE FOR CONTAINER-->
+                    <style>
 
-                    #scrollbar1::-webkit-scrollbar {
-                        width: 3px;
-                    }
+                        .scrollbar {
+                            width: auto;
+                            overflow: auto;
+                        }
 
-                    #scrollbar1::-webkit-scrollbar-track {
-                        border-radius: 1px;
-                        background-color: #e7e7e7;
-                        border: 1px solid #cacaca;
-                    }
+                        #scrollbar1::-webkit-scrollbar {
+                            width: 3px;
+                        }
 
-                    #scrollbar1::-webkit-scrollbar-thumb {
-                        border-radius: 1px;
-                        background-color: #454548;
-                    }
-                </style>
+                        #scrollbar1::-webkit-scrollbar-track {
+                            border-radius: 1px;
+                            background-color: #e7e7e7;
+                            border: 1px solid #cacaca;
+                        }
 
-                <div class="container">
-                    <div class="scrollbar" id="scrollbar1">
+                        #scrollbar1::-webkit-scrollbar-thumb {
+                            border-radius: 1px;
+                            background-color: #454548;
+                        }
+                    </style>
 
-                        <p style="height: 50px"><%= p.getpContent()%></p>
+                    <div class="container">
+                        <div class="scrollbar" id="scrollbar1">
+
+                            <p style="height: 50px"><%= p.getpContent()%></p>
+                        </div>
                     </div>
-                </div>
 
 
-
+                </span>
             </div>
+
             <div class="card-footer primary-background text-center">
                 <%
                     LikeDao ld = new LikeDao(ConnectionProvider.getConnection());
@@ -82,7 +105,7 @@
 
                 <!--                <a href="#!" class="btn btn-outline-light btn-sm"> <i class="fa fa-commenting-o"></i> <span></span>  </a>-->
             </div>
-               
+
         </div>
 
 
@@ -93,8 +116,110 @@
 
     <%
         }
-
-
     %>
 
 </div>
+<!--<script>
+    function search() {
+        var input = document.getElementById('searchInput').value.toUpperCase();
+        var cards = document.getElementsByClassName('card');
+        var found = false;
+
+        // Loop through all cards, and hide those who don't match the search query
+        for (var i = 0; i < cards.length; i++) {
+            var title = cards[i].getElementsByTagName('b')[0];
+            if (title) {
+                var textValue = title.textContent || title.innerText;
+                if (textValue.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = '';
+                    found = true;
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+        }
+
+        // If no results found, show an alert
+        if (!found) {
+            alert('No matching results found.');
+            // Show all cards
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.display = '';
+            }
+        }
+    }
+//same with some differences
+
+    function search() {
+        var input = document.getElementById('searchInput').value.toUpperCase();
+        var cards = document.getElementsByClassName('card');
+        var found = false;
+
+        // Loop through all cards, and hide those which do not match the search query
+        for (var i = 0; i < cards.length; i++) {
+            var title = cards[i].getElementsByTagName('b')[0];
+            if (title) {
+                var textValue = title.textContent || title.innerText;
+                if (textValue.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = ''; // Show card if it matches search query
+                    found = true;
+                } else {
+                    cards[i].style.display = 'none'; // Hide card if it doesn't match
+                }
+            }
+        }
+
+        // If no results found, show an alert
+        if (!found) {
+            alert('No matching results found.');
+            // Show all cards
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.display = ''; // Show all cards
+            }
+        }
+    }
+</script>-->
+
+
+<script>
+    function search() {
+        var input = document.getElementById('searchInput').value.toUpperCase();
+        var cards = document.getElementsByClassName('card');
+        var found = false;
+        var matchingCards = []; // Array to store matching cards
+
+        // Loop through all cards, and hide those which do not match the search query
+        for (var i = 0; i < cards.length; i++) {
+            var title = cards[i].getElementsByTagName('b')[0];
+            if (title) {
+                var textValue = title.textContent || title.innerText;
+                if (textValue.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = ''; // Show card if it matches search query
+                    found = true;
+                    matchingCards.push(cards[i]); // Store matching card
+                } else {
+                    cards[i].style.display = 'none'; // Hide card if it doesn't match
+                }
+            }
+        }
+
+        // If no results found, show an alert
+        if (!found) {
+            alert('No matching results found.');
+            // Show all cards
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.display = ''; // Show all cards
+            }
+        } else {
+            // Clear container before appending matching cards
+            var container = document.getElementById('container');
+            container.innerHTML = '';
+
+            // Append matching cards to the container in order
+            matchingCards.forEach(function(card) {
+                container.appendChild(card);
+            });
+        }
+    }
+</script>
+
