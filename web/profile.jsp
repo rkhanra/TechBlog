@@ -127,14 +127,6 @@
                 </ul>
 
                 <ul class="navbar-nav mr-right">
-                    <!--               
-                                will be implemented in future had to change on servlet and dao
-                                        <li class="nav-item">
-                                            <form class="form-inline my-2 my-lg-0">
-                                                <input class="form-control mr-sm-2" type="search" placeholder="Search by Post Name" aria-label="Search">
-                                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
-                                            </form>
-                                        </li>-->
  
                     <li class="nav-item">
 
