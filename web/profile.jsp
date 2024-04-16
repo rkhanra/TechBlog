@@ -360,7 +360,7 @@
 
                                         </table>
 
-                                        <div colspan="2" > (file size should be under 1mb) </div>
+                                        <div colspan="2" > (file size should be under 2mb) </div>
                                         <br>
 
                                         <div class="container">
@@ -499,7 +499,7 @@
                                         // Function to validate file size before form submission
                                         $("#edit-profile-form").on("submit", function (event) {
                                             var profileImage = $("input[name='image']")[0].files[0];
-                                            if (profileImage && profileImage.size > 500 * 1024) { // 500KB in bytes
+                                            if (profileImage && profileImage.size > 2* 1024 * 1024) { // 500KB in bytes
                                                 swal("Error", "Profile image size exceeds 500KB limit", "error");
                                                 event.preventDefault(); // Prevent form submission
                                             } else {
@@ -511,10 +511,10 @@
                                         // Function to reset file input field if invalid file is selected
                                         $('input[name="image"]').on('change', function () {
                                             var profileImage = $(this)[0].files[0];
-                                            if (profileImage && profileImage.size > 1024 * 1024) {
+                                            if (profileImage && profileImage.size > 2 * 1024 * 1024) {
                                                 // Clear the file input field
                                                 $(this).val('');
-                                                swal("Error", "Profile image size exceeds 500KB limit", "error");
+                                                swal("Error", "Profile image size exceeds 2MB limit", "error");
                                             }
                                         });
 
