@@ -37,6 +37,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><%= p.getpTitle()%> || TechBlog by Learn Code with Pain </title>
 
+    <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
     <!--css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -300,9 +301,10 @@
                     </div>
 
                     <div class="card-footer">
-                        <!-- Facebook Comments Plugin -->
-                        <span> Please mention Post Title while commenting || eg Post name : name </span>
-                        <div class="fb-comments" data-href="http://127.0.0.1:5500/index%20(2).html" data-numposts="5"></div>
+                        <!-- HYVOR TALK COMMENTS  Facebook Comments Plugin -->
+                        <hyvor-talk-comments website-id="10950" page-id="<%= p.getPid()%>" ></hyvor-talk-comments>
+                        <!--                        <span> Please mention Post Title while commenting || eg Post name : name </span>
+                                                <div class="fb-comments" data-href="http://127.0.0.1:5500/index%20(2).html" data-numposts="5"></div>-->
                         <!--        <div class="fb-comments" data-href="http://localhost:8090/TechBlog/show_blog_page.jsp?post_id=32" data-numposts="5"></div>-->
                     </div>
 
