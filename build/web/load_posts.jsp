@@ -119,67 +119,6 @@
     %>
 
 </div>
-<!--<script>
-    function search() {
-        var input = document.getElementById('searchInput').value.toUpperCase();
-        var cards = document.getElementsByClassName('card');
-        var found = false;
-
-        // Loop through all cards, and hide those who don't match the search query
-        for (var i = 0; i < cards.length; i++) {
-            var title = cards[i].getElementsByTagName('b')[0];
-            if (title) {
-                var textValue = title.textContent || title.innerText;
-                if (textValue.toUpperCase().indexOf(input) > -1) {
-                    cards[i].style.display = '';
-                    found = true;
-                } else {
-                    cards[i].style.display = 'none';
-                }
-            }
-        }
-
-        // If no results found, show an alert
-        if (!found) {
-            alert('No matching results found.');
-            // Show all cards
-            for (var i = 0; i < cards.length; i++) {
-                cards[i].style.display = '';
-            }
-        }
-    }
-//same with some differences
-
-    function search() {
-        var input = document.getElementById('searchInput').value.toUpperCase();
-        var cards = document.getElementsByClassName('card');
-        var found = false;
-
-        // Loop through all cards, and hide those which do not match the search query
-        for (var i = 0; i < cards.length; i++) {
-            var title = cards[i].getElementsByTagName('b')[0];
-            if (title) {
-                var textValue = title.textContent || title.innerText;
-                if (textValue.toUpperCase().indexOf(input) > -1) {
-                    cards[i].style.display = ''; // Show card if it matches search query
-                    found = true;
-                } else {
-                    cards[i].style.display = 'none'; // Hide card if it doesn't match
-                }
-            }
-        }
-
-        // If no results found, show an alert
-        if (!found) {
-            alert('No matching results found.');
-            // Show all cards
-            for (var i = 0; i < cards.length; i++) {
-                cards[i].style.display = ''; // Show all cards
-            }
-        }
-    }
-</script>-->
-
 
 <script>
     function search() {

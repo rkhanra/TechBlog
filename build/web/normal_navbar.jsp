@@ -2,15 +2,15 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 
-function showAlert(){
-  Swal.fire({
-    title: 'Thanks',
-    text: 'for using our blog site!',
-    icon: 'success',
-    timer: "2500",
-    confirmButtonText: 'OK'
-  });
-}
+    function showAlert() {
+        Swal.fire({
+            title: 'Thanks',
+            text: 'for using our blog site!',
+            icon: 'success',
+            timer: "2500",
+            confirmButtonText: 'OK'
+        });
+    }
 
 //    function openAutoCloseAlert() {
 //        Swal.fire({
@@ -67,10 +67,10 @@ function showAlert(){
             <li class="nav-item">
                 <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
             </li>
-            
-                        <li class="nav-item">
+
+            <li class="nav-item">
                 <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
-                
+
             </li>
 
         </ul>

@@ -1,4 +1,4 @@
-
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Paqe</title>
+        
 
         <!--css-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -23,7 +24,7 @@
         <!--navbar-->
         <%@include  file="normal_navbar.jsp" %>
 
-
+       
         <main class="d-flex align-items-center primary-background banner-background" style="height: 70vh">
             <div class="container">
                 <div class="row">
@@ -85,7 +86,6 @@
             </div>
 
         </main>
-
 
 
 
