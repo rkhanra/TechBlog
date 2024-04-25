@@ -45,6 +45,10 @@
         if (posts.size() == 0) {
             out.println("<h3 class='display-3 text-center'>No Posts in this category..</h3>");
             return;
+        } else if (posts.size() >= 10) {
+out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-content-center align-items-center fixed-bottom\" style=\"position: fixed; bottom: -50px; right: 0; transition: bottom 0.3s;\">"
+            + "<a type=\"button\" id=\"back-to-top-btn\" href=\"#\" class=\"btn btn-primary primary-background\" >Back to top &#8593;</a>"
+            + "</div>");
         }
 
         for (Post p : posts) {
@@ -155,10 +159,18 @@
             container.innerHTML = '';
 
             // Append matching cards to the container in order
-            matchingCards.forEach(function(card) {
+            matchingCards.forEach(function (card) {
                 container.appendChild(card);
             });
         }
     }
+//    back to top button
+    window.addEventListener('scroll', function () {
+        var buttonContainer = document.getElementById('back-to-top-btn-container');
+        if (window.scrollY > 500) { // Adjust 100 to the desired scroll position
+            buttonContainer.style.bottom = '20px'; // Show the button
+        } else {
+            buttonContainer.style.bottom = '-50px'; // Hide the button
+        }
+    });
 </script>
-
