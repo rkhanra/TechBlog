@@ -168,7 +168,7 @@ out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-conten
     window.addEventListener('scroll', function () {
         var buttonContainer = document.getElementById('back-to-top-btn-container');
         if (window.scrollY > 500) { // Adjust 100 to the desired scroll position
-            buttonContainer.style.bottom = '20px'; // Show the button
+            buttonContainer.style.bottom = '5px'; // Show the button
         } else {
             buttonContainer.style.bottom = '-50px'; // Hide the button
         }

@@ -247,10 +247,10 @@
             </main>
 
             <br><br>
-<!--            <div class="d-flex justify-content-center align-items-center" >
-                <a type="button" id="back-to-top-btn" href="#" class="btn btn-primary primary-background"  >Back to top &#8593;</a>
-            </div>
-            <br>-->
+            <!--            <div class="d-flex justify-content-center align-items-center" >
+                            <a type="button" id="back-to-top-btn" href="#" class="btn btn-primary primary-background"  >Back to top &#8593;</a>
+                        </div>
+                        <br>-->
 
             <!--end main body of the page-->
 
@@ -687,7 +687,6 @@
                 document.querySelector('.progress-container').style.display = "none";
             }
         }
-
 
 
         // JavaScript to handle profile picture modal
