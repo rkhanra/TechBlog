@@ -46,9 +46,9 @@
             out.println("<h3 class='display-3 text-center'>No Posts in this category..</h3>");
             return;
         } else if (posts.size() >= 10) {
-out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-content-center align-items-center fixed-bottom\" style=\"position: fixed; bottom: -50px; right: 0; transition: bottom 0.3s;\">"
-            + "<a type=\"button\" id=\"back-to-top-btn\" href=\"#\" class=\"btn btn-primary primary-background\" >Back to top &#8593;</a>"
-            + "</div>");
+            out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-content-center align-items-center fixed-bottom\" style=\"position: fixed; bottom: -50px; right: 0; transition: bottom 0.3s;\">"
+                    + "<a type=\"button\" id=\"back-to-top-btn\" href=\"#\" class=\"btn btn-primary primary-background\" >Back to top &#8593;</a>"
+                    + "</div>");
         }
 
         for (Post p : posts) {
@@ -129,9 +129,7 @@ out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-conten
         var input = document.getElementById('searchInput').value.toUpperCase();
         var cards = document.getElementsByClassName('card');
         var found = false;
-        var matchingCards = []; // Array to store matching cards
 
-        // Loop through all cards, and hide those which do not match the search query
         for (var i = 0; i < cards.length; i++) {
             var title = cards[i].getElementsByTagName('b')[0];
             if (title) {
@@ -139,32 +137,23 @@ out.println("<div id=\"back-to-top-btn-container\" class=\"d-flex justify-conten
                 if (textValue.toUpperCase().indexOf(input) > -1) {
                     cards[i].style.display = ''; // Show card if it matches search query
                     found = true;
-                    matchingCards.push(cards[i]); // Store matching card
                 } else {
                     cards[i].style.display = 'none'; // Hide card if it doesn't match
                 }
             }
         }
 
-        // If no results found, show an alert
         if (!found) {
             alert('No matching results found.');
+            document.getElementById('searchInput').value = ''; // Clear search box
             // Show all cards
             for (var i = 0; i < cards.length; i++) {
                 cards[i].style.display = ''; // Show all cards
             }
-        } else {
-            // Clear container before appending matching cards
-            var container = document.getElementById('container');
-            container.innerHTML = '';
-
-            // Append matching cards to the container in order
-            matchingCards.forEach(function (card) {
-                container.appendChild(card);
-            });
         }
     }
-//    back to top button
+
+    // Back to top button
     window.addEventListener('scroll', function () {
         var buttonContainer = document.getElementById('back-to-top-btn-container');
         if (window.scrollY > 500) { // Adjust 100 to the desired scroll position
