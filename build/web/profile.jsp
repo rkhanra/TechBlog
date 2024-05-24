@@ -219,7 +219,7 @@
                                 %>
                             </div>
                             <br><br><br>
-<!--                            <a href="#bottom" id="oldest-blog-btn"  class="d-block p-2 bg-primary text-white text-center" >Check Oldest Blog &darr; </a>-->
+                            <!--                            <a href="#bottom" id="oldest-blog-btn"  class="d-block p-2 bg-primary text-white text-center" >Check Oldest Blog &darr; </a>-->
 
 
                         </div>
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class=" tableBody container-fluid" id="post-container">
-                                
+
                             </div>
 
                         </div>
@@ -247,10 +247,10 @@
             </main>
 
             <br><br>
-            <div class="d-flex justify-content-center align-items-center" >
-                <a type="button" id="back-to-top-btn" href="#" class="btn btn-primary primary-background"  >Back to top &#8593;</a>
-            </div>
-            <br>
+            <!--            <div class="d-flex justify-content-center align-items-center" >
+                            <a type="button" id="back-to-top-btn" href="#" class="btn btn-primary primary-background"  >Back to top &#8593;</a>
+                        </div>
+                        <br>-->
 
             <!--end main body of the page-->
 
@@ -689,7 +689,6 @@
         }
 
 
-
         // JavaScript to handle profile picture modal
         $(document).ready(function () {
             // When clicking on the profile picture thumbnail, show the full-size picture in the modal
@@ -715,6 +714,5 @@
             });
         });
     </script>
-
 
 </html>
