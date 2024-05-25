@@ -60,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
 //                save..
                     out.println("done");
                 } else {
-                    out.println("Error \n Please check your email");
+                    out.println("Error \n Please check your email and other details");
                 }
             }
          

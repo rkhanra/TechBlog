@@ -302,7 +302,7 @@
 
                     <div class="card-footer">
                         <!-- HYVOR TALK COMMENTS  Facebook Comments Plugin -->
-                        <hyvor-talk-comments website-id="10950" page-id="<%= p.getPid()%>" ></hyvor-talk-comments>
+                        <hyvor-talk-comments website-id="11178" page-id="<%= p.getPid()%>" ></hyvor-talk-comments>
                         <!--                        <span> Please mention Post Title while commenting || eg Post name : name </span>
                                                 <div class="fb-comments" data-href="http://127.0.0.1:5500/index%20(2).html" data-numposts="5"></div>-->
                         <!--        <div class="fb-comments" data-href="http://localhost:8090/TechBlog/show_blog_page.jsp?post_id=32" data-numposts="5"></div>-->

@@ -151,7 +151,7 @@
                 cards[i].style.display = ''; // Show all cards
             }
         }
-    }
+    }           
 
     // Back to top button
     window.addEventListener('scroll', function () {
