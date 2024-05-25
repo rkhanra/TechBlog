@@ -40,6 +40,21 @@ public class UserDao {
 
     }
 
+    //delete user
+    public boolean deleteUser(int userId) {
+        boolean deleted = false;
+        try {
+            String query = "DELETE FROM user WHERE id=?";
+            PreparedStatement pstmt = this.con.prepareStatement(query);
+            pstmt.setInt(1, userId);
+            pstmt.executeUpdate();
+            deleted = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deleted;
+    }
+
     //get user by useremail and userpassword:
     public User getUserByEmailAndPassword(String email, String password) {
         User user = null;
@@ -132,9 +147,7 @@ public class UserDao {
         return user;
     }
 
-    
-    
-        public List<User> getAllUsers() {
+    public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
 
         try {
@@ -155,10 +168,10 @@ public class UserDao {
                 String about = resultSet.getString("about");
                 Timestamp rdatee = resultSet.getTimestamp("rdate");
                 String profile = resultSet.getString("profile");
-                
+
                 // Create a new User object and add it to the list
-                User user = new User(name, email,  about, rdatee, profile);
-                
+                User user = new User(name, email, about, rdatee, profile);
+
                 userList.add(user);
             }
 
@@ -168,5 +181,5 @@ public class UserDao {
 
         return userList;
     }
-    
+
 }
