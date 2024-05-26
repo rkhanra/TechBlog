@@ -55,7 +55,7 @@
 
                                 <div class="form-group">
                                     <label for="user_name">User Name</label>
-                                    <input name="user_name" type="text" class="form-control" id="user_name" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <input name="user_name" type="text" class="form-control" id="user_name" aria-describedby="emailHelp" placeholder="Enter name" required>
                                 </div>
 
                                 <div class="form-group">

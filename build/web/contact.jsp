@@ -167,7 +167,7 @@
                 </div>
 
             </div>
-            <p class="text-danger"> To delete your accout please mail us with your details we will verify that its you then we will proceed for your accout deletion </p>
+
         </div>
     </div>
 </div>
