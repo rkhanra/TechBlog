@@ -23,6 +23,7 @@ Step 6 : Run the project
 
 Step 7 : Open Tomcat's URL in browser ex : 'http://localhost:8090/TechBlog/' or your tomcat log's url shown in netbeans tomcat output console
 
+** i have used hyvor talk trial version (14 days) for current commenting system with a website number in show_blog_page.jsp it shoulld be updated every 15 days to keep using comments **
 
 
                                                         : Used Components : 
