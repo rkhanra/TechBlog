@@ -58,3 +58,12 @@ This web application in currently under development we are requesting developers
 3. Dynamic and manual Light mode Dark Mode implementation
 4. User email verification using OTP needed before user creation
 5. User must creat a strong password using alpha numeric and symbol combination
+6. Edit of a existing post 
+7. Delete a post upon too much user request that the post containts wrong or vulgar information
+8. Adding mini videos for each post
+9. Adding chatbot to the site
+
+
+
+Approx lines of code written : 6000
+and there is others imports as well 
