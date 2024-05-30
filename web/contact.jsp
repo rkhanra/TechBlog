@@ -87,7 +87,7 @@
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                         <div class="form-group">
-                            <label for="message">Description</label>
+                            <label for="message">Description *</label>
                             <textarea class="form-control" name="message" id="message" rows="6" required></textarea>
                         </div>
                         <div class="form-check">
@@ -167,6 +167,7 @@
                 </div>
 
             </div>
+
         </div>
     </div>
 </div>
