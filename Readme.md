@@ -28,7 +28,7 @@ Step 7 : Open Tomcat's URL in browser ex : 'http://localhost:8090/TechBlog/' or 
 
                                                         : Used Components : 
 
-Html, vanilla CSS, Bootstraop, MySQL, Axax, Javascript, sweetalert, JSP, JDBC, JAVA Beans
+Html, vanilla CSS, Bootstraop, MySQL, Ajax, Javascript, sweetalert, JSP, JDBC, JAVA Beans
 
 
                                                         : Used Software : 
@@ -46,7 +46,6 @@ anyone cam contact us to improve the community
                                                         : Limitations :
 
 improvement in search section on profile is needed to optimize search query
-password has no strength
 commenting has a time gap of 1 minutes
 
 
