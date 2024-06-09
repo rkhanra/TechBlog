@@ -341,8 +341,10 @@
                                             </tr>
                                             <tr>
                                                 <td>Password :</td>
-                                                <td> <input type="password" class="form-control" name="user_password" value="<%= user.getPassword()%>" > </td>
+                                                <td> <input type="password" class="form-control" id="exampleInputPassword1" name="user_password" value="<%= user.getPassword()%>" > </td>
+                                                <td> <i onclick="passwordReveal()" class="fa fa-eye"> </i> </td> 
                                             </tr>
+
                                             <tr>
                                                 <td>Gender :</td>
                                                 <td> <%= user.getGender().toUpperCase()%> </td>
@@ -352,44 +354,40 @@
                                                 <td>
                                                     <textarea rows="3" class="form-control" name="user_about" ><%= user.getAbout()%>
                                                     </textarea>
-
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>New Profile:</td>
                                                 <td>
-                                                    <input type="file" name="image" class="form-control" >
+                                                    <input type="file" name="image" class="" >
                                                 </td>
                                             </tr>
-
-
                                         </table>
 
-                                        <div colspan="2" > (file size should be under 2mb) </div>
+                                        <div colspan="2"> (file size should be under 2MB) </div>
                                         <br>
 
                                         <div class="container">
                                             <button type="submit" class="btn btn-outline-primary">Save</button>
                                         </div>
+                                    </form>
 
-
-                                    </form>    
 
                                 </div>
 
                             </div>
                         </div>
-<div class="modal-footer">
-    <div class="row w-100">
-        <div class="col-auto">
-            <button type="button" class="btn btn-danger d-flex flex-row" onclick="deleteaccount();">delete account</button>
-        </div>
-        <div class="col-auto ml-auto">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="edit-profile-button" type="button" class="btn btn-primary">EDIT</button>
-        </div>
-    </div>
-</div>
+                        <div class="modal-footer">
+                            <div class="row w-100">
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-danger d-flex flex-row" onclick="deleteaccount();">delete account</button>
+                                </div>
+                                <div class="col-auto ml-auto">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="edit-profile-button" type="button" class="btn btn-primary">EDIT</button>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -486,7 +484,7 @@
                                 <div class="form-group">
                                     <label>Select your pic..</label>
                                     <br>
-                                    <input type="file" name="pic" required  >
+                                    <input type="file" name="pic" >
                                 </div>
 
                                 <!-- Divider and Warning Text Box -->
@@ -531,103 +529,151 @@
 
 
             <script>
-    $(document).ready(function () {
-        let editStatus = false;
-        let lastProfilePicUrl = ""; // Variable to store the URL of the last profile picture
+                $(document).ready(function () {
+                    let editStatus = false;
+                    let lastProfilePicUrl = ""; // Variable to store the URL of the last profile picture
 
-        $('#edit-profile-button').click(function () {
-            if (editStatus == false) {
-                $("#profile-details").hide()
-                $("#profile-edit").show();
-                editStatus = true;
-                $(this).text("Back")
-            } else {
-                $("#profile-details").show()
-                $("#profile-edit").hide();
-                editStatus = false;
-                $(this).text("Edit")
-            }
-        });
+                    $('#edit-profile-button').click(function () {
+                        if (editStatus == false) {
+                            $("#profile-details").hide()
+                            $("#profile-edit").show();
+                            editStatus = true;
+                            $(this).text("Back")
+                        } else {
+                            $("#profile-details").show()
+                            $("#profile-edit").hide();
+                            editStatus = false;
+                            $(this).text("Edit")
+                        }
+                    });
 
-        // Function to validate file size before form submission
-        $("#edit-profile-form").on("submit", function (event) {
-            var profileImage = $("input[name='image']")[0].files[0];
-            if (profileImage && profileImage.size > 2 * 1024 * 1024) { // 500KB in bytes
-                swal("Error", "Profile image size exceeds 500KB limit", "error");
-                event.preventDefault(); // Prevent form submission
-            } else {
-                // Store the URL of the current profile picture before form submission
-                lastProfilePicUrl = $("#profile-img").attr("src");
-            }
-        });
+                    // Function to validate file size before form submission
+                    $("#edit-profile-form").on("submit", function (event) {
+                        var profileImage = $("input[name='image']")[0].files[0];
+                        if (profileImage && profileImage.size > 2 * 1024 * 1024) { // 500KB in bytes
+                            swal("Error", "Profile image size exceeds 500KB limit", "error");
+                            event.preventDefault(); // Prevent form submission
+                        } else {
+                            // Store the URL of the current profile picture before form submission
+                            lastProfilePicUrl = $("#profile-img").attr("src");
+                        }
+                    });
 
-        // Function to reset file input field if invalid file is selected
-        $('input[name="image"]').on('change', function () {
-            var profileImage = $(this)[0].files[0];
-            if (profileImage && profileImage.size > 2 * 1024 * 1024) {
-                // Clear the file input field
-                $(this).val('');
-                swal("Error", "Profile image size exceeds 2MB limit", "error");
-            }
-        });
+                    // Function to reset file input field if invalid file is selected
+                    $('input[name="image"]').on('change', function () {
+                        var profileImage = $(this)[0].files[0];
+                        if (profileImage && profileImage.size > 2 * 1024 * 1024) {
+                            // Clear the file input field
+                            $(this).val('');
+                            swal("Error", "Profile image size exceeds 2MB limit", "error");
+                        }
+                    });
 
-        // Function to restore last profile picture if form submission fails
-        $("#edit-profile-form").on("reset", function () {
-            $("#profile-img").attr("src", lastProfilePicUrl);
-        });
-    });
+                    // Function to restore last profile picture if form submission fails
+                    $("#edit-profile-form").on("reset", function () {
+                        $("#profile-img").attr("src", lastProfilePicUrl);
+                    });
+                });
+
             </script>
 
 
             <!--now add post js-->
-            <script>
-                $(document).ready(function (e) {
-                    $("#add-post-form").on("submit", function (event) {
-                        // Prevent the default form submission
-                        event.preventDefault();
+<script>
+    $(document).ready(function (e) {
+        $("#add-post-form").on("submit", function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
 
-                        // Validate form data
-                        var category = $("select[name='cid']").val();
-                        var title = $("input[name='pTitle']").val();
-                        var content = $("textarea[name='pContent']").val();
-                        var pic = $("input[name='pic']").val();
+            // Validate form data
+            var category = $("select[name='cid']").val();
+            var title = $("input[name='pTitle']").val();
+            var content = $("textarea[name='pContent']").val();
+            var picInput = $("input[name='pic']");
+            var picFile = picInput[0].files[0];
 
-                        if (category === null || category === '' || title === '' || content === '' || pic === '') {
-                            swal("Error", "Please fill in all required fields", "error");
-                            return;
+            if (category === null || category === '' || title === '' || content === '') {
+                swal("Error", "Please fill in all required fields", "error");
+                return;
+            }
+
+            var form = new FormData(this);
+
+            if (picFile) {
+                // Picture selected, check if a file with the same name already exists
+                var picName = picFile.name;
+
+                console.log("Checking if the picture name exists...");
+
+                $.ajax({
+                    url: "AddPostServlet",  //AddPostServlet
+                    type: 'POST',
+                    data: { picName: picName },
+                    success: function (data) {
+                        console.log("CheckPictureNameServlet response:", data);
+                        if (data.trim() === 'exists') {
+                            // Rename the file
+                            var newPicName = generateUniqueName(picName);
+                            form.delete("pic");
+                            form.append("pic", renameFile(picFile, newPicName));
+
+                            console.log("File renamed to:", newPicName);
                         }
-
-                        // If all fields are filled, proceed with AJAX form submission
-                        let form = new FormData(this);
-
-                        // Now requesting to the server
-                        $.ajax({
-                            url: "AddPostServlet",
-                            type: 'POST',
-                            data: form,
-                            success: function (data, textStatus, jqXHR) {
-                                // Success
-                                console.log(data);
-                                if (data.trim() === 'done') {
-                                    swal("Good job!", "Saved successfully", "success")
-                                            .then(() => {
-                                                // Refresh the page
-                                                location.reload(true);
-                                            });
-                                } else {
-                                    swal("Error!!", "Something went wrong, try again...", "error");
-                                }
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                // Error
-                                swal("Error!!", "Something went wrong, try again...", "error");
-                            },
-                            processData: false,
-                            contentType: false
-                        });
-                    });
+                        // Proceed with the form submission
+                        submitForm(form);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Error checking picture name:", textStatus, errorThrown);
+                        swal("Error!!", "Something went wrong, try again...", "error");
+                    }
                 });
-            </script>
+            } else {
+                // No picture selected, proceed with form submission
+                submitForm(form);
+            }
+        });
+    });
+
+    function generateUniqueName(fileName) {
+        var timestamp = new Date().getTime();
+        var fileExtension = fileName.split('.').pop();
+        var fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+        return fileNameWithoutExt + "_" + timestamp + "." + fileExtension;
+    }
+
+    function renameFile(file, newFileName) {
+        var blob = file.slice(0, file.size, file.type);
+        return new File([blob], newFileName, { type: file.type });
+    }
+
+    function submitForm(form) {
+        console.log("Submitting the form...");
+        $.ajax({
+            url: "AddPostServlet",
+            type: 'POST',
+            data: form,
+            success: function (data, textStatus, jqXHR) {
+                console.log("AddPostServlet response:", data);
+                if (data.trim() === 'done') {
+                    swal("Good job!", "Saved successfully", "success")
+                        .then(() => {
+                            location.reload(true);
+                        });
+                } else {
+                    swal("Error!!", "Something went wrong, try again...", "error");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error submitting form:", textStatus, errorThrown);
+                swal("Error!!", "Something went wrong, try again...", "error");
+            },
+            processData: false,
+            contentType: false
+        });
+    }
+</script>
+
+
 
 
 
@@ -761,6 +807,17 @@
                 $('body').removeClass('modal-blur');
             });
         });
+
+
+        //show password
+        function passwordReveal() {
+            var x = document.getElementById("exampleInputPassword1");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
     </script>
 
 </html>

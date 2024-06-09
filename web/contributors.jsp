@@ -11,6 +11,199 @@
 <%@page import="com.tech.blog.entities.Category"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.entities.User"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title> Contrubuters </title>
+</head>
+<body class="body">
+    <h1>Our Contributors</h1>
+    <input type="text" class="customSearchInput" id="searchInput" placeholder="Search User by Name" onkeyup="search()">
+    <button class="btn" id="modeToggle">Toggle Mode</button>
+
+    <%
+        // Get the list of users
+        UserDao userDao = new UserDao(ConnectionProvider.getConnection());
+        List<User> userList = userDao.getAllUsers();
+
+    %>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>About</th>
+                <th>Joined on</th>
+                <th>Avatar</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <%                    if (userList != null && !userList.isEmpty()) {
+                    for (User user : userList) {
+            %>
+            <tr>
+                <td><%= user.getName()%></td>
+<!--                    <td><%= user.getEmail()%></td>-->
+                <td onclick="copyEmail('<%= user.getEmail()%>')"><%= user.getEmail()%></td>
+
+                <td> <%= user.getAbout()%> </td>
+                <td> <%= user.getDateTime()%> </td>
+                <td>
+                    <!-- Add onclick event to trigger modal -->
+                    <img src="pics/<%= user.getProfile()%>"
+                         class="avatar"
+                         onclick="openModal('pics/<%= user.getProfile()%>')">
+                </td>
+
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            <tr>
+                <td colspan="5">No users found</td>
+            </tr>
+            <% }%>
+        </tbody>
+
+
+    </table>
+    <!-- The Modal -->
+    <div id="avatarModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImg" style="width:100%">
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- JavaScript function to copy email address to clipboard -->
+<script>
+    function copyEmail(email) {
+        navigator.clipboard.writeText(email)
+                .then(() => {
+                    console.log('Email copied to clipboard: ' + email);
+                    alert('Email copied to clipboard: ' + email);
+                })
+                .catch(err => {
+                    console.error('Failed to copy email: ', err);
+                });
+    }
+</script>
+<!-- JavaScript for Toggle Mode Functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+
+        // Load user's preference from localStorage
+        const currentMode = localStorage.getItem('theme') || 'light';
+        body.classList.add(currentMode + '-mode');
+
+// Function to update colors based on mode
+        function updateColors(mode) {
+            const modeToggle = document.getElementById('modeToggle');
+
+            if (mode === 'dark') {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                modeToggle.textContent = 'Light Mode'; // Update button text
+                modeToggle.style.backgroundColor = '#333333'; // Dark gray background for the mode toggle button
+                modeToggle.style.color = '#ffffff'; // White text for the mode toggle button
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                modeToggle.textContent = 'Dark Mode'; // Update button text
+                modeToggle.style.backgroundColor = '#ffffff'; // White background for the mode toggle button
+                modeToggle.style.color = '#000000'; // Black text for the mode toggle button
+            }
+        }
+
+
+        // Update colors based on initial mode
+        updateColors(currentMode);
+
+        // Function to toggle mode
+        function toggleMode() {
+            const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newMode);
+            updateColors(newMode);
+            location.reload();
+            console.log('New Mode:', newMode); // Log the new mode
+        }
+
+        // Event listener for mode toggle button
+        modeToggle.addEventListener('click', toggleMode);
+    });
+
+
+
+    // Function to open modal with clicked avatar image
+// Function to open modal with clicked avatar image
+    function openModal(imageSrc) {
+        var modal = document.getElementById('avatarModal');
+        var modalImg = document.getElementById('modalImg');
+        modal.style.display = "block";
+        modalImg.src = imageSrc;
+    }
+
+// Function to close modal
+    function closeModal() {
+        var modal = document.getElementById('avatarModal');
+        modal.style.display = "none";
+    }
+
+// Close modal when clicking outside of it
+    window.onclick = function (event) {
+        var modal = document.getElementById('avatarModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+<script>
+    function search() {
+        var input = document.getElementById('searchInput').value.toUpperCase();
+        var table = document.getElementById('tableBody');
+        var rows = table.getElementsByTagName('tr');
+        var found = false;
+
+        // If search input is empty, show all rows and exit the function
+        if (input.trim() === '') {
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].style.display = '';
+            }
+            return;
+        }
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (var i = 0; i < rows.length; i++) {
+            var name = rows[i].getElementsByTagName('td')[0];
+            if (name) {
+                var textValue = name.textContent || name.innerText;
+                if (textValue.toUpperCase().indexOf(input) > -1) {
+                    rows[i].style.display = '';
+                    found = true;
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        // If no results found, show an alert
+        if (!found) {
+            alert('No matching results found.');
+            // Show all rows
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].style.display = '';
+            }
+        }
+    }
+</script>
+
+
 
 <style>
     .body{
@@ -161,157 +354,35 @@
     }
 
 
+    /* Dark Mode Styles */
+    /* Dark Mode Styles */
+    .body.dark-mode {
+        background-color: #212121; /* Dark gray background */
+        color: #ffffff; /* White text */
+    }
+    #modeToggle {
+        background-color: #333333; /* Dark gray background for the mode toggle button */
+        color: #ffffff; /* White text for the mode toggle button */
+        border: 1px solid black;
+    }
+    table.dark-mode {
+        border-color: white; /* White border for table in dark mode */
+    }
+    .dark-mode tr,
+    .dark-mode td {
+        background-color: #383838; /* Dark gray background for table header */
+        color: #ffffff; /* White text for table cells */
+    }
+    .dark-mode .customSearchInput {
+        background-color: #333333; /* Dark gray background for search input */
+        color: #ffffff; /* White text for search input */
+    }
+    .dark-mode th{
+        background-color: #212121;
+    }
+    .dark-mode .modal-content{
+        background-color: #3A3A3A;
+    }
+    
+
 </style>
-
-
-
-<%
-    // Get the list of users
-    UserDao userDao = new UserDao(ConnectionProvider.getConnection());
-    List<User> userList = userDao.getAllUsers();
-
-%>
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body class="body">
-        <h1>Our Contributors</h1>
-
-        <!-- Add an input field for searching -->
-        <input type="text" class="customSearchInput" id="searchInput" placeholder="Search User by Name" onkeyup="search()">
-        <!--        <button onclick="search()">Search</button>-->
-
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>About</th>
-                    <th>Joined on</th>
-                    <th>Avatar</th>
-
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <%                    if (userList != null && !userList.isEmpty()) {
-                        for (User user : userList) {
-                %>
-                <tr>
-                    <td><%= user.getName()%></td>
-<!--                    <td><%= user.getEmail()%></td>-->
-                    <td onclick="copyEmail('<%= user.getEmail()%>')"><%= user.getEmail()%></td>
-
-                    <td> <%= user.getAbout()%> </td>
-                    <td> <%= user.getDateTime()%> </td>
-                    <td>
-                        <!-- Add onclick event to trigger modal -->
-                        <img src="pics/<%= user.getProfile()%>"
-                             class="avatar"
-                             onclick="openModal('pics/<%= user.getProfile()%>')">
-                    </td>
-
-                </tr>
-                <%
-                    }
-                } else {
-                %>
-                <tr>
-                    <td colspan="5">No users found</td>
-                </tr>
-                <% }%>
-            </tbody>
-        </table>
-
-        <!-- The Modal -->
-        <div id="avatarModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <img id="modalImg" style="width:100%">
-            </div>
-        </div>
-
-
-    </body>
-    <!-- JavaScript function to copy email address to clipboard -->
-    <script>
-        function copyEmail(email) {
-            navigator.clipboard.writeText(email)
-                    .then(() => {
-                        console.log('Email copied to clipboard: ' + email);
-                        alert('Email copied to clipboard: ' + email);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy email: ', err);
-                    });
-        }
-
-
-        // Function to open modal with clicked avatar image
-// Function to open modal with clicked avatar image
-        function openModal(imageSrc) {
-            var modal = document.getElementById('avatarModal');
-            var modalImg = document.getElementById('modalImg');
-            modal.style.display = "block";
-            modalImg.src = imageSrc;
-        }
-
-// Function to close modal
-        function closeModal() {
-            var modal = document.getElementById('avatarModal');
-            modal.style.display = "none";
-        }
-
-// Close modal when clicking outside of it
-        window.onclick = function (event) {
-            var modal = document.getElementById('avatarModal');
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-
-    </script>
-    <script>
-        function search() {
-            var input = document.getElementById('searchInput').value.toUpperCase();
-            var table = document.getElementById('tableBody');
-            var rows = table.getElementsByTagName('tr');
-            var found = false;
-
-            // If search input is empty, show all rows and exit the function
-            if (input.trim() === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = '';
-                }
-                return;
-            }
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (var i = 0; i < rows.length; i++) {
-                var name = rows[i].getElementsByTagName('td')[0];
-                if (name) {
-                    var textValue = name.textContent || name.innerText;
-                    if (textValue.toUpperCase().indexOf(input) > -1) {
-                        rows[i].style.display = '';
-                        found = true;
-                    } else {
-                        rows[i].style.display = 'none';
-                    }
-                }
-            }
-
-            // If no results found, show an alert
-            if (!found) {
-                alert('No matching results found.');
-                // Show all rows
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = '';
-                }
-            }
-        }
-    </script>
-</html>

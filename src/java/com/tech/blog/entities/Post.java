@@ -101,4 +101,13 @@ public class Post {
         this.userId = userId;
     }
 
+    public Post(int catId, String pTitle, String pContent, String pCode, String pPic) {
+    this.catId = catId;
+    this.pTitle = pTitle;
+    this.pContent = pContent;
+    this.pCode = pCode;
+    this.pPic = pPic;
+}
+
+    
 }

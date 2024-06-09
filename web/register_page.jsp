@@ -27,13 +27,99 @@
                 border: 2px solid #616161;
                 border-radius: 8px;
             }
+
+            /* Dark mode styles */
+            .light-mode {
+                background-color: #E5E5E5;  /* BG*/
+                color: black;
+            }
+            .dark-mode {
+                background-color: #333333;
+                color: white;
+            }
+            .dark-mode .navbar {
+                background-color: #333333;
+                border-color: #444;
+            }
+            .dark-mode .card {
+                background-color: #333333;
+                color: white;
+            }
+            .dark-mode .banner-background {
+                background-color: #333333;
+                color: white;
+            }
+            .dark-mode .btn {
+                background-color: #333333;
+                color: white;
+            }
+            .dark-mode .form-control{
+                background-color: #333333;
+                color: #ffffff;
+            }
+            .dark-mode #background{
+                background-color: #212121;
+            }
+            /* Dark mode scrollbar styles */
+            .dark-mode body::-webkit-scrollbar-track {
+                background-color: #333;
+                border: 1.5px solid #444;
+            }
+
+            .dark-mode body::-webkit-scrollbar-thumb {
+                background-color: #555;
+                border: 2px solid #333;
+            }
         </style>
     </head>
     <body>
 
-        <%@include file="normal_navbar.jsp" %>
+        <nav class="navbar navbar-expand-lg navbar-dark primary-background">
+            <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <main class="primary-background banner-background" style="padding-bottom: 80px;">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code With Pain <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="	fa fa-check-square-o"></span> Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact US</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login_page.jsp"> <span class="fa fa-user-circle "></span> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <main class="banner-background" id="background" style="padding-bottom: 80px;">
             <div class="container">
                 <div class="col-md-6 offset-md-3">
                     <div class="card">
@@ -56,6 +142,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
                                     <input name="user_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                                    <i onclick="myFunction()" class="fa fa-eye"> </i>
+
                                     <small id="passwordHelp" class="form-text text-muted">Password must be at least 6 characters long and include a combination of uppercase, lowercase, number, and symbol.</small>
                                 </div>
                                 <div class="form-group">
@@ -94,60 +182,109 @@
         <script src="js/myjs.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <script>
-            $(document).ready(function () {
-                console.log("loaded........");
+                                        $(document).ready(function () {
+                                            console.log("loaded........");
 
-                function validatePassword(password) {
-                    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>~`])[A-Za-z\d!@#$%^&*(),.?":{}|<>~`]{6,}$/;
-                    return regex.test(password);
+                                            function validatePassword(password) {
+                                                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>~`])[A-Za-z\d!@#$%^&*(),.?":{}|<>~`]{6,}$/;
+                                                return regex.test(password);
+                                            }
+
+
+                                            $('#reg-form').on('submit', function (event) {
+                                                event.preventDefault();
+
+                                                const password = $('#exampleInputPassword1').val();
+
+                                                if (!validatePassword(password)) {
+                                                    swal("Password must be at least 6 characters long and include a combination of uppercase, lowercase, number, and symbol.");
+                                                    return;
+                                                }
+
+                                                let form = new FormData(this);
+
+                                                $("#submit-btn").hide();
+                                                $("#loader").show();
+
+                                                // Send register servlet
+                                                $.ajax({
+                                                    url: "RegisterServlet",
+                                                    type: 'POST',
+                                                    data: form,
+                                                    success: function (data, textStatus, jqXHR) {
+                                                        console.log(data);
+
+                                                        $("#submit-btn").show();
+                                                        $("#loader").hide();
+
+                                                        if (data.trim() === 'done') {
+                                                            swal("Registered successfully..We are going to redirect to login page\n Please remember your email and password we don't allow to reset it yet")
+                                                                    .then((value) => {
+                                                                        window.location = "login_page.jsp";
+                                                                    });
+                                                        } else {
+                                                            swal(data);
+                                                        }
+                                                    },
+                                                    error: function (jqXHR, textStatus, errorThrown) {
+                                                        $("#submit-btn").show();
+                                                        $("#loader").hide();
+                                                        swal("Something went wrong..try again");
+                                                    },
+                                                    processData: false,
+                                                    contentType: false
+                                                });
+                                            });
+                                        });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modeToggle = document.getElementById('modeToggle');
+                const body = document.body;
+
+                // Load user's preference from localStorage
+                const currentMode = localStorage.getItem('theme') || 'light';
+                body.classList.add(currentMode + '-mode');
+
+                // Update button text
+                modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+                // Function to update colors based on mode
+                function updateColors(mode) {
+                    if (mode === 'dark') {
+                        body.classList.remove('light-mode');
+                        body.classList.add('dark-mode');
+                    } else {
+                        body.classList.remove('dark-mode');
+                        body.classList.add('light-mode');
+                    }
                 }
 
+                // Update colors based on initial mode
+                updateColors(currentMode);
 
-                $('#reg-form').on('submit', function (event) {
-                    event.preventDefault();
-
-                    const password = $('#exampleInputPassword1').val();
-
-                    if (!validatePassword(password)) {
-                        swal("Password must be at least 6 characters long and include a combination of uppercase, lowercase, number, and symbol.");
-                        return;
-                    }
-
-                    let form = new FormData(this);
-
-                    $("#submit-btn").hide();
-                    $("#loader").show();
-
-                    // Send register servlet
-                    $.ajax({
-                        url: "RegisterServlet",
-                        type: 'POST',
-                        data: form,
-                        success: function (data, textStatus, jqXHR) {
-                            console.log(data);
-
-                            $("#submit-btn").show();
-                            $("#loader").hide();
-
-                            if (data.trim() === 'done') {
-                                swal("Registered successfully..We are going to redirect to login page\n Please remember your email and password we don't allow to reset it yet")
-                                        .then((value) => {
-                                            window.location = "login_page.jsp";
-                                        });
-                            } else {
-                                swal(data);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $("#submit-btn").show();
-                            $("#loader").hide();
-                            swal("Something went wrong..try again");
-                        },
-                        processData: false,
-                        contentType: false
-                    });
+                modeToggle.addEventListener('click', function () {
+                    const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
+                    localStorage.setItem('theme', newMode);
+                    updateColors(newMode);
+                    modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
                 });
             });
+
+
+//show password
+            function myFunction() {
+                var x = document.getElementById("exampleInputPassword1");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+
+            
+
         </script>
+
     </body>
 </html>

@@ -60,10 +60,12 @@ public class EditServlet extends HttpServlet {
                 user.setAbout(userAbout);
             }
 
+            boolean isImageUpdated = false;
             if (part != null) {
                 String imageName = part.getSubmittedFileName();
                 if (imageName != null && !imageName.isEmpty()) {
                     user.setProfile(imageName);
+                    isImageUpdated = true;
                 }
             }
 
@@ -71,19 +73,24 @@ public class EditServlet extends HttpServlet {
             boolean ans = userDao.updateUser(user);
 
             if (ans) {
-                String path = request.getRealPath("/") + "pics" + File.separator + user.getProfile();
-                String oldFile = user.getProfile();
+                if (isImageUpdated) {
+                    String path = request.getRealPath("/") + "pics" + File.separator + user.getProfile();
+                    String oldFile = user.getProfile();
 
-                if (!oldFile.equals("default.png")) {
-                    Helper.deleteFile(request.getRealPath("/") + "pics" + File.separator + oldFile);
-                }
+                    if (!oldFile.equals("default.png")) {
+                        Helper.deleteFile(request.getRealPath("/") + "pics" + File.separator + oldFile);
+                    }
 
-                if (Helper.saveFile(part.getInputStream(), path)) {
-                    out.println("Profile updated...");
-                    Message msg = new Message("Profile details updated...", "success", "alert-success");
-                    s.setAttribute("msg", msg);
+                    if (Helper.saveFile(part.getInputStream(), path)) {
+                        out.println("Profile updated...");
+                        Message msg = new Message("Profile details updated...", "success", "alert-success");
+                        s.setAttribute("msg", msg);
+                    } else {
+                        Message msg = new Message("Something went wrong..", "error", "alert-danger");
+                        s.setAttribute("msg", msg);
+                    }
                 } else {
-                    Message msg = new Message("Something went wrong..", "error", "alert-danger");
+                    Message msg = new Message("Profile details updated...", "success", "alert-success");
                     s.setAttribute("msg", msg);
                 }
             } else {

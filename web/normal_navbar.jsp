@@ -1,3 +1,7 @@
+<!--NOT USING THIS NOW CAN BE USED LATTER FOR CODE COMPRESSION-->
+
+
+
 <!--cdn for alert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
@@ -70,8 +74,10 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
-
             </li>
+<!--            <li class="nav-item">
+                <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
+            </li>-->
 
         </ul>
 

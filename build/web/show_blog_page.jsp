@@ -156,6 +156,11 @@
             transform: translateY(-50%);
             right: 10px;
         }
+        .img{
+            object-fit: contain;
+            height: 25%;
+            width: 100%
+        }
 
     </style>
 
@@ -244,7 +249,8 @@
                     </div>
 
                     <div class="card-body">
-                        <img class="card-img-top my-2" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">
+<!--                        <img class="card-img-top my-2" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">-->
+                        <img class="img" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">
                         <a href="blog_pics/<%= p.getpPic()%>" download="image.jpg" class="download-button" title="Download Image" id="download-image" >
                             <i class="fa fa-download" id="download-Icon">Download</i>
                         </a>
