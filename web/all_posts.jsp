@@ -1,3 +1,10 @@
+<%-- 
+    Document   : all_posts
+    Created on : 13-Feb-2024, 10:59:04?am
+    Author     : Rohit Khanra
+--%>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page import="com.tech.blog.dao.LikeDao"%>

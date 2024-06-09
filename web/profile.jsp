@@ -606,7 +606,7 @@
                 console.log("Checking if the picture name exists...");
 
                 $.ajax({
-                    url: "AddPostServlet",  //AddPostServlet
+                    url: "AddPostServlet",
                     type: 'POST',
                     data: { picName: picName },
                     success: function (data) {

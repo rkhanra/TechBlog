@@ -35,6 +35,16 @@ public class AddPostServlet extends HttpServlet {
             String fileName = part.getSubmittedFileName();
             if (fileName == null || fileName.isEmpty()) {
                 fileName = "default.jpg";
+            } else {
+                // Check if a picture with the same base name exists
+                String picBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
+                File dir = new File(request.getRealPath("/") + "blog_pics");
+                File[] matchingFiles = dir.listFiles((d, name) -> name.startsWith(picBaseName));
+
+                if (matchingFiles != null && matchingFiles.length > 0) {
+                    // Rename the file if a match is found
+                    fileName = generateUniqueName(fileName);
+                }
             }
 
             Post p = new Post(pTitle, pContent, pCode, fileName, null, cid, user.getId());
@@ -57,6 +67,13 @@ public class AddPostServlet extends HttpServlet {
             e.printStackTrace();
             response.getWriter().println("error: an exception occurred");
         }
+    }
+
+    private String generateUniqueName(String fileName) {
+        long timestamp = System.currentTimeMillis();
+        String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+        String fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+        return fileNameWithoutExt + "_" + timestamp + fileExtension;
     }
 
     @Override
