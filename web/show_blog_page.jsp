@@ -559,7 +559,7 @@
                             </div>
 
                             <div class="form-group">
-                                <textarea name="pContent" id="dark" class="form-control" style="height: 200px;" placeholder="Enter your content"></textarea>
+                                <textarea name="pContent" id="dark" class="form-control" style="height: 200px;" placeholder="Enter your content. Kindly use <br> for new line"></textarea>
                             </div>
                             <div class="form-group">
                                 <textarea name="pCode" id="dark" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>

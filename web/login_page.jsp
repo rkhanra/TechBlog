@@ -23,7 +23,7 @@
                 color: black;
             }
             .dark-mode {
-                background-color: #333333;
+                background-color: #212121;
                 color: white;
             }
             .dark-mode .navbar {

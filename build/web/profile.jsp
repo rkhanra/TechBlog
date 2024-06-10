@@ -493,7 +493,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea name="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content" required= ></textarea>
+                                    <textarea name="pContent" id="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content | Kinedly use <br> for new line and &amp;nbsp; for indents" required ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <textarea name="pCode" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
@@ -507,6 +507,7 @@
                                 <!-- Divider and Warning Text Box -->
                                 <hr class="my-4">
                                 <div class="alert alert-warning" id="warning" role="alert">
+                                    Kinedly use  &lt;br&gt; for new line and &amp;nbsp; for indents <br>
                                     Warning: Make sure that your post  dosen't contains any misleading topic. Once you submit the post, you cannot delete or modify the content later. 
                                 </div>
 
@@ -636,59 +637,68 @@
 
             <!--now add post js-->
             <script>
-                $(document).ready(function (e) {
-                    $("#add-post-form").on("submit", function (event) {
-                        // Prevent the default form submission
-                        event.preventDefault();
+    $(document).ready(function (e) {
+        $("#add-post-form").on("submit", function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
 
-                        // Validate form data
-                        var category = $("select[name='cid']").val();
-                        var title = $("input[name='pTitle']").val();
-                        var content = $("textarea[name='pContent']").val();
-                        var picInput = $("input[name='pic']");
-                        var picFile = picInput[0].files[0];
+            // Get the pContent textarea and modify its content
+            var pContent = document.getElementById('pContent');
+            var content = pContent.value;
+            content = content.replace(/\n/g, '<br>');
+            content = content.replace(/^ +/gm, function(match) {
+                return match.replace(/ /g, '&nbsp;');
+            });
+            pContent.value = content;
 
-                        if (category === null || category === '' || title === '' || content === '') {
-                            swal("Error", "Please fill in all required fields", "error");
-                            return;
+            // Validate form data
+            var category = $("select[name='cid']").val();
+            var title = $("input[name='pTitle']").val();
+            var content = $("textarea[name='pContent']").val();
+            var picInput = $("input[name='pic']");
+            var picFile = picInput[0].files[0];
+
+            if (category === null || category === '' || title === '' || content === '') {
+                swal("Error", "Please fill in all required fields", "error");
+                return;
+            }
+
+            var form = new FormData(this);
+
+            if (picFile) {
+                // Picture selected, check if a file with the same name already exists
+                var picName = picFile.name;
+
+                console.log("Checking if the picture name exists...");
+
+                $.ajax({
+                    url: "AddPostServlet",
+                    type: 'POST',
+                    data: { picName: picName },
+                    success: function (data) {
+                        console.log("CheckPictureNameServlet response:", data);
+                        if (data.trim() === 'exists') {
+                            // Rename the file
+                            var newPicName = generateUniqueName(picName);
+                            form.delete("pic");
+                            form.append("pic", renameFile(picFile, newPicName));
+
+                            console.log("File renamed to:", newPicName);
                         }
-
-                        var form = new FormData(this);
-
-                        if (picFile) {
-                            // Picture selected, check if a file with the same name already exists
-                            var picName = picFile.name;
-
-                            console.log("Checking if the picture name exists...");
-
-                            $.ajax({
-                                url: "AddPostServlet",
-                                type: 'POST',
-                                data: {picName: picName},
-                                success: function (data) {
-                                    console.log("CheckPictureNameServlet response:", data);
-                                    if (data.trim() === 'exists') {
-                                        // Rename the file
-                                        var newPicName = generateUniqueName(picName);
-                                        form.delete("pic");
-                                        form.append("pic", renameFile(picFile, newPicName));
-
-                                        console.log("File renamed to:", newPicName);
-                                    }
-                                    // Proceed with the form submission
-                                    submitForm(form);
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-                                    console.error("Error checking picture name:", textStatus, errorThrown);
-                                    swal("Error!!", "Something went wrong, try again...", "error");
-                                }
-                            });
-                        } else {
-                            // No picture selected, proceed with form submission
-                            submitForm(form);
-                        }
-                    });
+                        // Proceed with the form submission
+                        submitForm(form);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Error checking picture name:", textStatus, errorThrown);
+                        swal("Error!!", "Something went wrong, try again...", "error");
+                    }
                 });
+            } else {
+                // No picture selected, proceed with form submission
+                submitForm(form);
+            }
+        });
+    });
 
                 function generateUniqueName(fileName) {
                     var timestamp = new Date().getTime();
