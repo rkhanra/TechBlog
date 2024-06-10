@@ -35,7 +35,7 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"
     nonce="TyEv0YD8"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><%= p.getpTitle()%> || TechBlog by Learn Code with Pain </title>
+    <title><%= p.getpTitle()%> || by <%= user.getName()%> </title>
 
     <script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
 
@@ -161,7 +161,46 @@
             height: 25%;
             width: 100%
         }
+/*        LIGHT AND DARK MODE*/
+        .dark-mode .card {
+            background-color: #333;
+            color: #fff;
+        }
 
+        .card.dark-mode .card-title,
+        .card.dark-mode .card-text {
+            color: #fff;
+        }
+        .dark-mode #codeContent{
+            color: white;
+        }
+        .modal-content.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .dark-mode #dark{
+            background-color: #333;
+            color: #fff;
+        }
+        .dark-mode input[type=file]::file-selector-button{
+            background-color: #333;
+            color: #fff;
+        }
+        body.dark-mode {
+            background-color: #212121;
+            color: #fff;
+            background:url(img/dbg.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .dark-mode .btn {
+            background-color: #333;
+            color: white;
+            border: 1px solid #0f77ff;
+        }
+        .dark-mode #noDataMessage{
+            color: white;
+        }
     </style>
 
 
@@ -187,7 +226,7 @@
                     <a class="nav-link" href="profile.jsp"> <span class="	fa fa-bell-o"></span> Code with Pain <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item dropdown">
+<!--                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="	fa fa-check-square-o"></span> Categories
                     </a>
@@ -196,7 +235,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
                     </div>
-                </li>
+                </li>-->
 
                 <li class="nav-item">
                     <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact</a>
@@ -211,6 +250,9 @@
             </ul>
 
             <ul class="navbar-nav mr-right">
+                <li class="nav-itemk"> 
+                    <a id="mode-toggle-btn" class="nav-link">Toggle Theme</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal">  <img src="pics/<%= user.getProfile()%>" class="img-fluid" style="border-radius:50%;width: 30px; height: 30px; object-fit: cover;  " >&nbsp; <%= user.getName()%> </a>
                 </li>
@@ -418,15 +460,15 @@
                                         </tr>
                                         <tr>
                                             <td>Email :</td>
-                                            <td> <input type="email" class="form-control" name="user_email" value="<%= user.getEmail()%>" > </td>
+                                            <td> <input type="email" id="dark" class="form-control" name="user_email" value="<%= user.getEmail()%>" > </td>
                                         </tr>
                                         <tr>
                                             <td>Name :</td>
-                                            <td> <input type="text" class="form-control" name="user_name" value="<%= user.getName()%>" > </td>
+                                            <td> <input type="text" id="dark" class="form-control" name="user_name" value="<%= user.getName()%>" > </td>
                                         </tr>
                                         <tr>
                                             <td>Password :</td>
-                                            <td> <input type="password" class="form-control" name="user_password" value="<%= user.getPassword()%>" > </td>
+                                            <td> <input type="password" id="dark" class="form-control" name="user_password" value="<%= user.getPassword()%>" > </td>
                                         </tr>
                                         <tr>
                                             <td>Gender :</td>
@@ -435,7 +477,7 @@
                                         <tr>
                                             <td>About  :</td>
                                             <td>
-                                                <textarea rows="3" class="form-control" name="user_about" ><%= user.getAbout()%>
+                                                <textarea rows="3" class="form-control" id="dark" name="user_about" ><%= user.getAbout()%>
                                                 </textarea>
 
                                             </td>
@@ -443,7 +485,7 @@
                                         <tr>
                                             <td>New Profile:</td>
                                             <td>
-                                                <input type="file" name="image" class="form-control" >
+                                                <input type="file" id="dark" name="image" class="form-control" >
                                             </td>
                                         </tr>
 
@@ -489,7 +531,7 @@
                         <form id="add-post-form" action="AddPostServlet" method="post">
 
                             <div class="form-group">
-                                <select class="form-control" name="cid">
+                                <select class="form-control" id="dark" name="cid">
                                     <option selected disabled>---Select Category---</option>
 
                                     <%
@@ -506,14 +548,14 @@
                             </div>
 
                             <div class="form-group">
-                                <input name="pTitle" type="text" placeholder="Enter post Title" class="form-control"/>
+                                <input name="pTitle" id="dark" type="text" placeholder="Enter post Title" class="form-control"/>
                             </div>
 
                             <div class="form-group">
-                                <textarea name="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content"></textarea>
+                                <textarea name="pContent" id="dark" class="form-control" style="height: 200px;" placeholder="Enter your content"></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea name="pCode" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
+                                <textarea name="pCode" id="dark" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Select your pic..</label>
@@ -733,6 +775,58 @@
             }
         });
     </script>
+<!--    light and dark mode-->
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const body = document.body;
+        const navbar = document.querySelector('.navbar');
+        const listGroupItems = document.querySelectorAll('.list-group-item');
+        const modalContent = document.querySelectorAll('.modal-content');
+        const formControls = document.querySelectorAll('.form-control');
+        const btnOutlinePrimary = document.querySelectorAll('.btn-outline-primary');
+        const modeToggleBtn = document.getElementById('mode-toggle-btn'); // Get the mode toggle button
+
+        // Apply dark mode if it was previously enabled
+        if (localStorage.getItem('theme') === 'dark') {
+            enableDarkMode();
+        } else {
+            disableDarkMode(); // Ensures the correct mode is applied if the value is 'light'
+        }
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            navbar.classList.add('dark-mode');
+            listGroupItems.forEach(item => item.classList.add('dark-mode'));
+            modalContent.forEach(item => item.classList.add('dark-mode'));
+            formControls.forEach(item => item.classList.add('dark-mode'));
+            btnOutlinePrimary.forEach(item => item.classList.add('dark-mode'));
+            modeToggleBtn.innerText = 'Light Mode'; // Change button text to Light Mode
+
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            navbar.classList.remove('dark-mode');
+            listGroupItems.forEach(item => item.classList.remove('dark-mode'));
+            modalContent.forEach(item => item.classList.remove('dark-mode'));
+            formControls.forEach(item => item.classList.remove('dark-mode'));
+            btnOutlinePrimary.forEach(item => item.classList.remove('dark-mode'));
+            modeToggleBtn.innerText = 'Dark Mode'; // Change button text to Dark Mode
+
+            localStorage.setItem('theme', 'light');
+        }
+
+        document.getElementById('mode-toggle-btn').addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+    });
+</script>
+
 
 </body>
 </html>

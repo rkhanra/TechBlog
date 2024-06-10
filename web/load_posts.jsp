@@ -21,6 +21,19 @@
     ::placeholder {
         color: #99; /* Adjust placeholder color */
     }
+    .dark-mode .customSearchInput{
+        background-color: #333333;
+        color:#ffffff;
+    }
+    .dark-mode .card {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .card.dark-mode .card-title,
+    .card.dark-mode .card-text {
+        color: #fff;
+    }
 
 </style>
 
@@ -151,7 +164,7 @@
                 cards[i].style.display = ''; // Show all cards
             }
         }
-    }           
+    }
 
     // Back to top button
     window.addEventListener('scroll', function () {

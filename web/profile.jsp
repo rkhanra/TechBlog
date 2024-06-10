@@ -89,8 +89,47 @@
                 backdrop-filter: blur(5px);
                 background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
             }
-        </style>
-    </head>
+
+            /*            LIGHT AND DARK MODE*/
+            body.dark-mode {
+                background-color: #212121;
+                color: #fff;
+                background:url(img/dbg.jpg);
+                background-size: cover;
+                background-attachment: fixed;
+            }
+            .navbar.dark-mode {
+                background-color: #333;
+            }
+            .list-group-item.dark-mode {
+                background-color: #333;
+                color: #fff;
+            }
+            .modal-content.dark-mode {
+                background-color: #333;
+                color: #fff;
+            }
+            .form-control.dark-mode,
+            .btn-outline-primary.dark-mode {
+                background-color: #333;
+                color: #fff;
+                border-color: #666;
+            }
+            .dark-mode input[type=file]::file-selector-button{
+                background-color: #333;
+                color: #fff;
+            }
+            .dark-mode .btn {
+                background-color: #333;
+                color: white;
+                border: 1px solid #0f77ff;
+            }
+            .dark-mode #deleteAccount{
+                background-color: #333;
+                border: 1px solid red;
+            }
+            /* Add any other elements you want to style in dark mode */
+        </style></head>
     <body>
         <!--navbar--> 
 
@@ -103,10 +142,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp"> <span class="fa fa-bell-o"></span> Code With Pain <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.jsp"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
                     </li>
 
-                    <li class="nav-item dropdown">
+<!--                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="	fa fa-check-square-o"></span> Categories
                         </a>
@@ -115,7 +154,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
                         </div>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="contact.jsp   "> <span class="	fa fa-address-card-o"></span> Contact</a>
                     </li>
@@ -132,6 +171,10 @@
                 </ul>
 
                 <ul class="navbar-nav mr-right">
+
+                    <li class="nav-item"> 
+                        <a id="mode-toggle-btn" class="nav-link">Toggle Theme </a>
+                    </li>
 
                     <li class="nav-item">
 
@@ -380,7 +423,7 @@
                         <div class="modal-footer">
                             <div class="row w-100">
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-danger d-flex flex-row" onclick="deleteaccount();">delete account</button>
+                                    <button type="button" id="deleteAccount" class="btn btn-danger d-flex flex-row" onclick="deleteaccount();">delete account</button>
                                 </div>
                                 <div class="col-auto ml-auto">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -579,99 +622,99 @@
 
 
             <!--now add post js-->
-<script>
-    $(document).ready(function (e) {
-        $("#add-post-form").on("submit", function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
+            <script>
+                $(document).ready(function (e) {
+                    $("#add-post-form").on("submit", function (event) {
+                        // Prevent the default form submission
+                        event.preventDefault();
 
-            // Validate form data
-            var category = $("select[name='cid']").val();
-            var title = $("input[name='pTitle']").val();
-            var content = $("textarea[name='pContent']").val();
-            var picInput = $("input[name='pic']");
-            var picFile = picInput[0].files[0];
+                        // Validate form data
+                        var category = $("select[name='cid']").val();
+                        var title = $("input[name='pTitle']").val();
+                        var content = $("textarea[name='pContent']").val();
+                        var picInput = $("input[name='pic']");
+                        var picFile = picInput[0].files[0];
 
-            if (category === null || category === '' || title === '' || content === '') {
-                swal("Error", "Please fill in all required fields", "error");
-                return;
-            }
-
-            var form = new FormData(this);
-
-            if (picFile) {
-                // Picture selected, check if a file with the same name already exists
-                var picName = picFile.name;
-
-                console.log("Checking if the picture name exists...");
-
-                $.ajax({
-                    url: "AddPostServlet",
-                    type: 'POST',
-                    data: { picName: picName },
-                    success: function (data) {
-                        console.log("CheckPictureNameServlet response:", data);
-                        if (data.trim() === 'exists') {
-                            // Rename the file
-                            var newPicName = generateUniqueName(picName);
-                            form.delete("pic");
-                            form.append("pic", renameFile(picFile, newPicName));
-
-                            console.log("File renamed to:", newPicName);
+                        if (category === null || category === '' || title === '' || content === '') {
+                            swal("Error", "Please fill in all required fields", "error");
+                            return;
                         }
-                        // Proceed with the form submission
-                        submitForm(form);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error("Error checking picture name:", textStatus, errorThrown);
-                        swal("Error!!", "Something went wrong, try again...", "error");
-                    }
+
+                        var form = new FormData(this);
+
+                        if (picFile) {
+                            // Picture selected, check if a file with the same name already exists
+                            var picName = picFile.name;
+
+                            console.log("Checking if the picture name exists...");
+
+                            $.ajax({
+                                url: "AddPostServlet",
+                                type: 'POST',
+                                data: {picName: picName},
+                                success: function (data) {
+                                    console.log("CheckPictureNameServlet response:", data);
+                                    if (data.trim() === 'exists') {
+                                        // Rename the file
+                                        var newPicName = generateUniqueName(picName);
+                                        form.delete("pic");
+                                        form.append("pic", renameFile(picFile, newPicName));
+
+                                        console.log("File renamed to:", newPicName);
+                                    }
+                                    // Proceed with the form submission
+                                    submitForm(form);
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.error("Error checking picture name:", textStatus, errorThrown);
+                                    swal("Error!!", "Something went wrong, try again...", "error");
+                                }
+                            });
+                        } else {
+                            // No picture selected, proceed with form submission
+                            submitForm(form);
+                        }
+                    });
                 });
-            } else {
-                // No picture selected, proceed with form submission
-                submitForm(form);
-            }
-        });
-    });
 
-    function generateUniqueName(fileName) {
-        var timestamp = new Date().getTime();
-        var fileExtension = fileName.split('.').pop();
-        var fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
-        return fileNameWithoutExt + "_" + timestamp + "." + fileExtension;
-    }
-
-    function renameFile(file, newFileName) {
-        var blob = file.slice(0, file.size, file.type);
-        return new File([blob], newFileName, { type: file.type });
-    }
-
-    function submitForm(form) {
-        console.log("Submitting the form...");
-        $.ajax({
-            url: "AddPostServlet",
-            type: 'POST',
-            data: form,
-            success: function (data, textStatus, jqXHR) {
-                console.log("AddPostServlet response:", data);
-                if (data.trim() === 'done') {
-                    swal("Good job!", "Saved successfully", "success")
-                        .then(() => {
-                            location.reload(true);
-                        });
-                } else {
-                    swal("Error!!", "Something went wrong, try again...", "error");
+                function generateUniqueName(fileName) {
+                    var timestamp = new Date().getTime();
+                    var fileExtension = fileName.split('.').pop();
+                    var fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+                    return fileNameWithoutExt + "_" + timestamp + "." + fileExtension;
                 }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error submitting form:", textStatus, errorThrown);
-                swal("Error!!", "Something went wrong, try again...", "error");
-            },
-            processData: false,
-            contentType: false
-        });
-    }
-</script>
+
+                function renameFile(file, newFileName) {
+                    var blob = file.slice(0, file.size, file.type);
+                    return new File([blob], newFileName, {type: file.type});
+                }
+
+                function submitForm(form) {
+                    console.log("Submitting the form...");
+                    $.ajax({
+                        url: "AddPostServlet",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log("AddPostServlet response:", data);
+                            if (data.trim() === 'done') {
+                                swal("Good job!", "Saved successfully", "success")
+                                        .then(() => {
+                                            location.reload(true);
+                                        });
+                            } else {
+                                swal("Error!!", "Something went wrong, try again...", "error");
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error("Error submitting form:", textStatus, errorThrown);
+                            swal("Error!!", "Something went wrong, try again...", "error");
+                        },
+                        processData: false,
+                        contentType: false
+                    });
+                }
+            </script>
 
 
 
@@ -821,3 +864,54 @@
     </script>
 
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const body = document.body;
+        const navbar = document.querySelector('.navbar');
+        const listGroupItems = document.querySelectorAll('.list-group-item');
+        const modalContent = document.querySelectorAll('.modal-content');
+        const formControls = document.querySelectorAll('.form-control');
+        const btnOutlinePrimary = document.querySelectorAll('.btn-outline-primary');
+        const modeToggleBtn = document.getElementById('mode-toggle-btn'); // Get the mode toggle button
+
+        // Apply dark mode if it was previously enabled
+        if (localStorage.getItem('theme') === 'dark') {
+            enableDarkMode();
+        } else {
+            disableDarkMode(); // Ensures the correct mode is applied if the value is 'light'
+        }
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            navbar.classList.add('dark-mode');
+            listGroupItems.forEach(item => item.classList.add('dark-mode'));
+            modalContent.forEach(item => item.classList.add('dark-mode'));
+            formControls.forEach(item => item.classList.add('dark-mode'));
+            btnOutlinePrimary.forEach(item => item.classList.add('dark-mode'));
+            modeToggleBtn.innerText = 'Light Mode'; // Change button text to Light Mode
+
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            navbar.classList.remove('dark-mode');
+            listGroupItems.forEach(item => item.classList.remove('dark-mode'));
+            modalContent.forEach(item => item.classList.remove('dark-mode'));
+            formControls.forEach(item => item.classList.remove('dark-mode'));
+            btnOutlinePrimary.forEach(item => item.classList.remove('dark-mode'));
+            modeToggleBtn.innerText = 'Dark Mode'; // Change button text to Dark Mode
+
+            localStorage.setItem('theme', 'light');
+        }
+
+        document.getElementById('mode-toggle-btn').addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+    });
+</script>

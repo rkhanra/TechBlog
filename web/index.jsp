@@ -96,6 +96,10 @@
             .dark-mode #preview{
                 background-color: #212121;
             }
+            .dark-mode #ddmenu{
+                background-color: #333333;
+                color: white;
+            }
         </style>
     </head>
     <body class="back light-mode">
@@ -127,17 +131,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code With Pain <span class="sr-only">(current)</span></a>
+                        <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="	fa fa-check-square-o"></span> Categories
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                        <div class="dropdown-menu" id="ddmenu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="programming_languages.jsp">Programming Language</a>
+                            <div class="dropdown-divider" id="ddmenu"></div>
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
                         </div>
                     </li>
 
@@ -155,9 +159,15 @@
                         <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
 
                     </li>
+
+                </ul>
+
+                <ul class="navbar-nav mr-right">
+
                     <li class="nav-item">
                         <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
                     </li>
+
                 </ul>
 
             </div>
