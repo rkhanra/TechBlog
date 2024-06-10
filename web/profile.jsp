@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title><%=user.getName()%>'s profile</title>
 
         <!--css-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -128,6 +128,10 @@
                 background-color: #333;
                 border: 1px solid red;
             }
+            .dark-mode #warning{
+                background-color: #333333;
+                color: #F0B509;
+            }
             /* Add any other elements you want to style in dark mode */
         </style></head>
     <body>
@@ -145,16 +149,16 @@
                         <a class="nav-link" href="index.jsp"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
                     </li>
 
-<!--                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="	fa fa-check-square-o"></span> Categories
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
-                        </div>
-                    </li>-->
+                    <!--                    <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="	fa fa-check-square-o"></span> Categories
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                                            </div>
+                                        </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="contact.jsp   "> <span class="	fa fa-address-card-o"></span> Contact</a>
                     </li>
@@ -360,8 +364,8 @@
 
                                 </div>
 
-                                <!-- Add this link wherever you want in your HTML -->
-                                <a href="myposts.jsp?userid=<%= user.getId()%>&userName=<%=user.getName()%>" class="btn btn-outline-primary">My Posts</a>
+                                <!--                                 Add this link wherever you want in your HTML 
+                                                                <a href="myposts.jsp?userid=<%= user.getId()%>&userName=<%=user.getName()%>" class="btn btn-outline-primary">My Posts</a>-->
 
 
                                 <!--profile edit-->
@@ -426,6 +430,8 @@
                                     <button type="button" id="deleteAccount" class="btn btn-danger d-flex flex-row" onclick="deleteaccount();">delete account</button>
                                 </div>
                                 <div class="col-auto ml-auto">
+                                    <!-- Add this link wherever you want in your HTML -->
+                                    <a href="myposts.jsp?userid=<%= user.getId()%>&userName=<%=user.getName()%>" class="btn btn-outline-primary">My Posts</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button id="edit-profile-button" type="button" class="btn btn-primary">EDIT</button>
                                 </div>
@@ -436,47 +442,7 @@
                 </div>
             </div>
 
-            <script>
-                function deleteaccount() {
-                    swal({
-                        title: "Are you sure?",
-                        text: "Once deleted, you will not be able to recover this account!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    $.ajax({
-                                        url: "DeleteAccountServlet",
-                                        type: "POST",
-                                        success: function (response) {
-                                            if (response.trim() === "success") {
-                                                swal("Poof! Your account has been deleted!", {
-                                                    icon: "success",
-                                                }).then(() => {
-                                                    window.location = "index.jsp";
-                                                });
-                                            } else {
-                                                swal("Error! Something went wrong. Please try again.", {
-                                                    icon: "error",
-                                                });
-                                            }
-                                        },
-                                        error: function () {
-                                            swal("Error! Something went wrong. Please try again.", {
-                                                icon: "error",
-                                            });
-                                        }
-                                    });
-                                } else {
-                                    swal("Your account is safe!");
-                                }
-                            });
-                }
-            </script>
-
-
+            
             <!--end of profile modal-->
 
             <!--add post modal-->
@@ -532,7 +498,7 @@
 
                                 <!-- Divider and Warning Text Box -->
                                 <hr class="my-4">
-                                <div class="alert alert-warning" role="alert">
+                                <div class="alert alert-warning" id="warning" role="alert">
                                     Warning: Make sure that your post  dosen't contains any misleading topic. Once you submit the post, you cannot delete or modify the content later. 
                                 </div>
 
@@ -570,6 +536,45 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
             <script src="js/myjs.js" type="text/javascript"></script>
 
+            <script>
+                function deleteaccount() {
+                    swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this account!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    $.ajax({
+                                        url: "DeleteAccountServlet",
+                                        type: "POST",
+                                        success: function (response) {
+                                            if (response.trim() === "success") {
+                                                swal("Poof! Your account has been deleted!", {
+                                                    icon: "success",
+                                                }).then(() => {
+                                                    window.location = "index.jsp";
+                                                });
+                                            } else {
+                                                swal("Error! Something went wrong. Please try again.", {
+                                                    icon: "error",
+                                                });
+                                            }
+                                        },
+                                        error: function () {
+                                            swal("Error! Something went wrong. Please try again.", {
+                                                icon: "error",
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    swal("Your account is safe!");
+                                }
+                            });
+                }
+            </script>
 
             <script>
                 $(document).ready(function () {

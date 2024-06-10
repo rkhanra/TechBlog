@@ -161,7 +161,7 @@
             height: 25%;
             width: 100%
         }
-/*        LIGHT AND DARK MODE*/
+        /*        LIGHT AND DARK MODE*/
         .dark-mode .card {
             background-color: #333;
             color: #fff;
@@ -178,9 +178,13 @@
             background-color: #333;
             color: #fff;
         }
-        .dark-mode #dark{
+        .dark-mode #dark {
             background-color: #333;
             color: #fff;
+        }
+        .dark-mode #darkpass{
+            background-color: #333333;
+            color: #ffffff;
         }
         .dark-mode input[type=file]::file-selector-button{
             background-color: #333;
@@ -222,27 +226,30 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <!--                <li class="nav-item active">
+                                    <a class="nav-link" href="profile.jsp"> <span class="	fa fa-bell-o"></span> Code with Pain <span class="sr-only">(current)</span></a>
+                                </li>-->
+
+                <!--                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="	fa fa-check-square-o"></span> Categories
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                                    </div>
+                                </li>-->
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="profile.jsp"> <span class="	fa fa-bell-o"></span> Code with Pain <span class="sr-only">(current)</span></a>
-                </li>
-
-<!--                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="	fa fa-check-square-o"></span> Categories
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
-                    </div>
-                </li>-->
-
-                <li class="nav-item">
                     <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal" > <span class="	fa fa-asterisk"></span> Do Post</a>
+                <!--                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal" > <span class="	fa fa-asterisk"></span> Do Post</a>
+                                </li>-->
+                <li class="nav-itemk"> 
+                    <a id="mode-toggle-btn" class="nav-link">Toggle Theme</a>
                 </li>
 
 
@@ -250,9 +257,7 @@
             </ul>
 
             <ul class="navbar-nav mr-right">
-                <li class="nav-itemk"> 
-                    <a id="mode-toggle-btn" class="nav-link">Toggle Theme</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal">  <img src="pics/<%= user.getProfile()%>" class="img-fluid" style="border-radius:50%;width: 30px; height: 30px; object-fit: cover;  " >&nbsp; <%= user.getName()%> </a>
                 </li>
@@ -468,7 +473,8 @@
                                         </tr>
                                         <tr>
                                             <td>Password :</td>
-                                            <td> <input type="password" id="dark" class="form-control" name="user_password" value="<%= user.getPassword()%>" > </td>
+                                            <td> <input type="password" id="darkpass" class="form-control" name="user_password" value="<%= user.getPassword()%>" > </td>
+                                            <td> <i onclick="passwordReveal()" class="fa fa-eye"> </i> </td> 
                                         </tr>
                                         <tr>
                                             <td>Gender :</td>
@@ -596,32 +602,32 @@
 
 
 
-                            $(document).ready(function () {
-                                let editStatus = false;
+                                                $(document).ready(function () {
+                                                    let editStatus = false;
 
-                                $('#edit-profile-button').click(function ()
-                                {
+                                                    $('#edit-profile-button').click(function ()
+                                                    {
 
-                                    if (editStatus == false)
-                                    {
-                                        $("#profile-details").hide()
+                                                        if (editStatus == false)
+                                                        {
+                                                            $("#profile-details").hide()
 
-                                        $("#profile-edit").show();
-                                        editStatus = true;
-                                        $(this).text("Back")
-                                    } else
-                                    {
-                                        $("#profile-details").show()
+                                                            $("#profile-edit").show();
+                                                            editStatus = true;
+                                                            $(this).text("Back")
+                                                        } else
+                                                        {
+                                                            $("#profile-details").show()
 
-                                        $("#profile-edit").hide();
-                                        editStatus = false;
-                                        $(this).text("Edit")
+                                                            $("#profile-edit").hide();
+                                                            editStatus = false;
+                                                            $(this).text("Edit")
 
-                                    }
+                                                        }
 
 
-                                })
-                            });
+                                                    })
+                                                });
 
     </script>
     <!--now add post js-->
@@ -775,57 +781,69 @@
             }
         });
     </script>
-<!--    light and dark mode-->
+    <!--    light and dark mode-->
     <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const body = document.body;
-        const navbar = document.querySelector('.navbar');
-        const listGroupItems = document.querySelectorAll('.list-group-item');
-        const modalContent = document.querySelectorAll('.modal-content');
-        const formControls = document.querySelectorAll('.form-control');
-        const btnOutlinePrimary = document.querySelectorAll('.btn-outline-primary');
-        const modeToggleBtn = document.getElementById('mode-toggle-btn'); // Get the mode toggle button
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const body = document.body;
+            const navbar = document.querySelector('.navbar');
+            const listGroupItems = document.querySelectorAll('.list-group-item');
+            const modalContent = document.querySelectorAll('.modal-content');
+            const formControls = document.querySelectorAll('.form-control');
+            const btnOutlinePrimary = document.querySelectorAll('.btn-outline-primary');
+            const modeToggleBtn = document.getElementById('mode-toggle-btn'); // Get the mode toggle button
 
-        // Apply dark mode if it was previously enabled
-        if (localStorage.getItem('theme') === 'dark') {
-            enableDarkMode();
-        } else {
-            disableDarkMode(); // Ensures the correct mode is applied if the value is 'light'
-        }
-
-        function enableDarkMode() {
-            body.classList.add('dark-mode');
-            navbar.classList.add('dark-mode');
-            listGroupItems.forEach(item => item.classList.add('dark-mode'));
-            modalContent.forEach(item => item.classList.add('dark-mode'));
-            formControls.forEach(item => item.classList.add('dark-mode'));
-            btnOutlinePrimary.forEach(item => item.classList.add('dark-mode'));
-            modeToggleBtn.innerText = 'Light Mode'; // Change button text to Light Mode
-
-            localStorage.setItem('theme', 'dark');
-        }
-
-        function disableDarkMode() {
-            body.classList.remove('dark-mode');
-            navbar.classList.remove('dark-mode');
-            listGroupItems.forEach(item => item.classList.remove('dark-mode'));
-            modalContent.forEach(item => item.classList.remove('dark-mode'));
-            formControls.forEach(item => item.classList.remove('dark-mode'));
-            btnOutlinePrimary.forEach(item => item.classList.remove('dark-mode'));
-            modeToggleBtn.innerText = 'Dark Mode'; // Change button text to Dark Mode
-
-            localStorage.setItem('theme', 'light');
-        }
-
-        document.getElementById('mode-toggle-btn').addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                disableDarkMode();
-            } else {
+            // Apply dark mode if it was previously enabled
+            if (localStorage.getItem('theme') === 'dark') {
                 enableDarkMode();
+            } else {
+                disableDarkMode(); // Ensures the correct mode is applied if the value is 'light'
             }
+
+            function enableDarkMode() {
+                body.classList.add('dark-mode');
+                navbar.classList.add('dark-mode');
+                listGroupItems.forEach(item => item.classList.add('dark-mode'));
+                modalContent.forEach(item => item.classList.add('dark-mode'));
+                formControls.forEach(item => item.classList.add('dark-mode'));
+                btnOutlinePrimary.forEach(item => item.classList.add('dark-mode'));
+                modeToggleBtn.innerText = 'Light Mode'; // Change button text to Light Mode
+
+                localStorage.setItem('theme', 'dark');
+            }
+
+            function disableDarkMode() {
+                body.classList.remove('dark-mode');
+                navbar.classList.remove('dark-mode');
+                listGroupItems.forEach(item => item.classList.remove('dark-mode'));
+                modalContent.forEach(item => item.classList.remove('dark-mode'));
+                formControls.forEach(item => item.classList.remove('dark-mode'));
+                btnOutlinePrimary.forEach(item => item.classList.remove('dark-mode'));
+                modeToggleBtn.innerText = 'Dark Mode'; // Change button text to Dark Mode
+
+                localStorage.setItem('theme', 'light');
+            }
+
+            document.getElementById('mode-toggle-btn').addEventListener('click', () => {
+                if (body.classList.contains('dark-mode')) {
+                    disableDarkMode();
+                } else {
+                    enableDarkMode();
+                }
+            });
         });
-    });
-</script>
+
+
+
+        //show password
+        function passwordReveal() {
+            var x = document.getElementById("darkpass");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 
 
 </body>

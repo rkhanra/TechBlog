@@ -11,7 +11,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
-
+<title> My Journey</title>
 <style>
     /* Apply styles to the entire webpage scrollbar */
     body::-webkit-scrollbar {
@@ -89,7 +89,35 @@
         width: 100%;
         z-index:99;
     }
+    /* LIGHT AND DARK MODE */
 
+    .dark-mode .card-body {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .dark-mode #codeContent {
+        background-color: #333;
+        color: white;
+    }
+
+    .dark-mode #dark {
+        background-color: #333;
+        color: #fff;
+    }
+
+
+    body.dark-mode {
+        color: #fff;
+        background: url(img/dbg.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+
+    .dark-mode #noDataMessage {
+        color: white;
+    }
 </style>
 
 <%
@@ -127,72 +155,107 @@
                 for (Post post : userPosts) {
             %>
             <div class="col-lg-3 col-md-6 col-mb-4" style="width: 200px; height: auto;" >
-                
-                    <div class="card shadow-lg p-3 mb-5 bg-white rounded d-flex flex-column" style="width: 75%; height: auto" >
-                        <!-- Card image -->
-                        <img class="card-img-top" style="overflow: hidden; object-fit: cover; width: auto; height: 100px;" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
 
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <h5 class="card-title text-center" style="font-size: 15px"><%= post.getpTitle()%></h5>
-                            <div class="dropdown-divider"></div>
+                <div class="card shadow-lg p-3 mb-5 rounded d-flex flex-column" id="dark" style="width: 75%; height: auto" >
+                    <!-- Card image -->
+                    <img class="card-img-top" style="overflow: hidden; object-fit: cover; width: auto; height: 100px;" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
 
-                            <!-- Scrollable content -->
-                            <div class=" scrollbarr" id="scrollbar1">
-                                <p  style="height: 75px"><%= post.getpContent()%></p>
-                            </div>
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <h5 class="card-title text-center" style="font-size: 15px"><%= post.getpTitle()%></h5>
+                        <div class="dropdown-divider"></div>
 
+                        <!-- Scrollable content -->
+                        <div class=" scrollbarr" id="scrollbar1">
+                            <p  style="height: 75px"><%= post.getpContent()%></p>
                         </div>
-                        <!-- Button to explore more -->
-                        <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class="float-right mt-auto ml-auto ">Explore More</a>
+
                     </div>
+                    <!-- Button to explore more -->
+                    <a href="show_blog_page.jsp?post_id=<%= post.getPid()%>" class="float-right mt-auto ml-auto ">Explore More</a>
                 </div>
-                <%
-                    }
-                %>
             </div>
+            <%
+                }
+            %>
         </div>
-
-        <%
-        } else {
-        %>
-        <!-- Displayed if no posts are available for the specified userid -->
-        <div class="col-md-12">
-            <h3 class="text-center">No Posts Available</h3>
-        </div>
-        <%
-            }
-        } else {
-        %>
-        <!-- Displayed if userid is not provided in the URL -->
-        <div class="col-md-12">
-            <h3 class="text-center">Invalid Request. Userid not provided.</h3>
-        </div>
-        <%
-            }
-        %>
-
     </div>
 
-    <!-- comment -->
-
-    <script>
-        window.onscroll = function () {
-            myFunction()
-        };
-
-        function myFunction() {
-            var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            var progressBar = document.querySelector('.progress-bar');
-            if (scrolled > 0) {
-                // If scrolled down, show progress bar
-                document.querySelector('.progress-container').style.display = "block";
-                progressBar.style.width = scrolled + "%";
-            } else {
-                // If at the top, hide progress bar
-                document.querySelector('.progress-container').style.display = "none";
-            }
+    <%
+    } else {
+    %>
+    <!-- Displayed if no posts are available for the specified userid -->
+    <div class="col-md-12">
+        <h3 class="text-center">No Posts Available</h3>
+    </div>
+    <%
         }
-    </script>
+    } else {
+    %>
+    <!-- Displayed if userid is not provided in the URL -->
+    <div class="col-md-12">
+        <h3 class="text-center">Invalid Request. Userid not provided.</h3>
+    </div>
+    <%
+        }
+    %>
+
+</div>
+
+<!-- comment -->
+
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+
+    function myFunction() {
+        var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        var progressBar = document.querySelector('.progress-bar');
+        if (scrolled > 0) {
+            // If scrolled down, show progress bar
+            document.querySelector('.progress-container').style.display = "block";
+            progressBar.style.width = scrolled + "%";
+        } else {
+            // If at the top, hide progress bar
+            document.querySelector('.progress-container').style.display = "none";
+        }
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const body = document.body;
+        const modeToggleBtn = document.getElementById('mode-toggle-btn'); // Get the mode toggle button
+
+        // Apply dark mode if it was previously enabled
+        if (localStorage.getItem('theme') === 'dark') {
+            enableDarkMode();
+        } else {
+            disableDarkMode(); // Ensures the correct mode is applied if the value is 'light'
+        }
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            modeToggleBtn.innerText = 'Light Mode'; // Change button text to Light Mode
+
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            modeToggleBtn.innerText = 'Dark Mode'; // Change button text to Dark Mode
+
+            localStorage.setItem('theme', 'light');
+        }
+
+        modeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+    });
+</script>
