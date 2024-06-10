@@ -9,56 +9,57 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title> Programming Languages </title>
 <%--<%@include file="normal_navbar.jsp" %>--%>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!--NAVBAR-->
-        <nav class="navbar navbar-expand-lg navbar-dark primary-background">
-            <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav class="navbar navbar-expand-lg navbar-dark primary-background">
+    <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code With Pain <span class="sr-only">(current)</span></a>
-                    </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code With Pain <span class="sr-only">(current)</span></a>
+            </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="	fa fa-check-square-o"></span> Categories
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
-                        </div>
-                    </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="	fa fa-check-square-o"></span> Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" target="_blank" href="programming_languages.jsp">Programming Language</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                </div>
+            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact US</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login_page.jsp"> <span class="fa fa-user-circle "></span> Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact US</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login_page.jsp"> <span class="fa fa-user-circle "></span> Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
+            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+            <li class="nav-item">
+                <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
 
-                    </li>
-                    <li class="nav-item">
-                        <a id="modeToggle" class="nav-link">Toggle Dark Mode</a>
-                    </li>
-                </ul>
+            </li>
+            <li class="nav-item">
+                <a id="modeToggle" class="nav-link">Toggle Dark Mode</a>
+            </li>
+        </ul>
 
-            </div>
-        </nav>
+    </div>
+</nav>
 
 
 
@@ -102,94 +103,94 @@
 <script src="js/myjs.js" type="text/javascript"></script>
 
 <style>
-/* Body styles for light and dark mode */
-body.light-mode {
-/*    background-color: #212121;  
-    color: #fff;*/
-}
+    /* Body styles for light and dark mode */
+    body.light-mode {
+        /*    background-color: #212121;  
+            color: #fff;*/
+    }
 
-body.dark-mode {
-    background-color: #212121;  
-    color: white;
-}
+    body.dark-mode {
+        background-color: #212121;
+        color: white;
+    }
 
-/* Card styles for light and dark mode */
-.card.light-mode, .card-header.light-mode, .card-body.light-mode {
-/*    background-color: white;
-    color: black;*/
-}
+    /* Card styles for light and dark mode */
+    .card.light-mode, .card-header.light-mode, .card-body.light-mode {
+        /*    background-color: white;
+            color: black;*/
+    }
 
-.dark-mode .card{
-    background-color: #333333;  
-    color: white;
-}
+    .dark-mode .card{
+        background-color: #333333;
+        color: white;
+    }
 
-/* Margin for secondary buttons */
-.btn-secondary {
-/*    margin-left: 10px;*/
-}
+    /* Margin for secondary buttons */
+    .btn-secondary {
+        /*    margin-left: 10px;*/
+    }
 
-/* Dark mode specific styles */
-.dark-mode .navbar {
-/*    background-color: #333333;  dark gray 
-    border-color: #444;  lighter gray */
-}
+    /* Dark mode specific styles */
+    .dark-mode .navbar {
+        /*    background-color: #333333;  dark gray 
+            border-color: #444;  lighter gray */
+    }
 
-.dark-mode .banner-background {
-/*    background-color: #1e1e1e;  almost black 
-    color: white;*/
-}
+    .dark-mode .banner-background {
+        /*    background-color: #1e1e1e;  almost black 
+            color: white;*/
+    }
 
-.dark-mode .btn {
-    background-color: #333333;  
-    color: white;
-    border: 1px solid #of77ff;
-}
+    .dark-mode .btn {
+        background-color: #333333;
+        color: white;
+        border: 1px solid #of77ff;
+    }
 
-/* Hover effect for buttons in dark mode */
-.dark-mode .btn:hover {
-/*    background-color: #555;  slightly lighter gray 
-    color: white;*/
-}
+    /* Hover effect for buttons in dark mode */
+    .dark-mode .btn:hover {
+        /*    background-color: #555;  slightly lighter gray 
+            color: white;*/
+    }
 
-/* Accent color for links in light mode */
-.light-mode a {
-/*    color: #007bff;  Bootstrap's primary blue color */
-}
+    /* Accent color for links in light mode */
+    .light-mode a {
+        /*    color: #007bff;  Bootstrap's primary blue color */
+    }
 
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleButton = document.getElementById('modeToggle');
-        const body = document.body;
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const toggleButton = document.getElementById('modeToggle');
+                                const body = document.body;
 
-        // Load saved theme from localStorage
-        const currentMode = localStorage.getItem('theme') || 'light';
-        body.classList.add(currentMode + '-mode');
+                                // Load saved theme from localStorage
+                                const currentMode = localStorage.getItem('theme') || 'light';
+                                body.classList.add(currentMode + '-mode');
 
-        // Update button text
-        modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+                                // Update button text
+                                modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
 
-        // Function to update colors based on mode
-        function updateColors(mode) {
-            if (mode === 'dark') {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-            } else {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-            }
-        }
+                                // Function to update colors based on mode
+                                function updateColors(mode) {
+                                    if (mode === 'dark') {
+                                        body.classList.remove('light-mode');
+                                        body.classList.add('dark-mode');
+                                    } else {
+                                        body.classList.remove('dark-mode');
+                                        body.classList.add('light-mode');
+                                    }
+                                }
 
-        // Update colors based on initial mode
-        updateColors(currentMode);
+                                // Update colors based on initial mode
+                                updateColors(currentMode);
 
-        modeToggle.addEventListener('click', function () {
-            const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', newMode);
-            updateColors(newMode);
-            modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
-        });
-    });
+                                modeToggle.addEventListener('click', function () {
+                                    const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
+                                    localStorage.setItem('theme', newMode);
+                                    updateColors(newMode);
+                                    modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+                                });
+                            });
 </script>

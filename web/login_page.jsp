@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Paqe</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
         <!--css-->
@@ -13,9 +14,9 @@
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-            .banner-background{
+/*            .banner-background{
                 clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
-            }
+            }*/
 
             .light-mode {
                 background-color: #E5E5E5; /* BG*/

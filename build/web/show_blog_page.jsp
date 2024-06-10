@@ -31,6 +31,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"
     nonce="TyEv0YD8"></script>
@@ -296,8 +298,7 @@
                     </div>
 
                     <div class="card-body">
-<!--                        <img class="card-img-top my-2" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">-->
-                        <img class="img" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">
+                        <img class="card-img-top my-2" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" id="post-image" ">
                         <a href="blog_pics/<%= p.getpPic()%>" download="image.jpg" class="download-button" title="Download Image" id="download-image" >
                             <i class="fa fa-download" id="download-Icon">Download</i>
                         </a>

@@ -13,9 +13,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <style>
-            .banner-background {
+/*            .banner-background {
                 clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
-            }
+            }*/
 
             #backgroundd{
                 background-color: #CDCFD0;
@@ -100,6 +100,16 @@
                 background-color: #333333;
                 color: white;
             }
+            #preview {
+                color: black;
+                background-color: white;
+            }
+            .dark-mode #preview {
+                color: white;
+                background-color: #1A1A1A;
+            }
+
+
         </style>
     </head>
     <body class="back light-mode">
@@ -253,7 +263,7 @@
                 </div>
             </div>
             <br><br>
-            <span class="d-block p-2 blog-preview-span text-dark bg-white text-center" id="preview" style="font-family: serif;">Blog Preview</span>
+            <span class="d-block p-2 text-center" id="preview" style="font-family: serif;">Blog Preview</span>
 
             <div class="d-flex justify-content-center mt-5">
                 <a href="#bottom" id="scrollButton" class="p-2 rounded text-center">Check Oldest Blog &darr;</a>
@@ -289,25 +299,29 @@
                 // Load user's preference from localStorage
                 const currentMode = localStorage.getItem('theme') || 'light';
                 body.classList.add(currentMode + '-mode');
-
+                
+                // Function to check browser's default color scheme
+                function checkColorScheme() {
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        // Dark mode preferred by user
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        // Light mode preferred by user
+                        body.classList.add('light-mode');
+                        localStorage.setItem('theme', 'light');
+                    }
+                }
+                
+                // Check browser's preferred color scheme
+                checkColorScheme();
+                
                 // Update button text
                 modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
 
-                // Function to update colors based on mode
+                // Function is called to update colors based on mode
                 function updateColors(mode) {
-                    const blogPreviewSpan = document.querySelector('.blog-preview-span');
-                    if (mode === 'dark') {
-                        blogPreviewSpan.classList.remove('text-dark');
-                        blogPreviewSpan.classList.add('text-light');
-                        blogPreviewSpan.classList.remove('bg-white');
-                        blogPreviewSpan.style.backgroundColor = '#1A1A1A';
 
-                    } else {
-                        blogPreviewSpan.classList.remove('text-light');
-                        blogPreviewSpan.classList.add('text-dark');
-                        blogPreviewSpan.classList.remove('bg-dark');
-                        blogPreviewSpan.classList.add('bg-white');
-                    }
                 }
 
                 // Update colors based on initial mode

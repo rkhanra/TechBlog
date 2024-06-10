@@ -21,6 +21,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title><%=user.getName()%>'s profile</title>
 
         <!--css-->
@@ -131,6 +133,17 @@
             .dark-mode #warning{
                 background-color: #333333;
                 color: #F0B509;
+            }
+            .dark-mode .dropdown-item {
+                background-color: #333333;
+                color: #ffffff;
+            }
+            .dark-mode .dropdown-menu{
+                background-color: #333333;
+            }
+            .selected-item {
+                border: 2px solid #0F77FF;
+                border-radius: 5px;
             }
             /* Add any other elements you want to style in dark mode */
         </style></head>
@@ -246,30 +259,25 @@
                     <div class="row mt-4">
                         <!--first col-->
                         <div class="col-md-4">
-                            <!--categories-->
-                            <div class="list-group">
-                                <a href="#" onclick="getPosts(0, this)"  class=" c-link list-group-item list-group-item-action active">
-                                    All Posts
-                                </a>
-                                <!--categories-->
-
-                                <% PostDao d = new PostDao(ConnectionProvider.getConnection());
-                                    ArrayList<Category> list1 = d.getAllCategories();
-                                    for (Category cc : list1) {
-
-                                %>
-                                <a href="#" onclick="getPosts(<%= cc.getCid()%>, this)" class=" c-link list-group-item list-group-item-action"><%= cc.getName()%></a>
-
-
-                                <%                                        }
-
-                                %>
+                            <!-- Categories dropdown -->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Categories
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                    <!-- All Posts -->
+                                    <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>
+                                    <!-- Loop through categories -->
+                                    <%                PostDao d = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Category> list1 = d.getAllCategories();
+                                        for (Category cc : list1) {
+                                    %>
+                                    <a class="dropdown-item" href="#" onclick="selectCategory(this, <%= cc.getCid()%>)"><%= cc.getName()%></a>
+                                    <% }%>
+                                </div>
                             </div>
-                            <br><br><br>
-                            <!--                            <a href="#bottom" id="oldest-blog-btn"  class="d-block p-2 bg-primary text-white text-center" >Check Oldest Blog &darr; </a>-->
-
-
                         </div>
+
 
 
 
@@ -442,7 +450,7 @@
                 </div>
             </div>
 
-            
+
             <!--end of profile modal-->
 
             <!--add post modal-->
@@ -537,43 +545,43 @@
             <script src="js/myjs.js" type="text/javascript"></script>
 
             <script>
-                function deleteaccount() {
-                    swal({
-                        title: "Are you sure?",
-                        text: "Once deleted, you will not be able to recover this account!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    $.ajax({
-                                        url: "DeleteAccountServlet",
-                                        type: "POST",
-                                        success: function (response) {
-                                            if (response.trim() === "success") {
-                                                swal("Poof! Your account has been deleted!", {
-                                                    icon: "success",
-                                                }).then(() => {
-                                                    window.location = "index.jsp";
-                                                });
-                                            } else {
-                                                swal("Error! Something went wrong. Please try again.", {
-                                                    icon: "error",
-                                                });
-                                            }
-                                        },
-                                        error: function () {
-                                            swal("Error! Something went wrong. Please try again.", {
-                                                icon: "error",
-                                            });
+                                        function deleteaccount() {
+                                            swal({
+                                                title: "Are you sure?",
+                                                text: "Once deleted, you will not be able to recover this account!",
+                                                icon: "warning",
+                                                buttons: true,
+                                                dangerMode: true,
+                                            })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+                                                            $.ajax({
+                                                                url: "DeleteAccountServlet",
+                                                                type: "POST",
+                                                                success: function (response) {
+                                                                    if (response.trim() === "success") {
+                                                                        swal("Poof! Your account has been deleted!", {
+                                                                            icon: "success",
+                                                                        }).then(() => {
+                                                                            window.location = "index.jsp";
+                                                                        });
+                                                                    } else {
+                                                                        swal("Error! Something went wrong. Please try again.", {
+                                                                            icon: "error",
+                                                                        });
+                                                                    }
+                                                                },
+                                                                error: function () {
+                                                                    swal("Error! Something went wrong. Please try again.", {
+                                                                        icon: "error",
+                                                                    });
+                                                                }
+                                                            });
+                                                        } else {
+                                                            swal("Your account is safe!");
+                                                        }
+                                                    });
                                         }
-                                    });
-                                } else {
-                                    swal("Your account is safe!");
-                                }
-                            });
-                }
             </script>
 
             <script>
@@ -748,12 +756,19 @@
                     })
 
                 }
+//                actual for loading
+//                $(document).ready(function (e) {
+//
+//                    let allPostRef = $('.c-link')[0]
+//                    getPosts(0, allPostRef)
+//                })
 
-                $(document).ready(function (e) {
-
-                    let allPostRef = $('.c-link')[0]
-                    getPosts(0, allPostRef)
-                })
+//                added after dropdown for loading
+                $(document).ready(function () {
+                    // Load all posts initially
+                    let allPostRef = $('.dropdown-item')[0];
+                    getPosts(0, allPostRef);
+                });
             </script>
         </div>
         <div id="bottom"></div>
@@ -919,4 +934,19 @@
             }
         });
     });
+</script>
+<script>
+    function selectCategory(element, cid) {
+        // Remove active class and selected-item class from all dropdown items
+        var dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(function (item) {
+            item.classList.remove('active', 'selected-item');
+        });
+
+        // Add active class and selected-item class to the selected item
+        element.classList.add('active', 'selected-item');
+
+        // Call getPosts function with the selected category ID
+        getPosts(cid, element);
+    }
 </script>
