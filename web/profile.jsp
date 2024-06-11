@@ -159,7 +159,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
                     </li>
 
                     <!--                    <li class="nav-item dropdown">
@@ -266,7 +266,9 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                     <!-- All Posts -->
-                                    <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>
+                                    <!-- <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>-->
+                                    <a class="dropdown-item active" href="#" onclick="selectCategory(this, 0)">All Posts</a>
+
                                     <!-- Loop through categories -->
                                     <%                PostDao d = new PostDao(ConnectionProvider.getConnection());
                                         ArrayList<Category> list1 = d.getAllCategories();
@@ -637,68 +639,68 @@
 
             <!--now add post js-->
             <script>
-    $(document).ready(function (e) {
-        $("#add-post-form").on("submit", function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
+                $(document).ready(function (e) {
+                    $("#add-post-form").on("submit", function (event) {
+                        // Prevent the default form submission
+                        event.preventDefault();
 
-            // Get the pContent textarea and modify its content
-            var pContent = document.getElementById('pContent');
-            var content = pContent.value;
-            content = content.replace(/\n/g, '<br>');
-            content = content.replace(/^ +/gm, function(match) {
-                return match.replace(/ /g, '&nbsp;');
-            });
-            pContent.value = content;
+                        // Get the pContent textarea and modify its content
+                        var pContent = document.getElementById('pContent');
+                        var content = pContent.value;
+                        content = content.replace(/\n/g, '<br>');
+                        content = content.replace(/^ +/gm, function (match) {
+                            return match.replace(/ /g, '&nbsp;');
+                        });
+                        pContent.value = content;
 
-            // Validate form data
-            var category = $("select[name='cid']").val();
-            var title = $("input[name='pTitle']").val();
-            var content = $("textarea[name='pContent']").val();
-            var picInput = $("input[name='pic']");
-            var picFile = picInput[0].files[0];
+                        // Validate form data
+                        var category = $("select[name='cid']").val();
+                        var title = $("input[name='pTitle']").val();
+                        var content = $("textarea[name='pContent']").val();
+                        var picInput = $("input[name='pic']");
+                        var picFile = picInput[0].files[0];
 
-            if (category === null || category === '' || title === '' || content === '') {
-                swal("Error", "Please fill in all required fields", "error");
-                return;
-            }
-
-            var form = new FormData(this);
-
-            if (picFile) {
-                // Picture selected, check if a file with the same name already exists
-                var picName = picFile.name;
-
-                console.log("Checking if the picture name exists...");
-
-                $.ajax({
-                    url: "AddPostServlet",
-                    type: 'POST',
-                    data: { picName: picName },
-                    success: function (data) {
-                        console.log("CheckPictureNameServlet response:", data);
-                        if (data.trim() === 'exists') {
-                            // Rename the file
-                            var newPicName = generateUniqueName(picName);
-                            form.delete("pic");
-                            form.append("pic", renameFile(picFile, newPicName));
-
-                            console.log("File renamed to:", newPicName);
+                        if (category === null || category === '' || title === '' || content === '') {
+                            swal("Error", "Please fill in all required fields", "error");
+                            return;
                         }
-                        // Proceed with the form submission
-                        submitForm(form);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error("Error checking picture name:", textStatus, errorThrown);
-                        swal("Error!!", "Something went wrong, try again...", "error");
-                    }
+
+                        var form = new FormData(this);
+
+                        if (picFile) {
+                            // Picture selected, check if a file with the same name already exists
+                            var picName = picFile.name;
+
+                            console.log("Checking if the picture name exists...");
+
+                            $.ajax({
+                                url: "AddPostServlet",
+                                type: 'POST',
+                                data: {picName: picName},
+                                success: function (data) {
+                                    console.log("CheckPictureNameServlet response:", data);
+                                    if (data.trim() === 'exists') {
+                                        // Rename the file
+                                        var newPicName = generateUniqueName(picName);
+                                        form.delete("pic");
+                                        form.append("pic", renameFile(picFile, newPicName));
+
+                                        console.log("File renamed to:", newPicName);
+                                    }
+                                    // Proceed with the form submission
+                                    submitForm(form);
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.error("Error checking picture name:", textStatus, errorThrown);
+                                    swal("Error!!", "Something went wrong, try again...", "error");
+                                }
+                            });
+                        } else {
+                            // No picture selected, proceed with form submission
+                            submitForm(form);
+                        }
+                    });
                 });
-            } else {
-                // No picture selected, proceed with form submission
-                submitForm(form);
-            }
-        });
-    });
 
                 function generateUniqueName(fileName) {
                     var timestamp = new Date().getTime();
@@ -956,7 +958,19 @@
         // Add active class and selected-item class to the selected item
         element.classList.add('active', 'selected-item');
 
+        // Set the button text to the selected category name or "Categories" if "All Posts" is selected
+        var buttonText = element.innerText; // Get the selected category name
+        if (cid === 0) {
+            document.getElementById('categoriesDropdown').innerText = "All Posts"; // Reset to default text
+            //window.location.href = window.location.href; // Reload the window
+
+        } else {
+            document.getElementById('categoriesDropdown').innerText = buttonText; // Update the button text
+        }
+
         // Call getPosts function with the selected category ID
         getPosts(cid, element);
     }
 </script>
+
+
