@@ -209,7 +209,7 @@
 
 <style>
     .body{
-        background-color: #D1E4FF;
+        background-color: hsla(272, 39%, 87%, 1);
     }
     h1{
         text-align: center;
@@ -230,7 +230,7 @@
 
     }
     th {
-        background-color: #0F77FF;
+        background-color: hsla(273, 39%, 74%, 1);
         text-align: center;
         border: 1px solid black;
     }
