@@ -36,6 +36,14 @@
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>com.tech.blog.servlets.DeleteAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RedirectionToAdmin</servlet-name>
+        <servlet-class>com.tech.blog.servlets.RedirectionToAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLogoutServlet</servlet-name>
+        <servlet-class>com.tech.blog.servlets.AdminLogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/DeleteAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectionToAdmin</servlet-name>
+        <url-pattern>/RedirectionToAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogoutServlet</servlet-name>
+        <url-pattern>/AdminLogoutServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

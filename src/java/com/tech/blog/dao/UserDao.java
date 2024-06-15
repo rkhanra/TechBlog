@@ -146,39 +146,65 @@ public class UserDao {
 
         return user;
     }
-
-    public List<User> getAllUsers() {
+//    original
+//    public List<User> getAllUsers() {
+//        List<User> userList = new ArrayList<>();
+//
+//        try {
+//            // SQL query to fetch names and emails from the users table
+//            String query = "SELECT id, name, email, about, rdate , profile, password FROM user";
+//
+//            // Prepare the statement
+//            PreparedStatement pstmt = con.prepareStatement(query);
+//
+//            // Execute the query
+//            ResultSet resultSet = pstmt.executeQuery();
+//
+//            // Process the result set
+//            while (resultSet.next()) {
+//                // Retrieve name and email from the result set
+//                int id = resultSet.getInt("id");
+//                String name = resultSet.getString("name");
+//                String email = resultSet.getString("email");
+//                String about = resultSet.getString("about");
+//                Timestamp rdatee = resultSet.getTimestamp("rdate");
+//                String profile = resultSet.getString("profile");
+////                String password = resultSet.getString("password");
+//
+//                // Create a new User object and add it to the list
+//                User user = new User(id, name, email, about, rdatee, profile);
+//
+//                userList.add(user);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return userList;
+//    }
+    
+        public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-
         try {
-            // SQL query to fetch names and emails from the users table
-            String query = "SELECT name, email, about, rdate , profile FROM user";
-
-            // Prepare the statement
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            // Execute the query
-            ResultSet resultSet = pstmt.executeQuery();
-
-            // Process the result set
-            while (resultSet.next()) {
-                // Retrieve name and email from the result set
-                String name = resultSet.getString("name");
-                String email = resultSet.getString("email");
-                String about = resultSet.getString("about");
-                Timestamp rdatee = resultSet.getTimestamp("rdate");
-                String profile = resultSet.getString("profile");
-
-                // Create a new User object and add it to the list
-                User user = new User(name, email, about, rdatee, profile);
-
+            String query = "SELECT * FROM user";
+            PreparedStatement pstmt = this.con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setGender(rs.getString("gender"));
+                user.setAbout(rs.getString("about"));
+                user.setProfile(rs.getString("profile"));
+                user.setDateTime(rs.getTimestamp("rdate"));
                 userList.add(user);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return userList;
     }
 

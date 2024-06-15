@@ -34,7 +34,8 @@ public class User {
         this.about = about;
     }
 
-    public User(String name, String email, String about, Timestamp dateTime, String profile) {
+    public User(int id, String name, String email, String about, Timestamp dateTime, String profile) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.about = about;
