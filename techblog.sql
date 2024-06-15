@@ -55,3 +55,11 @@ CREATE TABLE `reports` (
   `rdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
+
+create table `admin` (
+	`admin_id` varchar (150),
+	`admin_password` varchar (765),
+	`admin_passcode` varchar (150),
+	`admin_email` varchar (300)
+); 
+insert into `admin` (`admin_id`, `admin_password`, `admin_passcode`, `admin_email`) values('1admin','1admin','1admin','rohitkhanra425@hotmail.com');
