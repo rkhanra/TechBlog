@@ -7,33 +7,33 @@
 <%@ page import="com.tech.blog.entities.User" %>
 <%@ page errorPage="error_page.jsp" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <link href="css/admin.css" rel="stylesheet" type="text/css"/>
+    <script src="js/admin.js" type="text/javascript"></script>
     <script>
-        // JavaScript function to check if login message is displayed
         function checkLoginMessage() {
             var loginMessageDiv = document.querySelector('.login-message');
             if (!loginMessageDiv || loginMessageDiv.innerText.trim() === '') {
-                // Redirect to error page or login page if login message is not displayed
-                window.location.href = 'error_page.jsp'; // Replace with your error page URL
+                window.location.href = 'error_page.jsp';
             }
         }
-        
-        // Call the function when the page loads
         window.onload = checkLoginMessage;
     </script>
 </head>
 <body>
+    <form action="AdminLogoutServlet" method="post">
+        <button type="submit">Logout</button>
+    </form>
     <div>
         <%
-            // Check if loginMessage attribute exists in request
+            response.setHeader("Cache-Control", "no-cache, no-store");
+            
             String loginMessage = (String) request.getAttribute("loginMessage");
             if (loginMessage != null && !loginMessage.isEmpty()) {
         %>
@@ -41,25 +41,23 @@
             <%= loginMessage %>
         </div>
         <% } %>
-
         <div class="container">
             <div class="row">
-                <%  // Get the list of users
+                <%
                     UserDao userDao = new UserDao(ConnectionProvider.getConnection());
                     List<User> userList = userDao.getAllUsers();
                     if (userList != null && !userList.isEmpty()) {
                         for (User user : userList) {
                 %>
                 <div class="col-md-3">
-                    <div class="card mb-3" style="width: 18rem;">
-                        <img style="object-fit: cover; height: 150px; width: auto" src="pics/<%= user.getProfile()%>" id="card-img-top" alt="<%= user.getName()%>'s profile picture">
+                    <div class="card mb-3" style="width: 18rem;" id="dark">
+                        <img style="object-fit: cover; height: 150px; width: auto" src="pics/<%= user.getProfile() %>" id="card-img-top" alt="<%= user.getName() %>'s profile picture">
                         <div class="card-body">
-                            <p>ID: <%= user.getId()%></p>
-                            <p><%= user.getName()%></p>
-                            <p class="card-text"><%= user.getEmail()%></p>
-                            <p>Pass: <%= user.getPassword()%> </P>
-                            <a href="mailto:<%= user.getEmail()%>">Contact</a>
-                            <a href="user_posts.jsp?userid=<%= user.getId()%>&username=<%= user.getName()%>">Posts</a>
+                            <p>ID: <%= user.getId() %></p>
+                            <p><%= user.getName() %></p>
+                            <p class="card-text"><%= user.getEmail() %></p>
+                            <a href="mailto:<%= user.getEmail() %>">Contact</a>
+                            <a href="user_posts.jsp?userid=<%= user.getId() %>&username=<%= user.getName() %>">Posts</a>
                         </div>
                     </div>
                 </div>
@@ -70,10 +68,9 @@
                 <div class="col-md-12">
                     <p>No users found</p>
                 </div>
-                <% }%>
-
+                <% } %>
             </div>
         </div>
-
-    </body>
+    </div>
+</body>
 </html>
