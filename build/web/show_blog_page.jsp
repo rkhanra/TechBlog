@@ -164,6 +164,27 @@
             width: 100%
         }
         /*        LIGHT AND DARK MODE*/
+        #navbar{
+            background-color: #0f77ff;
+        }
+        .dark-mode #navbar{
+            background-color: #1A1A1A;
+        }
+        .card-header{
+            background-color: #0f77ff;
+        }
+        .card-footerr {
+            background-color: #0f77ff;
+        }
+        .modal-header{
+            background-color: #0f77ff;
+        }
+        .dark-mode .card-footerr, .dark-mode .modal-header{
+            background-color: #212121;
+        }
+        .dark-mode .card-header{
+            background-color: #212121;
+        }
         .dark-mode .card {
             background-color: #333;
             color: #fff;
@@ -220,7 +241,7 @@
 
     <!--navbar--> 
 
-    <nav class="navbar navbar-expand-lg navbar-dark primary-background">
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
         <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -290,7 +311,7 @@
 
                 <div class="card">
 
-                    <div class="card-header primary-background text-white">
+                    <div class="card-header text-white">
 
                         <h4 class="post-title text-center"><%= p.getpTitle()%></h4>
 
@@ -340,7 +361,7 @@
 
 
                     </div>
-                    <div class="card-footer primary-background "> 
+                    <div class="card-footerr" > 
 
 
                         <%
@@ -406,7 +427,7 @@
         <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header primary-background text-white text-center">
+                    <div class="modal-header text-white text-center">
                         <h5 class="modal-title" id="exampleModalLabel"> TechBlog </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

@@ -11,9 +11,9 @@
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-/*            .banner-background {
-                clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
-            }*/
+            /*            .banner-background {
+                            clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
+                        }*/
             /* Apply styles to the entire webpage scrollbar */
             body::-webkit-scrollbar {
                 width: 12px;
@@ -33,6 +33,9 @@
             .light-mode {
                 background-color: #E5E5E5;  /* BG*/
                 color: black;
+            }
+            .light-mode #navbar, .light-mode .card-header{
+                background-color: #0F77FF;
             }
             .dark-mode {
                 background-color: #333333;
@@ -79,7 +82,7 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark primary-background">
+        <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
             <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -96,9 +99,9 @@
                             <span class="	fa fa-check-square-o"></span> Categories
                         </a>
                         <div class="dropdown-menu" id="ddmenu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" id="ddmenu" target="_blank" href="programming_languages.jsp">Programming Language</a>
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="programming_languages.jsp">Programming Language</a>
                             <div class="dropdown-divider" id="ddmenu"></div>
-                            <a class="dropdown-item" id="ddmenu" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
                         </div>
                     </li>
 
@@ -118,10 +121,11 @@
                     </li>
 
                 </ul>
+
                 <ul class="navbar-nav mr-right">
 
                     <li class="nav-item">
-                        <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
+                        <a id="modeToggle" class="nav-link">Toggle Dark Mode</a>
                     </li>
 
                 </ul>
@@ -133,7 +137,7 @@
             <div class="container">
                 <div class="col-md-6 offset-md-3">
                     <div class="card">
-                        <div class="card-header text-center primary-background text-white">
+                        <div class="card-header text-center">
                             <span class="fa fa-3x fa-user-circle"></span>
                             <br>
                             Register here

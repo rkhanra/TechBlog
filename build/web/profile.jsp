@@ -91,10 +91,6 @@
                 backdrop-filter: blur(5px);
                 background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
             }
-            .modal-dialog {
-                max-width: 90%;
-                width: 90%;
-            }
 
             /*            LIGHT AND DARK MODE*/
             body.dark-mode {
@@ -103,6 +99,9 @@
                 background:url(img/dbg.jpg);
                 background-size: cover;
                 background-attachment: fixed;
+            }
+            .navbar{
+                background-color: #0F77FF;
             }
             .navbar.dark-mode {
                 background-color: #333;
@@ -154,7 +153,7 @@
     <body>
         <!--navbar--> 
 
-        <nav class="navbar navbar-expand-lg navbar-dark primary-background">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -163,7 +162,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#"> <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
                     </li>
 
                     <!--                    <li class="nav-item dropdown">
@@ -270,7 +269,9 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                     <!-- All Posts -->
-                                    <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>
+                                    <!-- <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>-->
+                                    <a class="dropdown-item active" href="#" onclick="selectCategory(this, 0)">All Posts</a>
+
                                     <!-- Loop through categories -->
                                     <%                PostDao d = new PostDao(ConnectionProvider.getConnection());
                                         ArrayList<Category> list1 = d.getAllCategories();
@@ -960,7 +961,19 @@
         // Add active class and selected-item class to the selected item
         element.classList.add('active', 'selected-item');
 
+        // Set the button text to the selected category name or "Categories" if "All Posts" is selected
+        var buttonText = element.innerText; // Get the selected category name
+        if (cid === 0) {
+            document.getElementById('categoriesDropdown').innerText = "All Posts"; // Reset to default text
+            //window.location.href = window.location.href; // Reload the window
+
+        } else {
+            document.getElementById('categoriesDropdown').innerText = buttonText; // Update the button text
+        }
+
         // Call getPosts function with the selected category ID
         getPosts(cid, element);
     }
 </script>
+
+

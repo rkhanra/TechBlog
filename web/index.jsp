@@ -66,11 +66,14 @@
                 background-color: #E9ECEF;
                 color: black;
             }
+            .light-mode #navbar{
+                background-color: #0f77ff;
+            }
             .dark-mode {
                 background-color: #333333;
                 color: white;
             }
-            .dark-mode .navbar {
+            .dark-mode #navbar {
                 background-color: #333333;
                 border-color: #444;
             }
@@ -132,7 +135,7 @@
 
 
         <!--<nav class="navbar navbar-expand-lg navbar-dark primary-background " style="background-color: #05f6fe;">-->
-        <nav class="navbar navbar-expand-lg navbar-dark primary-background" id="navbar" style="background-color: #0F77FF; ">
+        <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
             <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -175,7 +178,7 @@
                 <ul class="navbar-nav mr-right">
 
                     <li class="nav-item">
-                        <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
+                        <a id="modeToggle" class="nav-link">Toggle Dark Mode</a>
                     </li>
 
                 </ul>

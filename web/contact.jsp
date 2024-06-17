@@ -15,55 +15,56 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-dark primary-background">
-    <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+            <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Tech Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
-            </li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link"  onclick="showAlert()"  > <span class="fa fa-bell-o"></span> Code World <span class="sr-only">(current)</span></a>
+                    </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="	fa fa-check-square-o"></span> Categories
-                </a>
-                <div class="dropdown-menu" id="ddmenu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="ddmenu" target="_blank" href="programming_languages.jsp">Programming Language</a>
-                    <div class="dropdown-divider" id="ddmenu"></div>
-                    <a class="dropdown-item" id="ddmenu" target="_blank" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
-                </div>
-            </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="	fa fa-check-square-o"></span> Categories
+                        </a>
+                        <div class="dropdown-menu" id="ddmenu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="programming_languages.jsp">Programming Language</a>
+                            <div class="dropdown-divider" id="ddmenu"></div>
+                            <a class="dropdown-item" target="_blank" id="ddmenu" href="https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/">Data Structure</a>
+                        </div>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact US</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login_page.jsp"> <span class="fa fa-user-circle "></span> Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.jsp"> <span class="	fa fa-address-card-o"></span> Contact US</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login_page.jsp"> <span class="fa fa-user-circle "></span> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
 
-            </li>
+                    </li>
 
-        </ul>
-        <ul class="navbar-nav mr-right">
+                </ul>
 
-            <li class="nav-item">
-                <a id="modeToggle" class="btn-primary nav-link">Toggle Dark Mode</a>
-            </li>
+                <ul class="navbar-nav mr-right">
 
-        </ul>
+                    <li class="nav-item">
+                        <a id="modeToggle" class="nav-link">Toggle Dark Mode</a>
+                    </li>
 
-    </div>
-</nav>
+                </ul>
+
+            </div>
+        </nav>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -181,6 +182,9 @@
         background-color: #E5E5E5;
         color: black;
     }
+    .light-mode #navbar{
+        background-color: #0F77FF;
+    }
     .light-mode .navbar {
         background-color: #E5E5E5;
         color: black;
@@ -206,9 +210,12 @@
         background-color: #333333;
         color: white;
     }
-    .dark-mode .card, .dark-mode .card-header, .dark-mode .card-body {
+    .dark-mode .card, .dark-mode .card-body {
         background-color: #333333;
         color: white;
+    }
+    .dark-mode #header{
+        background-color: #282828;
     }
     .dark-mode .btn {
         background-color: #333;
@@ -229,7 +236,7 @@
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
+<br>
 <div class="container">
     <div class="row">
 
@@ -238,7 +245,7 @@
 
         <div class="col">
             <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Raise a problem
+                <div class="card-header" id="header"><i class="fa fa-envelope"></i> Raise a problem
                 </div>
                 <div class="card-body">
                     <form action="ReportServlet" method="post" id="repform" >
@@ -271,7 +278,7 @@
 
         <div class="col-12 col-sm-4">
             <div class="card mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-home"></i> Reach US </div>
+                <div class="card-header text-uppercase" id="header"><i class="fa fa-home"></i> Reach US </div>
                 <div class="card-body">
                     <p>Rohit Khanra</p>
                     <p>Taraswar, 712415</p>

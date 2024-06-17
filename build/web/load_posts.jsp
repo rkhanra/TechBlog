@@ -21,12 +21,19 @@
     ::placeholder {
         color: #99; /* Adjust placeholder color */
     }
+    .card-footer{
+        background-color: #0f77ff;
+    }
     .dark-mode .customSearchInput{
         background-color: #333333;
         color:#ffffff;
     }
     .dark-mode .card {
-        background-color: #333;
+        background-color: #333333;
+        color: #fff;
+    }
+    .dark-mode .card-footer {
+        background-color: #212121;
         color: #fff;
     }
 
@@ -112,7 +119,7 @@
                 </span>
             </div>
 
-            <div class="card-footer primary-background text-center">
+            <div class="card-footer text-center">
                 <%
                     LikeDao ld = new LikeDao(ConnectionProvider.getConnection());
                 %>
