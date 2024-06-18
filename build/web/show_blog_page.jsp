@@ -228,6 +228,14 @@
         .dark-mode #noDataMessage{
             color: white;
         }
+        #card {
+            max-width: 95%;
+            width: 90%;
+        }
+        #post-image{
+            height: 500px;
+            object-fit: cover;
+        }
     </style>
 
 
@@ -309,7 +317,7 @@
                 <!--                <div class="col-md-8 offset-md-2">-->
 
 
-                <div class="card">
+                <div class="card" id="card">
 
                     <div class="card-header text-white">
 

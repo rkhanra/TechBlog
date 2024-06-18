@@ -93,6 +93,12 @@
             }
 
             /*            LIGHT AND DARK MODE*/
+            #header{
+                background-color: #0F77FF;
+            }
+            .dark-mode #header{
+                background-color: #212121;
+            }
             body.dark-mode {
                 background-color: #212121;
                 color: #fff;
@@ -147,6 +153,10 @@
             .selected-item {
                 border: 2px solid #0F77FF;
                 border-radius: 5px;
+            }
+            .modal-dialog {
+                max-width: 90%;
+                width: 90%;
             }
             /* Add any other elements you want to style in dark mode */
         </style></head>
@@ -323,9 +333,9 @@
 
             <!-- Modal -->
             <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header primary-background text-white text-center">
+                        <div class="modal-header text-white text-center" id="header">
                             <h5 class="modal-title" id="exampleModalLabel"> TechBlog </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

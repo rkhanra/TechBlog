@@ -51,18 +51,48 @@ commenting has a time gap of 1 minutes
 
                                                         : Future Scope : 
 
-This web application in currently under development we are requesting developers to contribute in out project here you can do some thing we noticed that 
-1. Write its own commenting system , eg:- database, data processign and other stuffs
-2. Implement dislike button like youtube
-3. Dynamic and manual Light mode Dark Mode implementation
-4. User email verification using OTP needed before user creation
-5. User must creat a strong password using alpha numeric and symbol combination
-6. Edit of a existing post 
-7. Delete a post upon too much user request that the post containts wrong or vulgar information
-8. Adding mini videos for each post
-9. Adding chatbot to the site
+1. Enhanced Notification System : 
+    Introduce real-time notifications for instant updates on new posts, comments, and interactions.
+    Allow users to customize notification settings to choose which activities they want to be notified about (e.g., mentions, replies, likes).
+
+2. Advanced User Interaction Features : 
+   Implement a robust "Follow" system where users can follow other users to receive updates on their activities and posts.
+   Introduce a feed algorithm that prioritizes content from followed users or based on user preferences.
+
+3. Improved Post Visibility and Interaction : 
+   Enhance the visibility of other users' posts by introducing a feed or timeline where users can easily view and interact with posts from those they follow.
+   Implement features such as likes, shares, and bookmarks to increase engagement with posts.
+
+4. Enhanced Posting and Commenting System : 
+   Upgrade the commenting system with features like threaded comments, rich text formatting (including spell checking), and the ability to edit or delete comments.
+   Allow users to tag other users in comments for better engagement and communication.
+
+5. Multimedia Support in Posts : 
+   Enable users to post text content with integrated multimedia elements such as images, videos, and embedded media from various sources.
+   Provide flexible formatting options so users can place images and media within the text content as desired.
+
+6. Centralized Admin Panel : 
+   Centralize the admin panel to streamline management tasks such as user management, content moderation, analytics, and system configuration.
+   Introduce customizable dashboards and reporting tools for admins to monitor site activity and performance.
+
+7. Post Forking and Collaboration : 
+   Introduce a feature where users can "fork" or create derivative versions of other users' posts.
+   Facilitate collaboration by allowing multiple users to contribute to and improve upon shared posts or projects.
+
+8. Accessibility and Usability Improvements : 
+   Conduct usability testing and implement accessibility features to ensure the platform is usable by a diverse range of users, including those with disabilities.
+   Optimize the user interface and experience based on user feedback to enhance navigation, readability, and ease of use.
+
+9. Content Discovery and Recommendation : 
+   Develop algorithms for content discovery and recommendation based on user interests, interactions, and trends.
+   Implement personalized content recommendations and trending topics sections to keep users engaged and informed.
+
+10. Integration and Expansion : 
+    Explore integration with social media platforms for seamless sharing and cross-platform interaction.
+    Consider expanding platform capabilities to include live streaming, events, or collaborative projects to cater to evolving user needs and preferences.
 
 
 
-Approx lines of code written : 6000
+
+Approx lines of code written : 8200
 and there is others imports as well 
