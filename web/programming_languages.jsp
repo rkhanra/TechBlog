@@ -50,7 +50,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+                <a class="nav-link" href="contributors.jsp" target="_blank"> <span class="fa fa-users "></span> Our contributers </a>
 
             </li>
 
@@ -172,36 +172,36 @@
 </style>
 
 <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const toggleButton = document.getElementById('modeToggle');
-                                const body = document.body;
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const toggleButton = document.getElementById('modeToggle');
+                        const body = document.body;
 
-                                // Load saved theme from localStorage
-                                const currentMode = localStorage.getItem('theme') || 'light';
-                                body.classList.add(currentMode + '-mode');
+                        // Load saved theme from localStorage
+                        const currentMode = localStorage.getItem('theme') || 'light';
+                        body.classList.add(currentMode + '-mode');
 
-                                // Update button text
-                                modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+                        // Update button text
+                        modeToggle.textContent = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
 
-                                // Function to update colors based on mode
-                                function updateColors(mode) {
-                                    if (mode === 'dark') {
-                                        body.classList.remove('light-mode');
-                                        body.classList.add('dark-mode');
-                                    } else {
-                                        body.classList.remove('dark-mode');
-                                        body.classList.add('light-mode');
-                                    }
-                                }
+                        // Function to update colors based on mode
+                        function updateColors(mode) {
+                            if (mode === 'dark') {
+                                body.classList.remove('light-mode');
+                                body.classList.add('dark-mode');
+                            } else {
+                                body.classList.remove('dark-mode');
+                                body.classList.add('light-mode');
+                            }
+                        }
 
-                                // Update colors based on initial mode
-                                updateColors(currentMode);
+                        // Update colors based on initial mode
+                        updateColors(currentMode);
 
-                                modeToggle.addEventListener('click', function () {
-                                    const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
-                                    localStorage.setItem('theme', newMode);
-                                    updateColors(newMode);
-                                    modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
-                                });
-                            });
+                        modeToggle.addEventListener('click', function () {
+                            const newMode = body.classList.contains('dark-mode') ? 'light' : 'dark';
+                            localStorage.setItem('theme', newMode);
+                            updateColors(newMode);
+                            modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+                        });
+                    });
 </script>

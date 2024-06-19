@@ -62,4 +62,8 @@ create table `admin` (
 	`admin_passcode` varchar (150),
 	`admin_email` varchar (300)
 ); 
+
+ALTER TABLE `admin`
+ADD PRIMARY KEY (`admin_id`);
+
 insert into `admin` (`admin_id`, `admin_password`, `admin_passcode`, `admin_email`) values('1admin','1admin','1admin','rohitkhanra425@hotmail.com');

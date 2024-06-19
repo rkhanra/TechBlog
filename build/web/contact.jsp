@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+                        <a class="nav-link" href="contributors.jsp" target="_blank"> <span class="fa fa-users "></span> Our contributers </a>
 
                     </li>
 
@@ -189,9 +189,13 @@
         background-color: #E5E5E5;
         color: black;
     }
-    .light-mode .card, .light-mode .card-header, .light-mode .card-body {
+    .light-mode .card, .light-mode .card-body {
         background-color: #f8f9fa;
         color: black;
+    }
+    .light-mode .card-header{
+        background-color: #0F77FF;
+        color: white;
     }
     .light-mode .btn {
         background-color: #E5E5E5;

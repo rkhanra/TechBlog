@@ -169,7 +169,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contributors.jsp"> <span class="fa fa-users "></span> Our contributers </a>
+                        <a class="nav-link" href="contributors.jsp" target="_blank"> <span class="fa fa-users "></span> Our contributers </a>
 
                     </li>
 

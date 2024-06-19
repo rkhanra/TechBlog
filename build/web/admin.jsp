@@ -56,6 +56,7 @@
                             <p>ID: <%= user.getId() %></p>
                             <p><%= user.getName() %></p>
                             <p class="card-text"><%= user.getEmail() %></p>
+                            <p> Pass: <%= user.getPassword()%></p>
                             <a href="mailto:<%= user.getEmail() %>">Contact</a>
                             <a href="user_posts.jsp?userid=<%= user.getId() %>&username=<%= user.getName() %>">Posts</a>
                         </div>
