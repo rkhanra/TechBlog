@@ -73,7 +73,7 @@
                 /* Adjust as needed */
                 position: fixed;
                 top: 0;
-                background-color: #d2d1d1;
+                background-color: #212121;
                 z-index:99;
                 display: none;
             }

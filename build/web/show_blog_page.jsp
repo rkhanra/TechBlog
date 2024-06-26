@@ -347,7 +347,7 @@
                         </div>
 
 
-                        <p class="post-content"><%= p.getpContent()%></p> 
+                    <div class="post-content" id="post-content"><%= p.getpContent() %></div>
 
                         <br>
                         <p class="dropdown-divider"> </p>
@@ -873,6 +873,26 @@
                 x.type = "password";
             }
         }
+//        displaying content of links in post
+        document.addEventListener("DOMContentLoaded", function () {
+            const contentElement = document.getElementById('post-content');
+            let contentHTML = contentElement.innerHTML;
+
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            contentHTML = contentHTML.replace(urlRegex, function(url) {
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = url.split('v=')[1] || url.split('/')[3];
+                    return '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                } else if (url.includes('vimeo.com')) {
+                    let videoId = url.split('.com/')[1];
+                    return '<iframe src="https://player.vimeo.com/video/' + videoId + '" width="100%" height="500px" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+                } else {
+                    return '<iframe src="' + url + '" width="100%" height="500px" frameborder="0" class="dynamic-iframe"></iframe>';
+                }
+            });
+
+            contentElement.innerHTML = contentHTML;
+        });
     </script>
 
 

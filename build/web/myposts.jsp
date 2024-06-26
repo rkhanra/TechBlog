@@ -67,8 +67,6 @@
         padding: 0;
         height: 100%;
         position: relative;
-        background-color: hsla(120, 5.4%, 85.5%);
-
     }
 
     .progress-container {
