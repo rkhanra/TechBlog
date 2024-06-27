@@ -874,25 +874,45 @@
             }
         }
 //        displaying content of links in post
-        document.addEventListener("DOMContentLoaded", function () {
-            const contentElement = document.getElementById('post-content');
-            let contentHTML = contentElement.innerHTML;
+    document.addEventListener("DOMContentLoaded", function () {
+        const contentElement = document.getElementById('post-content');
+        let contentHTML = contentElement.innerHTML;
 
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-            contentHTML = contentHTML.replace(urlRegex, function(url) {
-                if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                    let videoId = url.split('v=')[1] || url.split('/')[3];
-                    return '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                } else if (url.includes('vimeo.com')) {
-                    let videoId = url.split('.com/')[1];
-                    return '<iframe src="https://player.vimeo.com/video/' + videoId + '" width="100%" height="500px" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-                } else {
-                    return '<iframe src="' + url + '" width="100%" height="500px" frameborder="0" class="dynamic-iframe"></iframe>';
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        contentHTML = contentHTML.replace(urlRegex, function (url) {
+            // Check for YouTube URLs
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                let videoId = '';
+                if (url.includes('youtube.com')) {
+                    videoId = new URL(url).searchParams.get('v');
+                } else if (url.includes('youtu.be')) {
+                    videoId = url.split('/').pop();
                 }
-            });
-
-            contentElement.innerHTML = contentHTML;
+                if (videoId) {
+                    return '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                }
+            }
+            // Check for Vimeo URLs
+            else if (url.includes('vimeo.com')) {
+                let videoId = url.split('.com/')[1];
+                return '<iframe src="https://player.vimeo.com/video/' + videoId + '" width="100%" height="500px" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+            }
+            // Check for image URLs
+            else if (url.match(/\.(jpeg|jpg|gif|png)(\?.*)?$/i)) {
+                return '<img width="100%" height="500px" frameborder="0" class="dynamic-iframe" src="' + url + '" width="100%" />';
+            }
+            // Check for video URLs
+            else if (url.match(/\.(mp4|webm|ogg)$/i)) {
+                return '<video width="100%" controls><source width="100%" height="500px" frameborder="0" src="' + url + '" type="video/' + url.split('.').pop() + '">Your browser does not support the video tag.</video>';
+            }
+            // General URLs as clickable links
+            else {
+                return '<a href="' + url + '" target="_blank">' + url + '</a>';
+            }
         });
+
+        contentElement.innerHTML = contentHTML;
+    });
     </script>
 
 

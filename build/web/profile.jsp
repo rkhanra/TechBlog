@@ -508,7 +508,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea name="pContent" id="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content | Kinedly use <br> for new line and &amp;nbsp; for indents" required ></textarea>
+                                    <textarea name="pContent" id="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content | Kinedly use <br> for new line and &amp;nbsp; for indents | To show images , video or any web page's address as referral of your content please enter it and do not forgot to add spaces at the begning and ending of the link "  required ></textarea>
                                 </div>
                                 <div class="form-group">
                                     <textarea name="pCode" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
@@ -523,7 +523,7 @@
                                 <hr class="my-4">
                                 <div class="alert alert-warning" id="warning" role="alert">
                                     Kinedly use  &lt;br&gt; for new line and &amp;nbsp; for indents <br>
-                                    Warning: Make sure that your post  dosen't contains any misleading topic. Once you submit the post, you cannot delete or modify the content later. 
+                                    To show images , video or any web page's address as referral of your content please enter it and do not forgot to add <b>spaces</b> at the begning and ending of the link <br> <strong> Warning:</strong> Make sure that your post  dosen't contains any misleading topic. Once you submit the post, you cannot delete or modify the content later. 
                                 </div>
 
                                 <div class="container text-center">
