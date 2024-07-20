@@ -285,7 +285,7 @@
                 <div class="card-header text-uppercase" id="header"><i class="fa fa-home"></i> Reach US </div>
                 <div class="card-body">
                     <p>Rohit Khanra</p>
-                    <p>Taraswar, 712415</p>
+                    <p>Tarakeswar, 712415</p>
                     <p>India</p>
                     <p>Email: <a href="javascript:void(0);" onclick="sendEmail();">rohitkhanra420@gmail.com</a></p>
 

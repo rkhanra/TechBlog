@@ -158,6 +158,95 @@
                 max-width: 90%;
                 width: 90%;
             }
+
+            /* Scrollable Menu Styles for Light Mode */
+            .scrollable-menu {
+                max-height: 90vh; /* 90% of the viewport height */
+                overflow-y: auto;
+                background-color: #ffffff;
+                color: #000000;
+            }
+
+            .scrollable-menu::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .scrollable-menu::-webkit-scrollbar-thumb {
+                background-color: #C0C0C0;
+                border-radius: 10px;
+            }
+
+            .scrollable-menu::-webkit-scrollbar-thumb:hover {
+                background-color: #555;
+            }
+
+            .scrollable-menu::-webkit-scrollbar-track {
+                background-color: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            /* Scrollable Menu Styles for Dark Mode */
+            .dark-mode .scrollable-menu {
+                background-color: #333333;
+                color: #ffffff;
+            }
+
+            .dark-mode .scrollable-menu::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .dark-mode .scrollable-menu::-webkit-scrollbar-thumb {
+                background-color: #444;
+                border-radius: 10px;
+            }
+
+            .dark-mode .scrollable-menu::-webkit-scrollbar-thumb:hover {
+                background-color: #222;
+            }
+
+            .dark-mode .scrollable-menu::-webkit-scrollbar-track {
+                background-color: #555;
+                border-radius: 10px;
+            }
+        /* Select Element Scrollbar Styles for Light Mode */
+        select::-webkit-scrollbar {
+            width: 12px; /* width of the entire scrollbar */
+            height: 12px; /* height of the scrollbar */
+        }
+
+        select::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        select::-webkit-scrollbar-thumb {
+            background: #C0C0C0;
+            border-radius: 10px; /* Round corners */
+        }
+
+        select::-webkit-scrollbar-thumb:hover {
+            background: #B9B6B6;
+        }
+
+        /* Select Element Scrollbar Styles for Dark Mode */
+        .dark-mode select::-webkit-scrollbar {
+            width: 12px; /* width of the entire scrollbar */
+            height: 12px; /* height of the scrollbar */
+            background: #333333;
+        }
+
+        .dark-mode select::-webkit-scrollbar-track {
+            background: #555;
+        }
+
+        .dark-mode select::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 10px; /* Round corners */
+        }
+
+        .dark-mode select::-webkit-scrollbar-thumb:hover {
+            background: #222;
+        }
+
             /* Add any other elements you want to style in dark mode */
         </style></head>
     <body>
@@ -277,13 +366,13 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Categories
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <div class="dropdown-menu scrollable-menu" aria-labelledby="categoriesDropdown">
                                     <!-- All Posts -->
                                     <!-- <a class="dropdown-item active" href="#" onclick="getPosts(0, this)">All Posts</a>-->
                                     <a class="dropdown-item active" href="#" onclick="selectCategory(this, 0)">All Posts</a>
 
                                     <!-- Loop through categories -->
-                                    <%                PostDao d = new PostDao(ConnectionProvider.getConnection());
+                                    <%            PostDao d = new PostDao(ConnectionProvider.getConnection());
                                         ArrayList<Category> list1 = d.getAllCategories();
                                         for (Category cc : list1) {
                                     %>
@@ -291,6 +380,7 @@
                                     <% }%>
                                 </div>
                             </div>
+
                         </div>
 
 
