@@ -1,123 +1,105 @@
-<%-- 
-    Document   : reports
-    Created on : 17 Jul 2024, 11:26:28 pm
-    Author     : Rohit Khanra
---%>
-<%@page import="java.util.List"%>
-<%@page import="com.tech.blog.dao.ReportDao"%>
-<%@page import="com.tech.blog.entities.Report"%>
-<%@page import="com.tech.blog.helper.ConnectionProvider"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.tech.blog.dao.ReportDao" %>
+<%@ page import="com.tech.blog.helper.ConnectionProvider" %>
+<%@ page import="com.tech.blog.entities.Report" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>All Reports</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            .body {
-                background-color: #f8f9fa;
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        .custom-container {
+            padding: 10px !important;
+            margin-left: auto;
+            margin-right: auto;
+            transition: width 0.5s;
+        }
+    </style>
+    <script>
+        function confirmDeletion(reportId) {
+            if (confirm("Are you sure you want to delete this report?")) {
+                document.getElementById('deleteReportId').value = reportId;
+                document.getElementById('reportsForm').submit();
             }
-            .card-body {
-                background-color: #ffffff;
-            }
-            .message-content {
-                height: 23vh; /* Set height to 23% of viewport height */
-                overflow-y: auto; /* Add vertical scrollbar when content exceeds height */
-                padding-right: 15px; /* Adjust for scrollbar width */
-            }
-            .message-content::-webkit-scrollbar {
-                width: 5px;
-            }
-            .message-content::-webkit-scrollbar-thumb {
-                background-color: #C0C0C0;
-            }
-            .modal-dialog {
-                max-width: 90% !important; /* Set maximum width to 90% of viewport */
-            }
-        </style>
-    </head>
-    <body class="body">
-        <div class="container">
-            <h1 class="my-4">All Reports</h1>
+        }
 
+        function adjustContainerWidth() {
+            var table = document.querySelector('.table');
+            var container = document.querySelector('.custom-container');
+            if (table) {
+                var tableWidth = table.offsetWidth;
+                container.style.width = tableWidth + 'px';
+            }
+        }
+
+        window.onload = adjustContainerWidth;
+        window.onresize = adjustContainerWidth;
+    </script>
+</head>
+<body>
+    <div class="container custom-container">
+        <h1>Reports</h1>
+        <form id="reportsForm" action="UpdateReportServlet" method="post">
+            <input type="hidden" id="deleteReportId" name="deleteReportId" value="">
             <%
-                // Get the list of reports
-                ReportDao reportDao = new ReportDao(ConnectionProvider.getConnection());
-                List<Report> reportList = reportDao.getAllReports();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                ReportDao dao = new ReportDao(ConnectionProvider.getConnection());
+                List<Report> reports = dao.getAllReports();
+                if (reports.isEmpty()) {
             %>
-
-            <div class="row">
-                <% if (reportList != null && !reportList.isEmpty()) {
-                        for (Report report : reportList) {
-                %>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= report.getRname()%></h5>
-                            <p class="card-text">
-                                <strong>Email:</strong> <span><%= report.getRemail()%></span>
-                            </p>
-                            <div class="message-content">
-                                <%= report.getMessage()%>
-                            </div>
-                            <!-- Button to trigger modal -->
-                            <button type="button" class="btn btn-primary view-message-btn" data-toggle="modal" data-target="#messageModal" data-message="<%= report.getMessage().replaceAll("[\\r\\n]+", "<br>")%>">
-                                View Full Message
-                            </button>
-                        </div>
-                    </div>
+                <div class="alert alert-info" role="alert">
+                    No reports found.
                 </div>
-
-                <% }
+            <%
                 } else {
-                %>
-                <div class="col-12">
-                    <div class="alert alert-warning text-center" role="alert">
-                        No reports found.
-                    </div>
-                </div>
-                <% }%>
-            </div>
+            %>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Processed</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for (Report report : reports) {
+                    %>
+                    <tr>
+                        <td><input type="checkbox" name="reportIds" value="<%= report.getId() %>" <%= report.isProcessed() ? "checked" : "" %>></td>
+                        <td><%= report.getId() %></td>
+                        <td><%= report.getRname() %></td>
+                        <td><a href="mailto:<%= report.getRemail() %>?subject=Regarding your report&body=Hi <%= report.getRname() %>,%0D%0A%0D%0A"><%= report.getRemail() %></a></td>
+                        <td><%= report.getMessage() %></td>
+                        <td><%= report.getRdate() %></td>
+                        <td><%= report.isProcessed() ? "Yes" : "No" %></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="confirmDeletion(<%= report.getId() %>)">Delete</button>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+            <%
+                }
+            %>
+        </form>
+        <%
+            String statusMessage = (String) request.getSession().getAttribute("statusMessage");
+            if (statusMessage != null) {
+                request.getSession().removeAttribute("statusMessage");
+        %>
+        <div class="alert alert-info" role="alert">
+            <%= statusMessage %>
         </div>
-
-        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="messageModalLabel">Full Message</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="modalContent"></div> <!-- Content will be loaded here -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </body>
+        <% } %>
+    </div>
+</body>
 </html>
-<script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.view-message-btn').click(function () {
-            var message = $(this).data('message');
-            $('#modalContent').html(message);
-        });
-    });
-</script>

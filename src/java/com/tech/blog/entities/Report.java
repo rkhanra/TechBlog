@@ -1,33 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tech.blog.entities;
 
-import java.sql.*;
-/**
- *
- * @author Rohit Khanra
- */
+import java.sql.Timestamp;
+
 public class Report {
     private int id;
     private String rname;
     private String remail;
     private String message;
     private Timestamp rdate;
-    
-    public Report(int id, String rname, String remail, String message, Timestamp rdate){
+    private boolean processed;
+
+    public Report(int id, String rname, String remail, String message, Timestamp rdate, boolean processed) {
         this.id = id;
         this.rname = rname;
         this.remail = remail;
         this.message = message;
         this.rdate = rdate;
+        this.processed = processed;
     }
-    public  Report(){
-        
-    }
-    
-    public  Report(String rname, String remail, String message){
+
+    public Report() {}
+
+    public Report(String rname, String remail, String message) {
         this.rname = rname;
         this.remail = remail;
         this.message = message;
@@ -72,7 +66,12 @@ public class Report {
     public void setRdate(Timestamp rdate) {
         this.rdate = rdate;
     }
-    
-    
-    
+
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
+    }
 }

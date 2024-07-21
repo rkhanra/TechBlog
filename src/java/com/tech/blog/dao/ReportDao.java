@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tech.blog.dao;
 
 import com.tech.blog.entities.Report;
@@ -9,10 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Rohit Khanra
- */
 public class ReportDao {
 
     private Connection con;
@@ -21,67 +13,82 @@ public class ReportDao {
         this.con = con;
     }
 
-    //method to insert report to database
+    // Method to save a report to the database
     public boolean saveReport(Report report) {
-        boolean f = false;
+        boolean success = false;
+        String query = "INSERT INTO reports(rname, remail, message) VALUES (?, ?, ?)";
 
-        try {
-            String query = "INSERT INTO reports(rname, remail, message) VALUES (?, ?, ?)";
-            PreparedStatement pstmt = this.con.prepareStatement(query);
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, report.getRname());
             pstmt.setString(2, report.getRemail());
             pstmt.setString(3, report.getMessage());
 
-            pstmt.executeUpdate();
-            f = true;
+            int rowsAffected = pstmt.executeUpdate();
+            success = rowsAffected > 0;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return f;
-
+        return success;
     }
 
     // Method to retrieve all reports from the database
     public List<Report> getAllReports() {
         List<Report> reports = new ArrayList<>();
+        String query = "SELECT * FROM reports";
 
-        try {
-            String query = "SELECT * FROM reports";
-            PreparedStatement pstmt = this.con.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
+        try (PreparedStatement pstmt = con.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String rname = rs.getString("rname");
                 String remail = rs.getString("remail");
                 String message = rs.getString("message");
+                Timestamp rdate = rs.getTimestamp("rdate");
+                boolean processed = rs.getBoolean("processed");
 
-                Report report = new Report(rname, remail, message);
+                Report report = new Report(id, rname, remail, message, rdate, processed);
                 reports.add(report);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return reports;
     }
 
-    // Method to delete a report by its ID
-    public boolean deleteReportById(int id) {
-        boolean f = false;
+    // Method to mark a report as processed
+    public boolean markReportAsProcessed(int id) {
+        boolean success = false;
+        String query = "UPDATE reports SET processed = 1 WHERE id = ?";
 
-        try {
-            String query = "DELETE FROM reports WHERE id = ?";
-            PreparedStatement pstmt = this.con.prepareStatement(query);
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setInt(1, id);
 
-            pstmt.executeUpdate();
-            f = true;
-        } catch (Exception e) {
+            int rowsAffected = pstmt.executeUpdate();
+            success = rowsAffected > 0;
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return f;
+        return success;
     }
 
+    // Method to delete a report by its ID
+    public boolean deleteReportById(int id) {
+        boolean success = false;
+        String query = "DELETE FROM reports WHERE id = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+
+            int rowsAffected = pstmt.executeUpdate();
+            success = rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
 }

@@ -12,7 +12,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PostDao {
 
     Connection con;
@@ -185,7 +184,6 @@ public class PostDao {
         return isUpdated;
     }
 
-
     public List<Post> getPostsByUserId(int userId) {
         List<Post> list = new ArrayList<>();
 
@@ -215,4 +213,18 @@ public class PostDao {
         return list;
     }
 
- }
+    public boolean deletePost(int postId) {
+        boolean f = false;
+        try {
+            String query = "DELETE FROM posts WHERE pid=?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, postId);
+            pstmt.executeUpdate();
+            f = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+}

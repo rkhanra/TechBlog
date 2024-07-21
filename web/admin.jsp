@@ -15,7 +15,7 @@
         <title>Admin Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link href="css/admin.css" rel="stylesheet" type="text/css"/>
-        <script src="js/admin.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             .admin-actions {
                 position: absolute;
@@ -25,13 +25,28 @@
         </style>
 
         <script>
-            function checkLoginMessage() {
-                var loginMessageDiv = document.querySelector('.login-message');
-                if (!loginMessageDiv || loginMessageDiv.innerText.trim() === '') {
-                    window.location.href = 'error_page.jsp';
+            function confirmDeletion(form) {
+                // Show confirmation alert
+                if (confirm("Are you sure you want to delete this user?")) {
+                    form.submit();
                 }
             }
-            window.onload = checkLoginMessage;
+
+            function showAlert(message) {
+                alert(message);
+            }
+
+            function checkDeleteResult() {
+                var status = '<%= session.getAttribute("deleteStatus")%>';
+                if (status) {
+                    var message = status === 'success' ? 'User deleted successfully.' : 'Welcome to admin console';
+                    showAlert(message);
+                    // Clear the session attribute after displaying the alert
+            <% session.removeAttribute("deleteStatus"); %>
+                }
+            }
+
+            window.onload = checkDeleteResult;
         </script>
     </head>
     <body>
@@ -60,16 +75,24 @@
                         if (userList != null && !userList.isEmpty()) {
                             for (User user : userList) {
                     %>
-                    <div class="col-md-3">
-                        <div class="card mb-3" style="width: 18rem;" id="dark">
-                            <img style="object-fit: cover; height: 150px; width: auto" src="pics/<%= user.getProfile()%>" id="card-img-top" alt="<%= user.getName()%>'s profile picture">
+                    <div class="col-md-4 mb-2"> <!-- Increased width to col-md-4 for wider cards -->
+                        <div class="card" style="width: 100%;" id="dark"> <!-- Set width to 100% for full-width cards -->
+                            <img style="object-fit: cover; height: 200px; width: 100%;" src="pics/<%= user.getProfile()%>" class="card-img-top" alt="<%= user.getName()%>'s profile picture"> <!-- Adjusted height and width of image -->
                             <div class="card-body">
                                 <p>ID: <%= user.getId()%></p>
                                 <p><%= user.getName()%></p>
                                 <p class="card-text"><%= user.getEmail()%></p>
-                                <p> Pass: <%= user.getPassword()%></p>
-                                <a href="mailto:<%= user.getEmail()%>">Contact</a>
-                                <a href="user_posts.jsp?userid=<%= user.getId()%>&username=<%= user.getName()%>">Posts</a>
+                                <p>Password: <%= user.getPassword()%></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                        <a href="mailto:<%= user.getEmail()%>" class="btn btn-outline-primary mr-2">Contact</a> <!-- Added margin to Contact button -->
+                                        <a href="user_posts.jsp?userid=<%= user.getId()%>&username=<%= user.getName()%>" class="btn btn-outline-primary mr-2">Posts</a> <!-- Added margin to Posts button -->
+                                    </div>
+                                    <form action="DeleteUserServlet" method="post" style="display:inline;">
+                                        <input type="hidden" name="userId" value="<%= user.getId()%>">
+                                        <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" onclick="confirmDeletion(this.form)">Delete Account</button> <!-- Adjusted margin left -->
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,6 +106,7 @@
                     <% }%>
                 </div>
             </div>
+
         </div>
     </body>
 </html>

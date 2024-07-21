@@ -42,6 +42,27 @@
         color: #fff;
     }
 
+    .scrollbar {
+        width: auto;
+        height: 100px; /* Adjust the height as needed */
+        overflow-y: auto;
+    }
+
+    #scrollbar1::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    #scrollbar1::-webkit-scrollbar-track {
+        border-radius: 1px;
+        background-color: #e7e7e7;
+        border: 1px solid #cacaca;
+    }
+
+    #scrollbar1::-webkit-scrollbar-thumb {
+        border-radius: 1px;
+        background-color: #454548;
+    }
+
 </style>
 
 <input type="text" class="customSearchInput" id="searchInput" placeholder="Search Post by Name" onkeyup="search()">
@@ -84,34 +105,9 @@
                     <b><%= p.getpTitle()%></b>
                     <div style="border: 1px solid black"></div>
 
-                    <!--STYLE FOR CONTAINER-->
-                    <style>
-
-                        .scrollbar {
-                            width: auto;
-                            overflow: auto;
-                        }
-
-                        #scrollbar1::-webkit-scrollbar {
-                            width: 3px;
-                        }
-
-                        #scrollbar1::-webkit-scrollbar-track {
-                            border-radius: 1px;
-                            background-color: #e7e7e7;
-                            border: 1px solid #cacaca;
-                        }
-
-                        #scrollbar1::-webkit-scrollbar-thumb {
-                            border-radius: 1px;
-                            background-color: #454548;
-                        }
-                    </style>
-
                     <div class="container">
                         <div class="scrollbar" id="scrollbar1">
-
-                            <p style="height: 50px"><%= p.getpContent()%></p>
+                            <p style="height: 50px;"><%= p.getpContent()%></p>
                         </div>
                     </div>
 

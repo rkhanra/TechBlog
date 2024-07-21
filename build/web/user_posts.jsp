@@ -1,8 +1,3 @@
-<%-- 
-    Document   : user_posts
-    Created on : 14 Jun 2024, 10:45:40 pm
-    Author     : Rohit Khanra
---%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="com.tech.blog.entities.User" %>
 <%@ page import="com.tech.blog.dao.LikeDao" %>
@@ -34,19 +29,33 @@
                 flex-direction: column;
                 justify-content: space-between;
             }
-            .card-text {
-                height: 100px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 5; /* number of lines to show */
-                -webkit-box-orient: vertical;
+            .card-content {
+                height: 100px; /* Adjust the height of the content area */
+                overflow-y: auto; /* Enable vertical scrollbar */
             }
             .modal-dialog {
                 max-width: 90%;
                 width: 90%;
             }
+            .scrollbar::-webkit-scrollbar {
+                width: 5px; /* Width of the scrollbar */
+            }
+            .scrollbar::-webkit-scrollbar-track {
+                background-color: #f1f1f1; /* Track color */
+            }
+            .scrollbar::-webkit-scrollbar-thumb {
+                background-color: #888; /* Thumb color */
+                border-radius: 5px; /* Rounded corners */
+            }
+
         </style>
+        <script>
+            function confirmDelete(postId) {
+                if (confirm("Are you sure you want to delete this post?")) {
+                    document.getElementById('deleteForm' + postId).submit();
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="container mt-4">
@@ -78,11 +87,22 @@
                         <img class="card-img-top" src="blog_pics/<%= post.getpPic()%>" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title"><%= post.getpTitle()%></h5>
-                            <p class="card-text"><%= post.getpContent()%></p>
-                            <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#editPostModal<%= post.getPid()%>">Check</a>
+                            <div class="card-content scrollbar">
+                                <p class="card-text"><%= post.getpContent()%></p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#editPostModal<%= post.getPid()%>">Check</a>
+                                <form id="deleteForm<%= post.getPid()%>" action="DeletePostServlet" method="post" style="display:inline;">
+                                    <input type="hidden" name="postId" value="<%= post.getPid()%>">
+                                    <input type="hidden" name="userId" value="<%= userIdString%>">
+                                    <input type="hidden" name="username" value="<%= username%>">
+                                    <button type="button" class="btn btn-outline-danger ml-2" onclick="confirmDelete(<%= post.getPid()%>)">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Modal for Editing Post -->
                 <div class="modal fade" id="editPostModal<%= post.getPid()%>" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel<%= post.getPid()%>" aria-hidden="true">
@@ -97,13 +117,13 @@
                             <div class="modal-body">
                                 <form action="EditPostServlet" method="post">
                                     <input type="hidden" name="postId" value="<%= post.getPid()%>">
-                                    <input type="hidden" name="userid" value="<%= userIdString%>">
+                                    <input type="hidden" name="userId" value="<%= userIdString%>">
                                     <input type="hidden" name="username" value="<%= username%>">
                                     <div class="form-group">
                                         <label for="postTitle<%= post.getPid()%>">Post Title</label>
                                         <input type="text" class="form-control" id="postTitle<%= post.getPid()%>" name="postTitle" value="<%= post.getpTitle()%>">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group formscroll">
                                         <label for="postContent<%= post.getPid()%>">Post Content</label>
                                         <textarea class="form-control" id="postContent<%= post.getPid()%>" name="postContent" rows="10"><%= post.getpContent()%></textarea>
                                     </div>

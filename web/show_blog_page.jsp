@@ -385,7 +385,7 @@
 
                     <div class="card-footer">
                         <!-- HYVOR TALK COMMENTS  Facebook Comments Plugin -->
-                        <hyvor-talk-comments website-id="11178" page-id="<%= p.getPid()%>" ></hyvor-talk-comments>
+                        <hyvor-talk-comments website-id="11559" page-id="<%= p.getPid()%>" ></hyvor-talk-comments>
                         <!--                        <span> Please mention Post Title while commenting || eg Post name : name </span>
                                                 <div class="fb-comments" data-href="http://127.0.0.1:5500/index%20(2).html" data-numposts="5"></div>-->
                         <!--        <div class="fb-comments" data-href="http://localhost:8090/TechBlog/show_blog_page.jsp?post_id=32" data-numposts="5"></div>-->
@@ -898,11 +898,11 @@
                 return '<iframe src="https://player.vimeo.com/video/' + videoId + '" width="100%" height="500px" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
             }
             // Check for image URLs
-            else if (url.match(/\.(jpeg|jpg|gif|png)(\?.*)?$/i)) {
+            else if (url.match(/\.(jpeg|jpg|gif|png|bmp|tif|ttif|webp)(\?.*)?$/i)) {
                 return '<img width="100%" height="500px" frameborder="0" class="dynamic-iframe" src="' + url + '" width="100%" />';
             }
             // Check for video URLs
-            else if (url.match(/\.(mp4|webm|ogg)$/i)) {
+            else if (url.match(/\.(mp4|webm|ogg|avi|mkv|mov|wmv|)$/i)) {
                 return '<video width="100%" controls><source width="100%" height="500px" frameborder="0" src="' + url + '" type="video/' + url.split('.').pop() + '">Your browser does not support the video tag.</video>';
             }
             // General URLs as clickable links
