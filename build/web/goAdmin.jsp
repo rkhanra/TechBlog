@@ -1,6 +1,20 @@
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
+<%@ page import="javax.servlet.http.HttpServletResponse" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<%@ page import="com.tech.blog.entities.Message" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
+
+<%
+    // Check if the request is a form submission
+    String action = request.getParameter("action");
+    if ("submit".equals(action)) {
+        // Set session attribute to allow access to admin.jsp
+        session.setAttribute("fromGoAdmin", "true");
+
+        // Redirect to admin.jsp
+        response.sendRedirect("admin.jsp");
+        return;
+    }
+%>
 
 <!doctype html>
 <html lang="en">
@@ -22,7 +36,8 @@
                 <div class="col-md-4 offset-md-4">
                     <div class="card" id="dark">    
                         <div class="card-body">
-                            <form action="RedirectionToAdmin" class="dark" method="post">
+                            <form action="goAdmin.jsp" method="post">
+                                <input type="hidden" name="action" value="submit">
                                 <div class="form-group">
                                     <label for="adminid">Admin ID</label>
                                     <input name="adminid" required class="form-control" id="adminid" placeholder="" id="dark">

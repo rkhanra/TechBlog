@@ -6,7 +6,17 @@
 <%@ page import="com.tech.blog.helper.ConnectionProvider" %>
 <%@ page import="com.tech.blog.dao.PostDao" %>
 <%@ page errorPage="error_page.jsp" %>
+<%
+    String fromAdmin = (String) session.getAttribute("fromAdmin");
 
+    if (fromAdmin == null || !"true".equals(fromAdmin)) {
+        response.sendRedirect("error_page.jsp");
+        return;
+    }
+
+    // Remove the session attribute to prevent reuse
+    session.removeAttribute("fromAdmin");
+%>
 <!DOCTYPE html>
 <html>
     <head>

@@ -6,7 +6,21 @@
 <%@ page import="com.tech.blog.helper.ConnectionProvider" %>
 <%@ page import="com.tech.blog.entities.User" %>
 <%@ page errorPage="error_page.jsp" %>
+<%
+    String fromGoAdmin = (String) session.getAttribute("fromGoAdmin");
 
+    if (fromGoAdmin == null || !"true".equals(fromGoAdmin)) {
+        response.sendRedirect("error_page.jsp");
+        return;
+    }
+
+    // Remove the session attribute to prevent reuse
+    session.removeAttribute("fromGoAdmin");
+        // Get session object
+    
+    // Set session attribute to allow access to reports.jsp
+    session.setAttribute("fromAdmin", "true");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,10 +37,8 @@
                 right: 10px;
             }
         </style>
-
         <script>
             function confirmDeletion(form) {
-                // Show confirmation alert
                 if (confirm("Are you sure you want to delete this user?")) {
                     form.submit();
                 }
@@ -41,8 +53,7 @@
                 if (status) {
                     var message = status === 'success' ? 'User deleted successfully.' : 'Welcome to admin console';
                     showAlert(message);
-                    // Clear the session attribute after displaying the alert
-            <% session.removeAttribute("deleteStatus"); %>
+                    <% session.removeAttribute("deleteStatus"); %>
                 }
             }
 
@@ -53,12 +64,8 @@
         <form action="AdminLogoutServlet" method="post">
             <button type="submit">Logout</button>
         </form>
-        <%
-            // Set a session attribute before redirecting to reports.jsp
-            session.setAttribute("fromAdmin", "true");
-        %>
         <div class="admin-actions">
-            <a href="reports.jsp" class="btn btn-primary">Reports</a>
+            <a href="reports.jsp?fromAdmin=true" class="btn btn-primary">Reports</a>
         </div>
         <div>
             <%
@@ -79,9 +86,9 @@
                         if (userList != null && !userList.isEmpty()) {
                             for (User user : userList) {
                     %>
-                    <div class="col-md-4 mb-2"> <!-- Increased width to col-md-4 for wider cards -->
-                        <div class="card" style="width: 100%;" id="dark"> <!-- Set width to 100% for full-width cards -->
-                            <img style="object-fit: cover; height: 200px; width: 100%;" src="pics/<%= user.getProfile()%>" class="card-img-top" alt="<%= user.getName()%>'s profile picture"> <!-- Adjusted height and width of image -->
+                    <div class="col-md-4 mb-2">
+                        <div class="card" style="width: 100%;" id="dark">
+                            <img style="object-fit: cover; height: 200px; width: 100%;" src="pics/<%= user.getProfile()%>" class="card-img-top" alt="<%= user.getName()%>'s profile picture">
                             <div class="card-body">
                                 <p>ID: <%= user.getId()%></p>
                                 <p><%= user.getName()%></p>
@@ -89,12 +96,12 @@
                                 <p>Password: <%= user.getPassword()%></p>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
-                                        <a href="mailto:<%= user.getEmail()%>" class="btn btn-outline-primary mr-2">Contact</a> <!-- Added margin to Contact button -->
-                                        <a href="user_posts.jsp?userid=<%= user.getId()%>&username=<%= user.getName()%>" class="btn btn-outline-primary mr-2">Posts</a> <!-- Added margin to Posts button -->
+                                        <a href="mailto:<%= user.getEmail()%>" class="btn btn-outline-primary mr-2">Contact</a>
+                                        <a href="user_posts.jsp?userid=<%= user.getId()%>&username=<%= user.getName()%>" class="btn btn-outline-primary mr-2">Posts</a>
                                     </div>
                                     <form action="DeleteUserServlet" method="post" style="display:inline;">
                                         <input type="hidden" name="userId" value="<%= user.getId()%>">
-                                        <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" onclick="confirmDeletion(this.form)">Delete Account</button> <!-- Adjusted margin left -->
+                                        <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" onclick="confirmDeletion(this.form)">Delete Account</button>
                                     </form>
                                 </div>
                             </div>
@@ -110,7 +117,6 @@
                     <% }%>
                 </div>
             </div>
-
         </div>
     </body>
 </html>
