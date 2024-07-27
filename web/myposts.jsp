@@ -13,6 +13,11 @@
 <%@page import="com.tech.blog.dao.PostDao"%>
 <title> My Journey</title>
 <style>
+    body{
+        background:url(img/bg.jpeg);
+        background-size: cover;
+        background-attachment: fixed;
+    }
     /* Apply styles to the entire webpage scrollbar */
     body::-webkit-scrollbar {
         width: 12px;

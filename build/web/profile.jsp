@@ -208,44 +208,44 @@
                 background-color: #555;
                 border-radius: 10px;
             }
-        /* Select Element Scrollbar Styles for Light Mode */
-        select::-webkit-scrollbar {
-            width: 12px; /* width of the entire scrollbar */
-            height: 12px; /* height of the scrollbar */
-        }
+            /* Select Element Scrollbar Styles for Light Mode */
+            select::-webkit-scrollbar {
+                width: 12px; /* width of the entire scrollbar */
+                height: 12px; /* height of the scrollbar */
+            }
 
-        select::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+            select::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
 
-        select::-webkit-scrollbar-thumb {
-            background: #C0C0C0;
-            border-radius: 10px; /* Round corners */
-        }
+            select::-webkit-scrollbar-thumb {
+                background: #C0C0C0;
+                border-radius: 10px; /* Round corners */
+            }
 
-        select::-webkit-scrollbar-thumb:hover {
-            background: #B9B6B6;
-        }
+            select::-webkit-scrollbar-thumb:hover {
+                background: #B9B6B6;
+            }
 
-        /* Select Element Scrollbar Styles for Dark Mode */
-        .dark-mode select::-webkit-scrollbar {
-            width: 12px; /* width of the entire scrollbar */
-            height: 12px; /* height of the scrollbar */
-            background: #333333;
-        }
+            /* Select Element Scrollbar Styles for Dark Mode */
+            .dark-mode select::-webkit-scrollbar {
+                width: 12px; /* width of the entire scrollbar */
+                height: 12px; /* height of the scrollbar */
+                background: #333333;
+            }
 
-        .dark-mode select::-webkit-scrollbar-track {
-            background: #555;
-        }
+            .dark-mode select::-webkit-scrollbar-track {
+                background: #555;
+            }
 
-        .dark-mode select::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 10px; /* Round corners */
-        }
+            .dark-mode select::-webkit-scrollbar-thumb {
+                background: #444;
+                border-radius: 10px; /* Round corners */
+            }
 
-        .dark-mode select::-webkit-scrollbar-thumb:hover {
-            background: #222;
-        }
+            .dark-mode select::-webkit-scrollbar-thumb:hover {
+                background: #222;
+            }
 
             /* Add any other elements you want to style in dark mode */
         </style></head>
