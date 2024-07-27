@@ -53,6 +53,10 @@
         <form action="AdminLogoutServlet" method="post">
             <button type="submit">Logout</button>
         </form>
+        <%
+            // Set a session attribute before redirecting to reports.jsp
+            session.setAttribute("fromAdmin", "true");
+        %>
         <div class="admin-actions">
             <a href="reports.jsp" class="btn btn-primary">Reports</a>
         </div>

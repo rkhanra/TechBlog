@@ -287,7 +287,7 @@
                     <p>Rohit Khanra</p>
                     <p>Tarakeswar, 712415</p>
                     <p>India</p>
-                    <p>Email: <a href="javascript:void(0);" onclick="sendEmail();">rohitkhanra420@gmail.com</a></p>
+                    <p>Email: <a href="javascript:void(0);" onclick="sendEmail();">rohitkhanra425@hotmail.com</a></p>
 
                     <a onclick="redirectToDialer();" <span>Tel.  </span> +918328739231</a>
 

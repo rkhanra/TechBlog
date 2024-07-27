@@ -40,6 +40,9 @@ public class UpdateReportServlet extends HttpServlet {
             }
         }
 
+        // Set the session attribute to prevent redirect to error_page.jsp
+        request.getSession().setAttribute("fromAdmin", "true");
+
         response.sendRedirect("reports.jsp");
     }
 }

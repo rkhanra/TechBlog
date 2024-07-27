@@ -3,6 +3,7 @@
 <%@ page import="com.tech.blog.dao.ReportDao" %>
 <%@ page import="com.tech.blog.helper.ConnectionProvider" %>
 <%@ page import="com.tech.blog.entities.Report" %>
+<%@ page errorPage="error_page.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +40,27 @@
     </script>
 </head>
 <body>
+    <%
+        // Check if the request is legitimate
+        String fromAdmin = (String) session.getAttribute("fromAdmin");
+        if (fromAdmin == null || !"true".equals(fromAdmin)) {
+            response.sendRedirect("error_page.jsp");
+            return;
+        } else {
+            // Remove the session attribute to prevent reuse
+            session.removeAttribute("fromAdmin");
+        }
+    %>
     <div class="container custom-container">
         <h1>Reports</h1>
+        <%
+            String message = request.getParameter("message");
+            if ("success".equals(message)) {
+        %>
+        <div class="alert alert-success" role="alert">
+            You have successfully navigated to the Reports page.
+        </div>
+        <% } %>
         <form id="reportsForm" action="UpdateReportServlet" method="post">
             <input type="hidden" id="deleteReportId" name="deleteReportId" value="">
             <%
@@ -48,11 +68,11 @@
                 List<Report> reports = dao.getAllReports();
                 if (reports.isEmpty()) {
             %>
-                <div class="alert alert-info" role="alert">
-                    No reports found.
-                </div>
+            <div class="alert alert-info" role="alert">
+                No reports found.
+            </div>
             <%
-                } else {
+            } else {
             %>
             <table class="table table-bordered">
                 <thead>
@@ -72,15 +92,15 @@
                         for (Report report : reports) {
                     %>
                     <tr>
-                        <td><input type="checkbox" name="reportIds" value="<%= report.getId() %>" <%= report.isProcessed() ? "checked" : "" %>></td>
-                        <td><%= report.getId() %></td>
-                        <td><%= report.getRname() %></td>
-                        <td><a href="mailto:<%= report.getRemail() %>?subject=Regarding your report&body=Hi <%= report.getRname() %>,%0D%0A%0D%0A"><%= report.getRemail() %></a></td>
-                        <td><%= report.getMessage() %></td>
-                        <td><%= report.getRdate() %></td>
-                        <td><%= report.isProcessed() ? "Yes" : "No" %></td>
+                        <td><input type="checkbox" name="reportIds" value="<%= report.getId()%>" <%= report.isProcessed() ? "checked" : ""%>></td>
+                        <td><%= report.getId()%></td>
+                        <td><%= report.getRname()%></td>
+                        <td><a href="mailto:<%= report.getRemail()%>?subject=Regarding your report&body=Hi <%= report.getRname()%>,%0D%0A%0D%0A"><%= report.getRemail()%></a></td>
+                        <td><%= report.getMessage()%></td>
+                        <td><%= report.getRdate()%></td>
+                        <td><%= report.isProcessed() ? "Yes" : "No"%></td>
                         <td>
-                            <button type="button" class="btn btn-danger" onclick="confirmDeletion(<%= report.getId() %>)">Delete</button>
+                            <button type="button" class="btn btn-danger" onclick="confirmDeletion(<%= report.getId()%>)">Delete</button>
                         </td>
                     </tr>
                     <% } %>
@@ -97,9 +117,9 @@
                 request.getSession().removeAttribute("statusMessage");
         %>
         <div class="alert alert-info" role="alert">
-            <%= statusMessage %>
+            <%= statusMessage%>
         </div>
-        <% } %>
+        <% }%>
     </div>
 </body>
 </html>
