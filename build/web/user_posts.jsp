@@ -7,15 +7,22 @@
 <%@ page import="com.tech.blog.dao.PostDao" %>
 <%@ page errorPage="error_page.jsp" %>
 <%
-    String fromAdmin = (String) session.getAttribute("fromAdmin");
+    Boolean accessAllowed = (Boolean) session.getAttribute("accessAllowed");
 
-    if (fromAdmin == null || !"true".equals(fromAdmin)) {
-        response.sendRedirect("error_page.jsp");
-        return;
+    if (accessAllowed == null || !accessAllowed) {
+        String fromAdmin = (String) session.getAttribute("fromAdmin");
+
+        if (fromAdmin == null || !"true".equals(fromAdmin)) {
+            response.sendRedirect("error_page.jsp");
+            return;
+        }
+
+        // Remove the session attribute to prevent reuse
+        session.removeAttribute("fromAdmin");
+
+        // Set accessAllowed flag in session
+        session.setAttribute("accessAllowed", true);
     }
-
-    // Remove the session attribute to prevent reuse
-    session.removeAttribute("fromAdmin");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,7 +64,14 @@
                 background-color: #888; /* Thumb color */
                 border-radius: 5px; /* Rounded corners */
             }
-
+            /* New CSS rule for the sticky back button */
+            .back-button-container {
+                position: sticky;
+                top: 10px; /* Adjusted value */
+                left: 10px; /* Adjusted value */
+                z-index: 1000; /* Ensure it stays on top */
+                margin: 10px;
+            }
         </style>
         <script>
             function confirmDelete(postId) {
@@ -68,7 +82,11 @@
         </script>
     </head>
     <body>
-        <div class="container mt-4">
+        <!-- Sticky Back button to navigate to admin page -->
+        <div class="back-button-container">
+            <a href="admin.jsp" class="btn btn-outline-secondary">Back to Admin Page</a>
+        </div>
+        <div class="container">
             <%
                 // Retrieve the userid and username from the request parameter
                 String userIdString = request.getParameter("userid");
@@ -84,10 +102,12 @@
                     List<Post> userPosts = postDao.getPostsByUserId(userId);
 
                     // Check if there are posts
-                    if (userPosts.size() > 0) {
+                    int postCount = userPosts.size();
+                    if (postCount > 0) {
             %>
 
             <h3 class="text-center mb-4">Posts by <%= username%> (User ID: <%= userIdString%>)</h3>
+            <p class="text-center">Number of Posts: <%= postCount%></p>
             <div class="row">
                 <%
                     for (Post post : userPosts) {
@@ -112,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Modal for Editing Post -->
                 <div class="modal fade" id="editPostModal<%= post.getPid()%>" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel<%= post.getPid()%>" aria-hidden="true">

@@ -5,21 +5,23 @@
 <%@ page import="com.tech.blog.dao.UserDao" %>
 <%@ page import="com.tech.blog.helper.ConnectionProvider" %>
 <%@ page import="com.tech.blog.entities.User" %>
+<%@ page import="com.tech.blog.dao.PostDao" %>
 <%@ page errorPage="error_page.jsp" %>
 <%
     String fromGoAdmin = (String) session.getAttribute("fromGoAdmin");
+    String fromAdminFlag = (String) session.getAttribute("fromAdmin");
 
-    if (fromGoAdmin == null || !"true".equals(fromGoAdmin)) {
-        response.sendRedirect("error_page.jsp");
-        return;
+    if (fromAdminFlag == null) {
+        if (fromGoAdmin == null || !"true".equals(fromGoAdmin)) {
+            response.sendRedirect("error_page.jsp");
+            return;
+        }
+        // Set flag in session to indicate admin access
+        session.setAttribute("fromAdmin", "true");
     }
 
     // Remove the session attribute to prevent reuse
     session.removeAttribute("fromGoAdmin");
-        // Get session object
-    
-    // Set session attribute to allow access to reports.jsp
-    session.setAttribute("fromAdmin", "true");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,10 +33,19 @@
         <link href="css/admin.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
-            .admin-actions {
+            .admin-actions{
                 position: absolute;
                 top: 10px;
                 right: 10px;
+            }
+            .pad{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+            .bgp{
+                background: #5c5b60;
+                color: white;
             }
         </style>
         <script>
@@ -53,7 +64,7 @@
                 if (status) {
                     var message = status === 'success' ? 'User deleted successfully.' : 'Welcome to admin console';
                     showAlert(message);
-                    <% session.removeAttribute("deleteStatus"); %>
+            <% session.removeAttribute("deleteStatus"); %>
                 }
             }
 
@@ -61,8 +72,8 @@
         </script>
     </head>
     <body>
-        <form action="AdminLogoutServlet" method="post">
-            <button type="submit">Logout</button>
+        <form action="AdminLogoutServlet" method="post" class="pad">
+            <button type="submit" class="btn bgp">Logout</button>
         </form>
         <div class="admin-actions">
             <a href="reports.jsp?fromAdmin=true" class="btn btn-primary">Reports</a>
@@ -82,15 +93,33 @@
                 <div class="row">
                     <%
                         UserDao userDao = new UserDao(ConnectionProvider.getConnection());
+                        PostDao postDao = new PostDao(ConnectionProvider.getConnection());
                         List<User> userList = userDao.getAllUsers();
+
+                        // Calculate total number of posts and total users
+                        int totalPosts = 0;
+                        for (User user : userList) {
+                            totalPosts += postDao.getPostsByUserId(user.getId()).size();
+                        }
+                        int totalUsers = userList.size();
+                    %>
+                    <div class="col-12 text-center">
+                        <h3>Total Users: <%= totalUsers%></h3>
+                    </div>
+                    <div class="col-12 text-center">
+                        <h3>Total Posts by All Users: <%= totalPosts%></h3>
+                    </div>
+                    <%
                         if (userList != null && !userList.isEmpty()) {
                             for (User user : userList) {
+                                int postCount = postDao.getPostsByUserId(user.getId()).size();
                     %>
                     <div class="col-md-4 mb-2">
                         <div class="card" style="width: 100%;" id="dark">
                             <img style="object-fit: cover; height: 200px; width: 100%;" src="pics/<%= user.getProfile()%>" class="card-img-top" alt="<%= user.getName()%>'s profile picture">
                             <div class="card-body">
-                                <p>ID: <%= user.getId()%></p>
+                                <p>ID: <%= user.getId()%> </p>
+                                <p>Total contributions: <%= postCount%> </p>
                                 <p><%= user.getName()%></p>
                                 <p class="card-text"><%= user.getEmail()%></p>
                                 <p>Password: <%= user.getPassword()%></p>
