@@ -47,6 +47,7 @@
     .scrollbarr {
         width: auto;
         overflow: auto;
+        height: 75px;
     }
 
     #scrollbar1::-webkit-scrollbar {

@@ -895,18 +895,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 return '<iframe width="100%" height="500px" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
             }
         }
+        // Check for other video URLs
+        else if (url.match(/\.(mp4|webm|ogg|avi|mkv|mov|wmv)$/i)) {
+            return '<video width="100%" controls><source src="' + url + '" type="video/' + url.split('.').pop() + '">Your browser does not support the video tag.</video>';
+        }
         // Check for Vimeo URLs
         else if (url.includes('vimeo.com')) {
             let videoId = url.split('.com/')[1];
-            return '<iframe src="https://player.vimeo.com/video/' + videoId + '" width="100%" height="500px" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+            return '<video width="100%" controls><source src="' + url + '" type="video/mp4">Your browser does not support the video tag.</video>';
+        }
+        // Check for Dailymotion URLs
+        else if (url.includes('dailymotion.com')) {
+            let videoId = url.split('/video/')[1];
+            return '<video width="100%" controls><source src="' + url + '" type="video/mp4">Your browser does not support the video tag.</video>';
         }
         // Check for image URLs
         else if (url.match(/\.(jpeg|jpg|gif|png|bmp|tif|ttif|webp)(\?.*)?$/i)) {
-            return '<img src="' + url + '" width="100%" height="500px" frameborder="0" class="dynamic-iframe" />';
-        }
-        // Check for video URLs
-        else if (url.match(/\.(mp4|webm|ogg|avi|mkv|mov|wmv)$/i)) {
-            return '<video width="100%" controls><source src="' + url + '" type="video/' + url.split('.').pop() + '">Your browser does not support the video tag.</video>';
+            return '<img src="' + url + '" width="100%" class="dynamic-iframe" />';
         }
         // General URLs as clickable links
         else {
